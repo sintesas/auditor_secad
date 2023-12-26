@@ -18,12 +18,8 @@ class UsuarioRolController extends Controller
      */
     public function index()
     {
-        //
-        $p = new Permiso;
-        $permiso = $p->getPermisos('AD'); // Código Modulo AD (El menu Administración)
-
         $usuarios = Usuario::all();
-        return view('admin.usuarios', compact('usuarios', 'permiso')); // Envia la variable 'permiso'
+        return view('admin.usuarios', compact('usuarios')); // Envia la variable 'permiso'
     }
 
     /**

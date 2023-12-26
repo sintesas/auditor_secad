@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 
 class Permiso extends Model
 {
@@ -15,11 +14,11 @@ class Permiso extends Model
     var $actualizar;
     var $eliminar;
 
-    public function getPermisos($codigo) {
+    public function getPermisos($cod_mod) {
         $db = \DB::select("exec pr_vw_permisos ?,?",
                         [
                             \Session::get('username'),
-                            $request->get('cod_modulo')
+                            $cod_mod
                         ]);
 
         $p = new Permiso;

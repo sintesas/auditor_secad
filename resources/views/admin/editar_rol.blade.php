@@ -37,7 +37,7 @@
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="rol" name="rol" style="text-transform:uppercase" value="{{old('rol', $rol->rol)}}" disabled>
+                                    <input type="text" class="form-control" id="rol" name="rol" style="text-transform:uppercase" value="{{old('rol', $rol->rol)}}" required>
                                     <label for="usuario">Rol</label>
                                 </div>
                             </div>

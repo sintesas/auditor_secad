@@ -89,9 +89,20 @@ class RolController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $rol_id)
     {
-        //
+        $rol = Rol::find($rol_id);
+        $rol->rol = strtoupper($request->get('rol'));
+        $rol->activo = ($request->get('activo') == true) ? 1 : 0;
+        $rol->usuario_modificador = \Session::get('username');
+        $rol->fecha_modificacion = \DB::raw("GETDATE()");
+        $rol->save();
+
+        $notification = array(
+            'message' => 'El rol actualizó correctamente', 
+            'alert-type' => 'success'
+        );
+        return redirect()->route('rol.index')->with($notification);
     }
 
     /**
