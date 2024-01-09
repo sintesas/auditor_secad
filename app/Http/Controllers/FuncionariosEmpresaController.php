@@ -9,6 +9,7 @@ use App\Models\Rol;
 use App\Models\Empresa;
 use App\Models\FuncionariosEmpresa;
 use App\Models\UsersLDAP;
+use App\Models\Permiso;
 
 class FuncionariosEmpresaController extends Controller
 {
@@ -38,9 +39,11 @@ class FuncionariosEmpresaController extends Controller
         $perfil = Rol::rolUser();
 
         $empresas = Empresa::all();
+        $p = new Permiso;
+        $permiso = $p->getPermisos('FA');
         return view ('fomento.empresas.informes.visual_informe_empresas')
                 ->with('perfil', $perfil)
-                ->with('empresas', $empresas);
+                ->with('empresas', $empresas)>with('permiso', $permiso);
     }
 
 

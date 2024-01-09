@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\ActividadesTipoPrograma;
 use App\Models\TipoPrograma;
+use App\Models\Permiso;
 
 class ActividadesTipoController extends Controller
 {
@@ -56,9 +57,11 @@ class ActividadesTipoController extends Controller
         $actividades = ActividadesTipoPrograma::getActividadesByTipoProg($IdTipoPrograma);
         $tipoPrograma = TipoPrograma::find($IdTipoPrograma);
 
+        $p = new Permiso;
+        $permiso = $p->getPermisos('CP');
         return view ('certificacion.variables.ver_tipo_programa_actividades')
                 ->with('actividades', $actividades)
-                ->with('tipoPrograma', $tipoPrograma);
+                ->with('tipoPrograma', $tipoPrograma)->with('permiso', $permiso);
     }
 
    

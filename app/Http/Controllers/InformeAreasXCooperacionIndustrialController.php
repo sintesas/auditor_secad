@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Empresa;
 use App\Models\VWcantidadTotalEmpresas;
+use App\Models\Permiso;
 
 class InformeAreasXCooperacionIndustrialController extends Controller
 {
@@ -19,9 +20,11 @@ class InformeAreasXCooperacionIndustrialController extends Controller
             ->where('status', '<>', 1)
             ->groupBy('status')
             ->get();*/
+        $p = new Permiso;
+        $permiso = $p->getPermisos('FA');
 
         return view ('fomento.empresas.informes.visual_informe_areas_x_cooperacion_industrial')
-                ->with('empresas', $empresas);
+                ->with('empresas', $empresas)->with('permiso', $permiso);
     }
 
     

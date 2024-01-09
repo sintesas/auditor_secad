@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\VistaProgramas;
 use App\Models\EspecialistasSeguimiento;
+use App\Models\Permiso;
 
 class ConsultaHorasLaboradasController extends Controller
 {
@@ -16,7 +17,9 @@ class ConsultaHorasLaboradasController extends Controller
      */
     public function index()
     {
-        return view ('certificacion.programasSECAD.informes.ver_informe_horas_laboradas');
+        $p = new Permiso;
+        $permiso = $p->getPermisos('CP');
+        return view ('certificacion.programasSECAD.informes.ver_informe_horas_laboradas')->with('permiso', $permiso);
     }
 
     /**

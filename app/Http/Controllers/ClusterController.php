@@ -5,13 +5,17 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Cluster;
+use App\Models\Permiso;
+
 
 class ClusterController extends Controller
 {
     public function index()
     {
         $clusters = Cluster::orderBy('IdCluster', 'asc')->paginate(10);
-        return view ('fomento.agremiaciones.clusters')->with('clusters', $clusters);
+        $p = new Permiso;
+        $permiso = $p->getPermisos('FA');
+        return view ('fomento.agremiaciones.clusters')->with('clusters', $clusters)->with('permiso', $permiso);
     }
     
     public function create()

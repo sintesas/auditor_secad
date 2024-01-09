@@ -12,6 +12,7 @@ use App\Models\Aeronave;
 use App\Models\Unidad;
 use App\Models\Tools;
 use App\Models\NotasProductoAeronautico;
+use App\Models\Permiso;
 
 class ProductosController extends Controller
 {
@@ -22,11 +23,14 @@ class ProductosController extends Controller
      */
     public function index()
     {
+      $p = new Permiso;
+      $permiso = $p->getPermisos('CP');
+
         $productos = DemandaPotencial::demandaPotencialAll();
         $pca = PlanCertificacionAnual::get();
         return view ('certificacion.productosAeronauticos.ver_productos')
         ->with('pca', $pca)
-        ->with('productos', $productos);
+        ->with('productos', $productos)->with('permiso', $permiso);
     }
 
     public function notas($IdDemandaPotencial)

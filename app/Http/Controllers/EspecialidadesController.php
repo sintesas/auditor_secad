@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Especialidades;
 use App\Models\CuerposFAC;
+use App\Models\Permiso;
 
 class EspecialidadesController extends Controller
 {
@@ -21,9 +22,11 @@ class EspecialidadesController extends Controller
         $cuerpos->prepend('None');
 
         $especialidades = Especialidades::GetEspecialidades();
+        $p = new Permiso;
+        $permiso = $p->getPermisos('GR');
         return view ('gestionRecursos.recursoHumano.informacionPersonal.ver_especialidades')
             ->with('cuerpos', $cuerpos)
-            ->with('especialidades', $especialidades);
+            ->with('especialidades', $especialidades)->with('permiso', $permiso);
     }
 
     /**

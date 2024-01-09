@@ -9,7 +9,7 @@ use App\Models\ProgramaSeguimiento;
 use App\Models\Empresa;
 use App\Models\Tools;
 use App\Models\Programa;
-
+use App\Models\Permiso;
 class RiesgoProgramaController extends Controller
 {
     /**
@@ -20,8 +20,10 @@ class RiesgoProgramaController extends Controller
     public function index()
     {
       $programa = Programa::get();
+      $p = new Permiso;
+      $permiso = $p->getPermisos('CP');
       return view ('certificacion.programasSECAD.DificultadesServicio.riesgos_programas_ver')
-              ->with('programas', $programa);
+              ->with('programas', $programa)->with('permiso', $permiso);
     }
 
     /**
@@ -32,8 +34,10 @@ class RiesgoProgramaController extends Controller
     public function create()
     {
         $programa = Programa::get();
+        $p = new Permiso;
+        $permiso = $p->getPermisos('CP');
         return view ('certificacion.programasSECAD.DificultadesServicio.riesgos_programas_edit')
-                ->with('programas', $programa);
+                ->with('programas', $programa)->with('permiso', $permiso);
     }
 
     /**

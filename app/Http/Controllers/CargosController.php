@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Cargos;
+use App\Models\Permiso;
+
 
 class CargosController extends Controller
 {
@@ -16,7 +18,9 @@ class CargosController extends Controller
     public function index()
     {
         $cargos = Cargos::all();
-        return view ('gestionRecursos.recursoHumano.informacionPersonal.ver_cargos')->with('cargos', $cargos);
+        $p = new Permiso;
+        $permiso = $p->getPermisos('GR');
+        return view ('gestionRecursos.recursoHumano.informacionPersonal.ver_cargos')->with('cargos', $cargos)->with('permiso', $permiso);
     }
 
     /**

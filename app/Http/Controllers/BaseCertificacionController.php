@@ -10,6 +10,7 @@ use App\Models\ClaseCertificacion;
 use App\Models\SubPartesBaseCertificacion;
 use App\Models\SubparteBaseCertificacion;
 use App\Models\SubparteDetalleBasePrograma;
+use App\Models\Permiso;
 
 class BaseCertificacionController extends Controller
 {
@@ -22,6 +23,8 @@ class BaseCertificacionController extends Controller
     {
         //$basesCertifica = BaseCertificacion::orderBy('IdBaseCertificacion', 'desc')->paginate(10);
 
+        $p = new Permiso;
+        $permiso = $p->getPermisos('CP');
         $basesCertifica = BaseCertificacion::orderBy('IdBaseCertificacion', 'desc')
         ->join('dbo.AU_Mst_Origen', 'dbo.AU_Mst_BaseCertificacion.IdOrigen', '=', 'dbo.AU_Mst_Origen.IdOrigen')
         ->select(  'dbo.AU_Mst_BaseCertificacion.IdBaseCertificacion',
@@ -35,7 +38,7 @@ class BaseCertificacionController extends Controller
 
 
         return view ('certificacion.baseCertificacion.ver_base_certificacion')
-              ->with('basesCertifica', $basesCertifica);
+              ->with('basesCertifica', $basesCertifica)->with('permiso', $permiso);
     }
 
     /**

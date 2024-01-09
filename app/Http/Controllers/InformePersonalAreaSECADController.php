@@ -6,14 +6,17 @@ use Illuminate\Http\Request;
 
 use App\Models\Cargos;
 use App\Models\VWPersonal;
+use App\Models\Permiso;
 
 class InformePersonalAreaSECADController extends Controller
 {
     public function index()
     {
         $cargos = Cargos::where('AreaCargo','=','SECAD')->get();
+        $p = new Permiso;
+        $permiso = $p->getPermisos('GR');
         return view ('gestionRecursos.recursoHumano.informes.ver_informe_personal_secad')
-                ->with('cargos', $cargos);
+                ->with('cargos', $cargos)->with('permiso', $permiso);
     }
 
    

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\TipoPrograma;
+use App\Models\Permiso;
 
 class TipoProgramaController extends Controller
 {
@@ -15,9 +16,11 @@ class TipoProgramaController extends Controller
      */
     public function index()
     {        
+        $p = new Permiso;
+        $permiso = $p->getPermisos('CP');
         /*$tipoprogramas= \DB::select("EXEC AUFACSP_Mst_TiposPrograma @ProcId = 5");*/
         $tipoprogramas= TipoPrograma::orderBy('Tipo', 'asc')->paginate(10);
-        return view ('certificacion.variables.ver_tipo_programa')->with('tipoprogramas', $tipoprogramas);
+        return view ('certificacion.variables.ver_tipo_programa')->with('tipoprogramas', $tipoprogramas)->with('permiso', $permiso);
     }
 
     /**

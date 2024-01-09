@@ -5,13 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Evento;
+use App\Models\Permiso;
 
 class InformeEscarapelasController extends Controller
 {
     public function index()
     {
         $eventos = Evento::all();
-        return view ('auditoria.eventos.informes.ver_informe_escarapela')->with('eventos', $eventos);
+        $p = new Permiso;
+        $permiso = $p->getPermisos('RE');
+        return view ('auditoria.eventos.informes.ver_informe_escarapela')->with('eventos', $eventos)->with('permiso', $permiso);
     }
 
     

@@ -8,6 +8,7 @@ use App\Models\Convenio;
 use App\Models\CaracterConvenios;
 use App\Models\EstadoConvenios;
 use App\Models\TipoConvenio;
+use App\Models\Permiso;
 
 class ConveniosController extends Controller
 {
@@ -28,12 +29,14 @@ class ConveniosController extends Controller
 
         $TipoConvenio = TipoConvenio::all();
         $TipoConvenio->prepend('None');
+        $p = new Permiso;
+        $permiso = $p->getPermisos('FA');
 
         return view('fomento.convenios.convenios')
                 ->with('convenios', $convenios)
                 ->with('caraterConvenios', $caraterConvenios)
                 ->with('estadoConvenios', $estadoConvenios)
-                ->with('TipoConvenio', $TipoConvenio);
+                ->with('TipoConvenio', $TipoConvenio)->with('permiso', $permiso);
     }
 
     /**

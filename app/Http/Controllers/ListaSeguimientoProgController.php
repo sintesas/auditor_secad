@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Programa;
 use App\Models\ActividadesTipoPrograma;
 use App\Models\TipoPrograma;
+use App\Models\Permiso;
 
 class ListaSeguimientoProgController extends Controller
 {
@@ -18,9 +19,11 @@ class ListaSeguimientoProgController extends Controller
     public function index()
     {
         $programas = Programa::getProgramasTipo();
+        $p = new Permiso;
+        $permiso = $p->getPermisos('CP');
 
         return view ('certificacion.programasSECAD.seguimientoProgramas.ver_lista_seguimiento_progamas')
-                ->with('programas', $programas);
+                ->with('programas', $programas)->with('permiso', $permiso);
     }
 
     /**

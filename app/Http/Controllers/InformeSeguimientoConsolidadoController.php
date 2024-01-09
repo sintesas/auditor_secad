@@ -7,17 +7,20 @@ use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
-use App\Auditoria;
+use App\Models\Auditoria;
 use App\VWAuditoriaYSeguimiento;
+use App\Models\Permiso;
 
 class InformeSeguimientoConsolidadoController extends Controller
 {
     public function index()
     {
         $audiorias = Auditoria::getAllTableSeguimientoConsolidado();
+        $p = new Permiso;
+        $permiso = $p->getPermisos('RE');
         
         return view ('auditoria.informes.ver_informe_seguimiento_consolidado')
-                ->with('audiorias', $audiorias);
+                ->with('audiorias', $audiorias)->with('permiso', $permiso);
     }
 
     

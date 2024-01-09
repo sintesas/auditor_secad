@@ -13,15 +13,17 @@ use App\Models\SubparteBaseCertificacion;
 use App\Models\SubparteDetalleBasePrograma;
 use App\Models\Moc;
 use App\Models\Tools;
+use App\Models\Permiso;
 
 class MatrizCumplimientoController extends Controller
 {
     public function index()
     {
         $programas = Programa::getProgramasTipo();
-
+        $p = new Permiso;
+        $permiso = $p->getPermisos('CP');
         return view ('certificacion.programasSECAD.matrizCumplimiento.ver_matriz_cumplimiento_progamas')
-                ->with('programas', $programas);
+                ->with('programas', $programas)->with('permiso', $permiso);
     }
 
 

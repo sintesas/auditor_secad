@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\VWPersonal;
-
+use App\Models\Permiso;
 class InformeTotalPersonalController extends Controller
 {
     /**
@@ -17,8 +17,10 @@ class InformeTotalPersonalController extends Controller
     {   
         /*$personal = Personal::getPersonalWithRango();*/
         $personal = VWPersonal::all();
+        $p = new Permiso;
+        $permiso = $p->getPermisos('GR');
         return view ('gestionRecursos.recursoHumano.informes.visual_informe_total_personal')
-                ->with('personal', $personal);
+                ->with('personal', $personal)->with('permiso', $permiso);
     }
 
     /**

@@ -10,6 +10,7 @@ use Spatie\Permission\Models\Permission;
 use App\Models\Programa;
 use App\Models\ActividadesTipoPrograma;
 use App\Models\TipoPrograma;
+use App\Models\Permiso;
 
 class ListasSegProgEmpController extends Controller
 {
@@ -24,20 +25,22 @@ class ListasSegProgEmpController extends Controller
         $idEmpresa = Auth::user()->IdEmpresa;
         // dd($role->givePermissionTo('edit articles'));
         // $programas= Programa::all();
+        $p = new Permiso;
+        $permiso = $p->getPermisos('CP');
 
         if (Auth::user()->hasRole('administrador')) {           
 
             $programas = Programa::getProgramasTipo();
 
             return view ('certificacion.programasSECAD.seguimientoProgramas.seguimientoEmpresa.ver_lista_seguimiento_progamas_emp')
-                ->with('programas', $programas);
+                ->with('programas', $programas)->with('permiso', $permiso);
 
         }else{
 
             if (Auth::user()->hasRole('empresario')) {
                  $programas = Programa::getProgramasTipoByEmpresa($idEmpresa);
                  return view ('certificacion.programasSECAD.seguimientoProgramas.seguimientoEmpresa.ver_lista_seguimiento_progamas_emp')
-                    ->with('programas', $programas);
+                    ->with('programas', $programas)->with('permiso', $permiso);
             }
 
             else
@@ -45,7 +48,7 @@ class ListasSegProgEmpController extends Controller
                 $programas = Programa::getProgramasTipo();
 
                 return view ('certificacion.programasSECAD.seguimientoProgramas.seguimientoEmpresa.ver_lista_seguimiento_progamas_emp')
-                    ->with('programas', $programas);
+                    ->with('programas', $programas)->with('permiso', $permiso);
             }
                        
         }        

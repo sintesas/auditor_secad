@@ -7,14 +7,17 @@ use PDF;
 
 use App\Models\Cluster;
 use App\Models\ClusterAfiliado;
+use App\Models\Permiso;
 
 class InformeAfiliadosClusterController extends Controller
 {
     public function index()
     {
         $cluster = Cluster::all();
+        $p = new Permiso;
+        $permiso = $p->getPermisos('FA');
         return view ('fomento.agremiaciones.informes.ver_informe_afiliados_cluster')
-            ->with('cluster', $cluster);
+            ->with('cluster', $cluster)->with('permiso', $permiso);
     }
 
 

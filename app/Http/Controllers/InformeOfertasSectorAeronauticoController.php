@@ -9,16 +9,18 @@ use App\Models\OfertasSectorAeronautico;
 use App\Models\OfertaComercial;
 use App\Models\Empresa;
 use App\Models\InformeOfertaPorSector;
-
+use App\Models\Permiso;
 class InformeOfertasSectorAeronauticoController extends Controller
 {
     public function index()
     {
         $ofertasSectorAeronautico = InformeOfertaPorSector::all();
         $total = OfertasSectorAeronautico::count();
+        $p = new Permiso;
+        $permiso = $p->getPermisos('FA');
 
         return view ('fomento.sectorAeronautico.informes.visual_informe_ofertas_sector_aeronautico')
-        ->with('ofertasSectorAeronautico', $ofertasSectorAeronautico)->with('total', $total);
+        ->with('ofertasSectorAeronautico', $ofertasSectorAeronautico)->with('total', $total)->with('permiso', $permiso);
 
     }
 

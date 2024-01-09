@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\VWTotalOfertasxCiudad;
+use App\Models\Permiso;
 
 class InformeTotalOfertasxCiudadController extends Controller
 {
@@ -16,9 +17,11 @@ class InformeTotalOfertasxCiudadController extends Controller
     public function index()
     {
         $cantidadesTotalCiudad = VWTotalOfertasxCiudad::orderBy('Ciudad', 'asc')->get();
+        $p = new Permiso;
+        $permiso = $p->getPermisos('FA');
         // $sumCantidadesTotalCiudad = VWTotalOfertasxCiudad::sum('Ciudad')->get(); 
         return view ('fomento.sectorAeronautico.informes.visual_informe_capacidad_total_ciudad')
-            ->with('cantidadesTotalCiudad', $cantidadesTotalCiudad);
+            ->with('cantidadesTotalCiudad', $cantidadesTotalCiudad)->with('permiso', $permiso);
     }
 
     /**

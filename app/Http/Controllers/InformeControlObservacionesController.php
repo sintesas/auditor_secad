@@ -7,6 +7,7 @@ use PDF;
 
 use App\Models\VWInformeResumenPrograma;
 use App\Models\ResumenProgramaRecord;
+use App\Models\Permiso;
 
 class InformeControlObservacionesController extends Controller
 {
@@ -20,10 +21,12 @@ class InformeControlObservacionesController extends Controller
           // $programa = VWInformeResumenPrograma::all();
           $programa = VWInformeResumenPrograma::orderby('Consecutivo','ASC')->get();
           $count = VWInformeResumenPrograma::all()->count();
+          $p = new Permiso;
+          $permiso = $p->getPermisos('CP');
   
           return view ('certificacion.programasSECAD.informes.ver_informe_controlObservacion')
           ->with('programa', $programa)
-          ->with('count', $count);
+          ->with('count', $count)->with('permiso', $permiso);
     }
 
     public function create()

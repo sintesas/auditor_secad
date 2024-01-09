@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use PDF;
 
 use App\Models\VWOfertasPorCapacidad;
+use App\Models\Permiso;
 
 class InformeCapacidadTotalPaisController extends Controller
 {
@@ -17,8 +18,10 @@ class InformeCapacidadTotalPaisController extends Controller
     public function index()
     {
         $cantidadesTotalPais = VWOfertasPorCapacidad::orderBy('IdOfertaComercial', 'asc')->get();
+        $p = new Permiso;
+        $permiso = $p->getPermisos('FA');
         return view ('fomento.sectorAeronautico.informes.visual_informe_capacidad_total_pais')
-            ->with('cantidadesTotalPais', $cantidadesTotalPais);
+            ->with('cantidadesTotalPais', $cantidadesTotalPais)->with('permiso', $permiso);
     }
 
     /**

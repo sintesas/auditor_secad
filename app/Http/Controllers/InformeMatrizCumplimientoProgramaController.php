@@ -9,6 +9,7 @@ use App\Models\InformeMatrizCumplimientoPrograma;
 use App\Models\SubparteBaseCertificacion;
 use App\Models\SubparteDetalleBasePrograma;
 use App\Models\BasesCertificacionPrograma;
+use App\Models\Permiso;
 
 class InformeMatrizCumplimientoProgramaController extends Controller
 {
@@ -20,9 +21,11 @@ class InformeMatrizCumplimientoProgramaController extends Controller
     public function index()
     {
         $programas = Programa::getProgramasTipo();
+        $p = new Permiso;
+        $permiso = $p->getPermisos('CP');
 
         return view ('certificacion.programasSECAD.matrizCumplimiento.tabla_matriz_cumplimiento_progama')
-                ->with('programas', $programas);
+                ->with('programas', $programas)->with('permiso', $permiso);
     }
 
     /**

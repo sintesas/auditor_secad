@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\EspecialidadCertificacion;
+use App\Models\Permiso;
+
 
 class EACController extends Controller
 {
@@ -17,9 +19,10 @@ class EACController extends Controller
     {
         $especialidades = EspecialidadCertificacion::all();
         //$especialidades= \DB::select("EXEC AUFACSP_Mst_Especialidades_Certificacion @ProcId = 5");
-
+        $p = new Permiso;
+        $permiso = $p->getPermisos('GR');
         return view ('gestionRecursos.recursoHumano.informacionPersonal.ver_eac')
-            ->with('especialidades', $especialidades);
+            ->with('especialidades', $especialidades)->with('permiso', $permiso);
     }
 
     /**

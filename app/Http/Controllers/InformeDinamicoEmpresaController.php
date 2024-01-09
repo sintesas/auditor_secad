@@ -9,6 +9,7 @@ use App\Models\EstadosEmpresa;
 use App\Models\DominioIndustrial;
 use App\Models\AreasCooperacionIndustrial;
 use App\Models\ActividadesEconomicas;
+use App\Models\Permiso;
 
 class InformeDinamicoEmpresaController extends Controller
 {
@@ -33,14 +34,15 @@ class InformeDinamicoEmpresaController extends Controller
 
         $actEco = new ActividadesEconomicasController();
         $sections = $actEco->ClassSections();
-
+        $p = new Permiso;
+        $permiso = $p->getPermisos('FA');
         return view ('fomento.empresas.informes.visual_informe_dinamico')
                     ->with('estadoEmpresa', $estadoEmpresa)
                     ->with('dominioIndustrial', $dominioIndustrial)
                     ->with('areasCooperacionIndustrial', $areasCooperacionIndustrial)
                     ->with('actividadesEconomicas', $actividadesEconomicas)
                     //->with('empresas', $empresas)
-                    ->with('secciones', $sections);
+                    ->with('secciones', $sections)->with('permiso', $permiso);
     }
 
     public function filterDinamicCompanyReportCreator(Request $request){

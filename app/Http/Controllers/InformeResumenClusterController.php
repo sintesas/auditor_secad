@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Cluster;
+use App\Models\Permiso;
 
 class InformeResumenClusterController extends Controller
 {
@@ -16,8 +17,10 @@ class InformeResumenClusterController extends Controller
     public function index()
     {
         $cluster = Cluster::all();
+        $p = new Permiso;
+        $permiso = $p->getPermisos('FA');
         return view ('fomento.agremiaciones.informes.visual_informe_resumen_cluster')
-            ->with('cluster', $cluster);
+            ->with('cluster', $cluster)->with('permiso', $permiso);
     }
 
     /**
