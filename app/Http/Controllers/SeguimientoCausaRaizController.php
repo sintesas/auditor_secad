@@ -27,30 +27,29 @@ class SeguimientoCausaRaizController extends Controller
      */
     public function index()
     {
-
-        $rol = UsersLDAP::perteneceIGEFA_CEOAF();
+        // $rol = UsersLDAP::perteneceIGEFA_CEOAF();
         $rol_IGEFA = UsersLDAP::perteneceIGEFA();
         $rol_CEOAF = UsersLDAP::perteneceCEOAF();
 
-        $rolAdmin = false;
+        // $rolAdmin = false;
 
-        if (Auth::user()->hasRole('administrador')) {
-          $rolAdmin = true;
-        }
+        $seguimientos = SeguimientoCausaRaiz::getAll();
+
+        // if (Auth::user()->hasRole('administrador')) {
+        //   $rolAdmin = true;
+        // }
 
         $email = Auth::user()->email;
 
-        if($rol || $rol_IGEFA || $rol_CEOAF || $rolAdmin){
-            $seguimientos = SeguimientoCausaRaiz::getAll();
-        }else{
-            $seguimientos = SeguimientoCausaRaiz::getByUser($email);
-        }
+        // if($rol || $rol_IGEFA || $rol_CEOAF || $rolAdmin){
+        //     $seguimientos = SeguimientoCausaRaiz::getAll();
+        // }else{
+        //     $seguimientos = SeguimientoCausaRaiz::getByUser($email);
+        // }
         //dd($seguimientos);
 
 
         return view('auditoria.ver_seguimiento_causa_raiz')
-            ->with('rol', $rol)
-            ->with('rolAdmin', $rolAdmin)
             ->with('rol_IGEFA', $rol_IGEFA)
             ->with('rol_CEOAF', $rol_CEOAF)
             ->with('email', $email)

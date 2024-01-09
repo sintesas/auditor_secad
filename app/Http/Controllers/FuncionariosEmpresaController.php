@@ -9,6 +9,7 @@ use App\Models\Rol;
 use App\Models\Empresa;
 use App\Models\FuncionariosEmpresa;
 use App\Models\UsersLDAP;
+use Illuminate\Support\Facades\Auth;
 
 class FuncionariosEmpresaController extends Controller
 {
@@ -35,7 +36,11 @@ class FuncionariosEmpresaController extends Controller
 
     public function index()
     {
-        $perfil = Rol::rolUser();
+        $idPersonal = Auth::user()->personal_id;
+        $perfil = \DB::table('Rol_User as userAdmin')
+                  ->where('userAdmin.IdUser',$idPersonal)
+                  ->get();
+        // $perfil = Rol::rolUser();
 
         $empresas = Empresa::all();
         return view ('fomento.empresas.informes.visual_informe_empresas')
@@ -82,10 +87,10 @@ class FuncionariosEmpresaController extends Controller
         
         return response()->json($funcionario);
 
-        activity()
-            ->performedOn($funcionario)
-            ->withProperties($ip)
-            ->log('Funcionario Empresa borrado');
+        // activity()
+        //     ->performedOn($funcionario)
+        //     ->withProperties($ip)
+        //     ->log('Funcionario Empresa borrado');
     
     }
 
@@ -104,11 +109,11 @@ class FuncionariosEmpresaController extends Controller
 
         $funcionario->save();
 
-        $ip = $this->get_client_ip();
-        activity()
-            ->performedOn($funcionario)
-            ->withProperties($ip)
-            ->log('Funcionario Empresa editado');
+        // $ip = $this->get_client_ip();
+        // activity()
+        //     ->performedOn($funcionario)
+        //     ->withProperties($ip)
+        //     ->log('Funcionario Empresa editado');
     
 
         return response()->json($funcionario);
@@ -120,7 +125,11 @@ class FuncionariosEmpresaController extends Controller
          $funcionarios = Empresa::find($IdEmpresa)->funcionarios;
          
          $empresa = Empresa::find($IdEmpresa);
-         $perfil = Rol::rolUser();
+         $idPersonal = Auth::user()->personal_id;
+         $perfil = \DB::table('Rol_User as userAdmin')
+                  ->where('userAdmin.IdUser',$idPersonal)
+                  ->get();
+        //  $perfil = Rol::rolUser();
 
         $ResultUsersLDAP = UsersLDAP::select('IdUserLDAP', 'Name', \DB::raw('case Email when \'\' then CONVERT(varchar, RAND() * 1000000) else Email end as Email'))
                             ->get();

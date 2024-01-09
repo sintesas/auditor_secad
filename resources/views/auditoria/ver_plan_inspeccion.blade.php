@@ -44,7 +44,6 @@
 								</div>
 							</td>
 							<td>
-							@if ($gl_perfil[12] == true || $gl_perfil[13] == true || $gl_perfil[2] == true)
 								<div class="col-sm-6">
 
 									{!! Form::open(['route' => ['planeInspeccion.destroy', $planIns->IdPlanInspeccion], 'method' => 'DELETE']) !!}
@@ -53,8 +52,6 @@
 
 									{!! Form::close() !!}
 								</div>
-
-							@endif
 
 
 								<div class="col-sm-6">

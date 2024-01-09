@@ -20,35 +20,40 @@ class ListasSegProgEmpController extends Controller
      */
     public function index()
     {
-        $idPersonal = Auth::user()->IdPersonal;
-        $idEmpresa = Auth::user()->IdEmpresa;
+        // $idPersonal = Auth::user()->IdPersonal;
+        // $idEmpresa = Auth::user()->IdEmpresa;
         // dd($role->givePermissionTo('edit articles'));
         // $programas= Programa::all();
 
-        if (Auth::user()->hasRole('administrador')) {           
+        $programas = Programa::getProgramasTipo();
 
-            $programas = Programa::getProgramasTipo();
+        return view ('certificacion.programasSECAD.seguimientoProgramas.seguimientoEmpresa.ver_lista_seguimiento_progamas_emp')
+            ->with('programas', $programas);
 
-            return view ('certificacion.programasSECAD.seguimientoProgramas.seguimientoEmpresa.ver_lista_seguimiento_progamas_emp')
-                ->with('programas', $programas);
+        // if (Auth::user()->hasRole('administrador')) {           
 
-        }else{
+        //     $programas = Programa::getProgramasTipo();
 
-            if (Auth::user()->hasRole('empresario')) {
-                 $programas = Programa::getProgramasTipoByEmpresa($idEmpresa);
-                 return view ('certificacion.programasSECAD.seguimientoProgramas.seguimientoEmpresa.ver_lista_seguimiento_progamas_emp')
-                    ->with('programas', $programas);
-            }
+        //     return view ('certificacion.programasSECAD.seguimientoProgramas.seguimientoEmpresa.ver_lista_seguimiento_progamas_emp')
+        //         ->with('programas', $programas);
 
-            else
-            {
-                $programas = Programa::getProgramasTipo();
+        // }else{
 
-                return view ('certificacion.programasSECAD.seguimientoProgramas.seguimientoEmpresa.ver_lista_seguimiento_progamas_emp')
-                    ->with('programas', $programas);
-            }
+        //     if (Auth::user()->hasRole('empresario')) {
+        //          $programas = Programa::getProgramasTipoByEmpresa($idEmpresa);
+        //          return view ('certificacion.programasSECAD.seguimientoProgramas.seguimientoEmpresa.ver_lista_seguimiento_progamas_emp')
+        //             ->with('programas', $programas);
+        //     }
+
+        //     else
+        //     {
+        //         $programas = Programa::getProgramasTipo();
+
+        //         return view ('certificacion.programasSECAD.seguimientoProgramas.seguimientoEmpresa.ver_lista_seguimiento_progamas_emp')
+        //             ->with('programas', $programas);
+        //     }
                        
-        }        
+        // }        
     }
 
     /**

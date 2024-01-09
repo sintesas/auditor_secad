@@ -25,21 +25,24 @@ class InformacionCalidadController extends Controller
         // return view('fomento.empresas.ver_tablas_informacion_calidad')
         // ->with('empresas', $empresas);
 
-        $idPersonal = Auth::user()->IdPersonal;
-        $idEmpresa = Auth::user()->IdEmpresa;
+        // $idPersonal = Auth::user()->IdPersonal;
+        // $idEmpresa = Auth::user()->IdEmpresa;
 
-        if (Auth::user()->hasRole('administrador')) {
+        $empresas = Empresa::all();
+        return view ('fomento.empresas.ver_tablas_informacion_calidad')->with('empresas', $empresas);
+
+        // if (Auth::user()->hasRole('administrador')) {
             
-            $empresas = Empresa::all();
-            return view ('fomento.empresas.ver_tablas_informacion_calidad')->with('empresas', $empresas);
+        //     $empresas = Empresa::all();
+        //     return view ('fomento.empresas.ver_tablas_informacion_calidad')->with('empresas', $empresas);
 
-        }else{
+        // }else{
 
-            if (Auth::user()->hasRole('empresario')) {
-                $empresas = Empresa::getById($idEmpresa);
-                return view ('fomento.empresas.ver_tablas_informacion_calidad')->with('empresas', $empresas);
-            }
-        }
+        //     if (Auth::user()->hasRole('empresario')) {
+        //         $empresas = Empresa::getById($idEmpresa);
+        //         return view ('fomento.empresas.ver_tablas_informacion_calidad')->with('empresas', $empresas);
+        //     }
+        // }
     }
 
 

@@ -29,24 +29,28 @@ class InformeInspeccionIcfr08Controller extends Controller
         $idPersonal = Auth::user()->IdPersonal;
         $idEmpresa = Auth::user()->IdEmpresa;
 
-        if (Auth::user()->hasRole('administrador')) {
-            $audiorias = Auditoria::all();
-            return view ('auditoria.informes.ver_informe_inspeccion_icfr08')
+        $audiorias = Auditoria::all();
+        return view ('auditoria.informes.ver_informe_inspeccion_icfr08')
                     ->with('audiorias', $audiorias);
-        }else{
 
-            if (Auth::user()->hasRole('empresario')) {
-                $audiorias = Auditoria::getByEmpresa($idEmpresa);
-                return view ('auditoria.informes.ver_informe_inspeccion_icfr08')
-                    ->with('audiorias', $audiorias);
-            }
-            else
-            {
-                $audiorias = Auditoria::getByUser($idPersonal);
-            return view ('auditoria.informes.ver_informe_inspeccion_icfr08')
-                    ->with('audiorias', $audiorias);
-            }
-        }
+        // if (Auth::user()->hasRole('administrador')) {
+        //     $audiorias = Auditoria::all();
+        //     return view ('auditoria.informes.ver_informe_inspeccion_icfr08')
+        //             ->with('audiorias', $audiorias);
+        // }else{
+
+        //     if (Auth::user()->hasRole('empresario')) {
+        //         $audiorias = Auditoria::getByEmpresa($idEmpresa);
+        //         return view ('auditoria.informes.ver_informe_inspeccion_icfr08')
+        //             ->with('audiorias', $audiorias);
+        //     }
+        //     else
+        //     {
+        //         $audiorias = Auditoria::getByUser($idPersonal);
+        //     return view ('auditoria.informes.ver_informe_inspeccion_icfr08')
+        //             ->with('audiorias', $audiorias);
+        //     }
+        // }
     }
 
     /**

@@ -20,35 +20,33 @@ class ActividadesHallazgoController extends Controller
      */
     public function index()
     {
-        $rol = UsersLDAP::perteneceIGEFA();
+        // $rol = UsersLDAP::perteneceIGEFA();
 
-        if($rol){
-            $actividades = CausasRaizTareas::getAllActividades();
-        }else{
-            $rol = UsersLDAP::perteneceCEOAF();
-            if($rol){
-                $actividades = CausasRaizTareas::getAllActividades();
-            }else{
-                $actividades = CausasRaizTareas::getActividadesByUser();
-            }
-        }
+        // if($rol){
+        //     $actividades = CausasRaizTareas::getAllActividades();
+        // }else{
+        //     $rol = UsersLDAP::perteneceCEOAF();
+        //     if($rol){
+        //         $actividades = CausasRaizTareas::getAllActividades();
+        //     }else{
+        //         $actividades = CausasRaizTareas::getActividadesByUser();
+        //     }
+        // }
 
-        
-        $name = Auth::user()->name;
-        $isAdmin = Auth::user()->hasRole('administrador');
+        $actividades = CausasRaizTareas::getAllActividades();
+        // $name = Auth::user()->name;
+        // $isAdmin = Auth::user()->hasRole('administrador');
 
-        //dd($rol, $isAdmin);
+        // //dd($rol, $isAdmin);
 
-        if($isAdmin == false){
-          $isAdmin = $rol;
-        }
+        // if($isAdmin == false){
+        //   $isAdmin = $rol;
+        // }
 
 
 
         return view('auditoria.actividadesHallazgos.ver_tablas_actividades_hallazgos')
-                ->with('actividades', $actividades)
-                ->with('isAdmin', $isAdmin)
-                ->with('userLogueado', $name);
+                ->with('actividades', $actividades);
     }
 
     /**

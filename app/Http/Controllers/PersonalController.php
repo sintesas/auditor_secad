@@ -36,7 +36,11 @@ class PersonalController extends Controller
       //dd(auth()->user());
         //$perfil = Rol::rolUser();
 //dd(Rol::rolesUser());
-        $perfil=Rol::rolUser();
+        // $perfil=Rol::rolUser();
+        $idPersonal = Auth::user()->personal_id;
+        $perfil = \DB::table('Rol_User as userAdmin')
+                        ->where('userAdmin.IdUser',$idPersonal)
+                        ->get();
         $personales = Personal::getlistPersonalWithRango();
         return view ('gestionRecursos.recursoHumano.ver_personal')
         ->with('perfil', $perfil)

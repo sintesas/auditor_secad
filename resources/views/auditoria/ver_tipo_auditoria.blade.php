@@ -14,10 +14,7 @@ Crear Tipo Auditoria
 
 
 <!-- The Modal -->
-@if ($gl_perfil[12] == true || $gl_perfil[13] == true || $gl_perfil[2] == true  || $gl_perfil[24] == true)
 <button type="button" onclick="document.getElementById('id1').style.display='block'" class="btn btn-info ink-reaction btn-primary addbutton" id="myBtn"><span class="fa fa-plus"></span></button>
-@endif
-
 
 
 @endsection()
@@ -31,9 +28,7 @@ Crear Tipo Auditoria
 			<thead>
 				<tr>
 					<th><b>Tipo Auditoria</b></th>
-					@if ($rol)
-						<th style="width: 120px;"><b>Acción</b></th>
-					@endif
+					<th style="width: 120px;"><b>Acción</b></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -42,7 +37,6 @@ Crear Tipo Auditoria
 					<td>{{$tipoAud->TipoAuditoria}}</td>
 
 						<td>
-							@if ($gl_perfil[12] == true || $gl_perfil[13] == true || $gl_perfil[2] == true || $gl_perfil[24] == true)
 							<div class="col-sm-6">
 
 								{!! Form::open(['route' => ['tipoAuditoria.destroy', $tipoAud->IdTipoAuditoria], 'method' => 'DELETE']) !!}
@@ -51,7 +45,6 @@ Crear Tipo Auditoria
 
 								{!! Form::close() !!}
 							</div>
-						@endif
 
 
 

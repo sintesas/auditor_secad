@@ -56,8 +56,7 @@
                         <td>{{$item->Proceso}}</td>
                         <td>{{$item->SubProceso}}</td>
                         <td>
-                          @if ($gl_perfil[12] == true || $gl_perfil[13] == true || $gl_perfil[2] == true || $gl_perfil[24] == true)
-                          <div class="col-sm-6">
+                            <div class="col-sm-6">
 
                             {!! Form::open(['route' => ['criteriosAuditoria.destroy', $item->IdCriterio], 'method' => 'DELETE']) !!}
 
@@ -65,7 +64,6 @@
 
                             {!! Form::close() !!}
                           </div>
-                        @endif
                           <div class="col-sm-6">
                             <a href="{{route('criteriosAuditoria.edit', $item->IdCriterio) }}" class="btn btn-primary btn-block editbutton">
                               <div class="gui-icon"><i class="fa fa-pencil"></i></div>

@@ -49,10 +49,8 @@
 		@section('card-title')
 			{{ Breadcrumbs::render('seguimientocausaraiz') }}
 
-		@if ($rol)
 			<!-- The Modal -->
 			<button type="button" onclick="window.location='{{ route("seguimientoCausaRaiz.create") }}'" class="btn btn-info ink-reaction btn-primary addbutton" id="myBtn"><span class="fa fa-plus"></span></button>
-		@endif
 
 
 		@endsection()
@@ -60,10 +58,8 @@
 		@section('card-content')
 
 		<div class="total-card">
-			<div class="table-responsive col-lg-12">
-				@if($rolAdmin || $rol_IGEFA || $rol_CEOAF)
+			<div class="table-responsive col-lg-12">				
 			<a href="{{url('exportSeguimientoCausaRaiz')}}" class="btn btn-md btn-info pull-left">Descargar EXCEL</a>
-		@endif
 
 				<table id="datatable1" class="table table-striped table-hover table-responsive">
 					<thead style="font-size: 12px;">
@@ -113,34 +109,29 @@
 
 								<div class="col">
 
-									@if($rolAdmin)
 										<a style="padding:5px 10px" href="{{route('seguimientoCausaRaiz.edit', $seguimiento->IdSeguimiento) }}" class="btn btn-primary " ><div class="gui-icon-view"><i class="fa fa-pencil"></i></div></a>
 
 										<a style="padding:5px 10px" href="{{route('seguimientoCausaRaiz.edit', $seguimiento->IdSeguimiento) }}" class="btn btn-primary " ><div class="gui-icon-view"><i class="fa fa-eye"></i></div></a>
 
 										<a style="padding:5px 10px" href="{{route('seguimientoCausaRaiz.show', $seguimiento->IdSeguimiento) }}" class="btn btn-success " ><div class="gui-icon-view"><i class="fa fa-check"></i></div></a>
 
-									@endif
-
 
 									<!--RESPONSABLE-->
 									@if ($seguimiento->IdEstadoSeguimiento == 1 || $seguimiento->IdEstadoSeguimiento == 4)
 
-											@if (strcmp(trim($email),trim($seguimiento->Email)) == 0 && $rolAdmin == false)
+											@if (strcmp(trim($email),trim($seguimiento->Email)) == 0)
 
 												<a href="{{route('seguimientoCausaRaiz.edit', $seguimiento->IdSeguimiento) }}" class="btn btn-primary" ><div class="gui-icon-view"><i class="fa fa-pencil"></i></div></>
 
 											@endif
-											@if(strcmp(trim($email),trim($seguimiento->Email)) == 1 && $rolAdmin == false)
+											@if(strcmp(trim($email),trim($seguimiento->Email)) == 1)
 
 												<a style="padding:5px 10px" href="{{route('seguimientoCausaRaiz.edit', $seguimiento->IdSeguimiento) }}" class="btn btn-primary" ><div class="gui-icon-view"><i class="fa fa-eye"></i></div></a>
 
 											@endif
 
 									@else
-											@if($rolAdmin!=true)
-											<a style="padding:5px 10px" href="{{route('seguimientoCausaRaiz.edit', $seguimiento->IdSeguimiento) }}" class="btn btn-primary" ><div class="gui-icon-view"><i class="fa fa-eye"></i></div></a>
-											@endif
+											style="padding:5px 10px" href="{{route('seguimientoCausaRaiz.edit', $seguimiento->IdSeguimiento) }}" class="btn btn-primary" ><div class="gui-icon-view"><i class="fa fa-eye"></i></div></a>
 									@endif
 
 									@if($seguimiento->IdEstadoSeguimiento != 8)
@@ -156,7 +147,7 @@
 
 										{{-- CEOAF --}}
 										@elseif ($seguimiento->IdEstadoSeguimiento == 3 || $seguimiento->IdEstadoSeguimiento == 7)
-											@if ($rol_CEOAF && $rolAdmin != true)
+											@if ($rol_CEOAF != true)
 
 												<a style="padding:5px 10px" href="{{route('seguimientoCausaRaiz.show', $seguimiento->IdSeguimiento) }}" class="btn btn-success" ><div class="gui-icon-view"><i class="fa fa-check"></i></div></a>
 
@@ -165,7 +156,7 @@
 										{{-- IGEFA --}}
 
 										@elseif($seguimiento->IdEstadoSeguimiento == 5)
-											@if ($rol_IGEFA && $rolAdmin != true)
+											@if ($rol_IGEFA != true)
 
 													<a style="padding:5px 10px" href="{{route('seguimientoCausaRaiz.show', $seguimiento->IdSeguimiento) }}" class="btn btn-success" ><div class="gui-icon-view"><i class="fa fa-check"></i></div></a>
 
