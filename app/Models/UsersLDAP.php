@@ -18,20 +18,20 @@ class UsersLDAP extends Model
 
     public static function perteneceIGEFA(){
 
-        if (Auth::user()->hasRole('administrador')) {
-            $rol = true;
-        }else{
-          $rol=false;
-          $roles =\DB::table('Rol_User')
-          ->join('roles', 'roles.id','=','Rol_User.IdRol')
-          ->where('Rol_User.IdUser',intval(\Auth::user()->IdPersonal))->get();
+        // if (Auth::user()->hasRole('administrador')) {
+        //     $rol = true;
+        // }else{
+        //   $rol=false;
+        //   $roles =\DB::table('Rol_User')
+        //   ->join('roles', 'roles.id','=','Rol_User.IdRol')
+        //   ->where('Rol_User.IdUser',intval(\Auth::user()->IdPersonal))->get();
 
-          foreach ($roles as $rolx) {
-            if($rolx->name == 'IGEFA' || $rolx->name =='administrador' || $rolx->name =='administrador - Jefe SECAD')
-            {
-              $rol=true;
-            }
-          }
+        //   foreach ($roles as $rolx) {
+        //     if($rolx->name == 'IGEFA' || $rolx->name =='administrador' || $rolx->name =='administrador - Jefe SECAD')
+        //     {
+        //       $rol=true;
+        //     }
+        //   }
 /*
 
             $name = Auth::user()->name;
@@ -48,27 +48,29 @@ class UsersLDAP extends Model
             else
                 $rol = false;*/
 
-        }
+        // }
 
+        $rol = true;
+        
         return $rol;
     }
 
     public static function perteneceCEOAF(){
 
-        if (Auth::user()->hasRole('administrador')) {
-            $rol = true;
-        }else{
-          $rol=false;
-          $roles =\DB::table('Rol_User')
-          ->join('roles', 'roles.id','=','Rol_User.IdRol')
-          ->where('Rol_User.IdUser',intval(\Auth::user()->IdPersonal))->get();
+        // if (Auth::user()->hasRole('administrador')) {
+        //     $rol = true;
+        // }else{
+        //   $rol=false;
+        //   $roles =\DB::table('Rol_User')
+        //   ->join('roles', 'roles.id','=','Rol_User.IdRol')
+        //   ->where('Rol_User.IdUser',intval(\Auth::user()->IdPersonal))->get();
 
-          foreach ($roles as $rolx) {
-            if($rolx->name == 'CEOAF' || $rolx->name =='administrador' || $rolx->name =='administrador - Jefe SECAD')
-            {
-              $rol=true;
-            }
-          }
+        //   foreach ($roles as $rolx) {
+        //     if($rolx->name == 'CEOAF' || $rolx->name =='administrador' || $rolx->name =='administrador - Jefe SECAD')
+        //     {
+        //       $rol=true;
+        //     }
+        //   }
 
 
         /*    $name = Auth::user()->name;
@@ -82,58 +84,62 @@ class UsersLDAP extends Model
             }else{
                 $rol = false;
             }*/
-        }
+        //}
+
+        $rol = true;
 
         return $rol;
     }
 
     public static function perteneceIGEFA_CEOAF(){
 
-        if (Auth::user()->hasRole('administrador')) {
-            $rol = true;
-        }else{
+        // if (Auth::user()->hasRole('administrador')) {
+        //     $rol = true;
+        // }else{
 
-          $rol=false;
-          $roles =\DB::table('Rol_User')
-          ->join('roles', 'roles.id','=','Rol_User.IdRol')
-          ->where('Rol_User.IdUser',intval(\Auth::user()->IdPersonal))->get();
+        //   $rol=false;
+        //   $roles =\DB::table('Rol_User')
+        //   ->join('roles', 'roles.id','=','Rol_User.IdRol')
+        //   ->where('Rol_User.IdUser',intval(\Auth::user()->IdPersonal))->get();
 
-          $ceoaf = false;
-          $igefa = false;
-          foreach ($roles as $rolx) {
-            if($rolx->name == 'CEOAF'){
-              $ceoaf = true;
-            }
-            if($rolx->name == 'IGEFA'){
-              $igefa = true;
-            }
+        //   $ceoaf = false;
+        //   $igefa = false;
+        //   foreach ($roles as $rolx) {
+        //     if($rolx->name == 'CEOAF'){
+        //       $ceoaf = true;
+        //     }
+        //     if($rolx->name == 'IGEFA'){
+        //       $igefa = true;
+        //     }
 
-            if($rolx->name == 'administrador' || $rolx->name =='administrador - Jefe SECAD'){
-              $rol = true;
-            }
+        //     if($rolx->name == 'administrador' || $rolx->name =='administrador - Jefe SECAD'){
+        //       $rol = true;
+        //     }
 
-            if($igefa && $ceoaf){
-              $rol = true;
-            }          
+        //     if($igefa && $ceoaf){
+        //       $rol = true;
+        //     }          
 
-          }
+        //   }
 
-          /*  $name = Auth::user()->name;
+        //   /*  $name = Auth::user()->name;
 
-            $dependenciaUser = UsersLDAP::select('Dependencia')
-                                ->where('Name','like',$name)
-                                ->get();
-            if($dependenciaUser->count()>0)
-                if (strpos($dependenciaUser[0]->Dependencia, 'IGEFA') !== false) {
-                    $rol = true;
-                }else if (strpos($dependenciaUser[0]->Dependencia, 'CEOAF') !== false){
-                    $rol = true;
-                }else{
-                    $rol = false;
-                }
-            else
-                $rol=false;*/
-        }
+        //     $dependenciaUser = UsersLDAP::select('Dependencia')
+        //                         ->where('Name','like',$name)
+        //                         ->get();
+        //     if($dependenciaUser->count()>0)
+        //         if (strpos($dependenciaUser[0]->Dependencia, 'IGEFA') !== false) {
+        //             $rol = true;
+        //         }else if (strpos($dependenciaUser[0]->Dependencia, 'CEOAF') !== false){
+        //             $rol = true;
+        //         }else{
+        //             $rol = false;
+        //         }
+        //     else
+        //         $rol=false;*/
+        // }
+
+        $rol = true;
 
         return $rol;
     }

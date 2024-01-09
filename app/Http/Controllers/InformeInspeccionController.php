@@ -47,18 +47,21 @@ class InformeInspeccionController extends Controller
      */
     public function create()
     {
-          $idPersonal = Auth::user()->IdPersonal;
+        //   $idPersonal = Auth::user()->IdPersonal;
 
-          if (Auth::user()->hasRole('administrador')) {
-              //Set Dropdown Auditoria
-              $Auditorias = Auditoria::all(['IdAuditoria', 'Codigo']);
-              $Auditorias->prepend('None');  
+          $Auditorias = Auditoria::all(['IdAuditoria', 'Codigo']);
+          $Auditorias->prepend('None');
+
+        //   if (Auth::user()->hasRole('administrador')) {
+        //       //Set Dropdown Auditoria
+        //       $Auditorias = Auditoria::all(['IdAuditoria', 'Codigo']);
+        //       $Auditorias->prepend('None');  
              
-          }else{
-              //Set Dropdown Auditoria
-              $Auditorias = Auditoria::getByUser($idPersonal);
-              $Auditorias->prepend('None'); 
-          }
+        //   }else{
+        //       //Set Dropdown Auditoria
+        //       $Auditorias = Auditoria::getByUser($idPersonal);
+        //       $Auditorias->prepend('None'); 
+        //   }
 
           //Set Dropdown TipoInforme
           $TipoInformes = TipoInforme::all(['IdTipoInforme', 'NombreTipo']);
@@ -113,19 +116,22 @@ class InformeInspeccionController extends Controller
      */
     public function edit($IdCrearInforme)
     {
-        $idPersonal = Auth::user()->IdPersonal;
-        $informeInspeccion = InformeInspeccion::find($IdCrearInforme);
+        // $idPersonal = Auth::user()->IdPersonal;
+        // $informeInspeccion = InformeInspeccion::find($IdCrearInforme);
 
-        if (Auth::user()->hasRole('administrador')) {
-            //Set Dropdown Auditoria
-            $Auditorias = Auditoria::all(['IdAuditoria', 'Codigo']);
-            $Auditorias->prepend('None');  
+        $Auditorias = Auditoria::all(['IdAuditoria', 'Codigo']);
+        $Auditorias->prepend('None');
+
+        // if (Auth::user()->hasRole('administrador')) {
+        //     //Set Dropdown Auditoria
+        //     $Auditorias = Auditoria::all(['IdAuditoria', 'Codigo']);
+        //     $Auditorias->prepend('None');  
            
-        }else{
-            //Set Dropdown Auditoria
-            $Auditorias = Auditoria::getByUser($idPersonal);
-            $Auditorias->prepend('None'); 
-        }
+        // }else{
+        //     //Set Dropdown Auditoria
+        //     $Auditorias = Auditoria::getByUser($idPersonal);
+        //     $Auditorias->prepend('None'); 
+        // }
 
          //Set Dropdown TipoInforme
         $TipoInformes = TipoInforme::all(['IdTipoInforme', 'NombreTipo']);

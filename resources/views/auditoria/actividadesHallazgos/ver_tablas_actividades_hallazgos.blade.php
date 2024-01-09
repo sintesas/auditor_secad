@@ -69,21 +69,9 @@
 												$respSeguimiento = explode(".", $actividad->Name);
 											}
 										?>
-										@if($isAdmin == true)
 										<div class="col-sm-6">
 											<a href="{{route('actividadesHallazgo.show', $actividad->IdTarea) }}" class="btn btn-primary btn-block editbutton" ><div class="gui-icon"><i class="fa fa-plus"></i></div></a>
-										</div>
-										@else
-											@foreach ($respSeguimiento as $resp)
-
-												@if (strcmp(trim($userLogueado),trim($resp)) == 0)
-													<div class="col-sm-6">
-														<a href="{{route('actividadesHallazgo.show', $actividad->IdTarea) }}" class="btn btn-primary btn-block editbutton" ><div class="gui-icon"><i class="fa fa-plus"></i></div></a>
-													</div>
-													@break
-												@endif
-											@endforeach
-										@endif
+										</div>										
 									</td>
 									<td>{{$actividad->EmpresaAuditadaNombre}}</td>
 									<td>{{$actividad->EmpresaAuditaNombre}}</td>

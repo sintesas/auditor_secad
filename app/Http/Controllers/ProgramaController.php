@@ -45,8 +45,9 @@ class ProgramaController extends Controller
     public function index()
     {
 
-        $idPersonal = Auth::user()->IdPersonal;
+        // $idPersonal = Auth::user()->IdPersonal;
         // dd($role->givePermissionTo('edit articles'));
+<<<<<<< HEAD
         //$programas= Programa::all();
         //$p = new Permiso;
         //$permiso = $p->getPermisos('CP');
@@ -64,6 +65,22 @@ class ProgramaController extends Controller
             $permiso = $p->getPermisos('CP');       
             return view ('programasSecad.controlProgramas.ver_tablas_Crearprograma')->with('programas', $programas)->with('permiso', $permiso);           
         }
+=======
+        // $programas= Programa::all();
+        // return view ('programasSecad.controlProgramas.ver_tablas_Crearprograma')->with('programas', $programas);
+
+        $programas = Programa::all();
+        return view ('programasSecad.controlProgramas.ver_tablas_Crearprograma')->with('programas', $programas);
+        
+        // if (Auth::user()->hasRole('administrador')) {
+        //     $programas = Programa::all();
+        //     return view ('programasSecad.controlProgramas.ver_tablas_Crearprograma')->with('programas', $programas);           
+        // }
+        // else {
+        //     $programas= Programa::getByUser($idPersonal);        
+        //     return view ('programasSecad.controlProgramas.ver_tablas_Crearprograma')->with('programas', $programas);           
+        // }
+>>>>>>> fb1809335013633e6a5232f65dfe0a283606d0d8
         
     }
 

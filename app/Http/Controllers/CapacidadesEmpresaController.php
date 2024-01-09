@@ -52,10 +52,10 @@ class CapacidadesEmpresaController extends Controller
 
             $capacidad->save(); 
 
-            activity()
-            ->performedOn($capacidad)
-            ->withProperties($ip)
-            ->log('Capacidad Creada');
+            // activity()
+            // ->performedOn($capacidad)
+            // ->withProperties($ip)
+            // ->log('Capacidad Creada');
 
             $notification = array(
 

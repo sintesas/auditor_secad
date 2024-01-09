@@ -32,36 +32,35 @@ class AnotacionesController extends Controller
 {
     public function index()
     {
+        // $rol = UsersLDAP::perteneceIGEFA();
+        // $rolAdd = "";
 
-        $rol = UsersLDAP::perteneceIGEFA();
-        $rolAdd = "";
+        $anotaciones = Anotacion::getAllAnotaciones();
 
-        if($rol){
-            $anotaciones = Anotacion::getAllAnotaciones();
-        }else{
-            $rol = UsersLDAP::perteneceCEOAF();
-            if($rol){
-                $anotaciones = Anotacion::getAllAnotaciones();
-                $rol = 'limitador';
-            }else{
+        // if($rol){
+        //     $anotaciones = Anotacion::getAllAnotaciones();
+        // }else{
+        //     $rol = UsersLDAP::perteneceCEOAF();
+        //     if($rol){
+        //         $anotaciones = Anotacion::getAllAnotaciones();
+        //         $rol = 'limitador';
+        //     }else{
 
-                $rol = false;
+        //         $rol = false;
 
-                $name = Auth::user()->name;
-                $idPersonal = Auth::user()->IdPersonal;
+        //         $name = Auth::user()->name;
+        //         $idPersonal = Auth::user()->IdPersonal;
 
-                $anotaciones = Anotacion::getAnotacionesByUser($idPersonal, $name);
+        //         $anotaciones = Anotacion::getAnotacionesByUser($idPersonal, $name);
 
-                $rol = 'limitador';
-                $rolAdd = 'limitador-user';
-            }
-        }
+        //         $rol = 'limitador';
+        //         $rolAdd = 'limitador-user';
+        //     }
+        // }
 
 
          return view('auditoria.anotaciones.ver_tablas_anotaciones')
-                ->with('anotaciones', $anotaciones)
-                ->with('rolAdd', $rolAdd)
-                ->with('rol', $rol);
+                ->with('anotaciones', $anotaciones);
     }
 
     //Genera Consecutivo auditoria siguente para el empresa

@@ -19,17 +19,21 @@ class InformeAnotacionesSeguimientoController extends Controller
      */
     public function index()
     {
-        $idPersonal = Auth::user()->IdPersonal;
+        // $idPersonal = Auth::user()->IdPersonal;
 
-        if (Auth::user()->hasRole('administrador')) {
-            $audiorias = Auditoria::all();
+        $audiorias = Auditoria::all();
             return view ('auditoria.informes.ver_informe_anotaciones_seguimiento')
                     ->with('audiorias', $audiorias);
-        }else{
-            $audiorias = Auditoria::getByUser($idPersonal);
-            return view ('auditoria.informes.ver_informe_anotaciones_seguimiento')
-                    ->with('audiorias', $audiorias);
-        }
+
+        // if (Auth::user()->hasRole('administrador')) {
+        //     $audiorias = Auditoria::all();
+        //     return view ('auditoria.informes.ver_informe_anotaciones_seguimiento')
+        //             ->with('audiorias', $audiorias);
+        // }else{
+        //     $audiorias = Auditoria::getByUser($idPersonal);
+        //     return view ('auditoria.informes.ver_informe_anotaciones_seguimiento')
+        //             ->with('audiorias', $audiorias);
+        // }
         
     }
 

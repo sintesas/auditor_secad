@@ -45,7 +45,6 @@
 							<td>{{$audioria->NombreAuditoria}}</td>
 
 							<td>
-								@if ($gl_perfil[12] == true || $gl_perfil[13] == true || $gl_perfil[2] == true || $gl_perfil[24] == true)
 								<div class="col-sm-6">
 
 									{!! Form::open(['route' => ['auditoria.destroy', $audioria->IdAuditoria], 'method' => 'DELETE']) !!}
@@ -54,7 +53,6 @@
 
 									{!! Form::close() !!}
 								</div>
-							@endif
 
 								<div class="col-sm-6">
 

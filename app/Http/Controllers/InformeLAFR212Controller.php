@@ -20,27 +20,29 @@ class InformeLAFR212Controller extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    {  
+        // $idPersonal = \Auth::user()->IdPersonal;
+        // $idEmpresa = \Auth::user()->IdEmpresa;
+        
+        $programas = Programa::all();
+        return view ('certificacion.programasSECAD.seguimientoProgramas.ver_informe_LA_FR_212')->with('programa', $programas);
 
-        $idPersonal = \Auth::user()->IdPersonal;
-        $idEmpresa = \Auth::user()->IdEmpresa;        
+        // if (\Auth::user()->hasRole('administrador')) {
+        //     $programas = Programa::all();
+        //     return view ('certificacion.programasSECAD.seguimientoProgramas.ver_informe_LA_FR_212')->with('programa', $programas);          
+        // }else{
 
-        if (\Auth::user()->hasRole('administrador')) {
-            $programas = Programa::all();
-            return view ('certificacion.programasSECAD.seguimientoProgramas.ver_informe_LA_FR_212')->with('programa', $programas);          
-        }else{
+        //     if (\Auth::user()->hasRole('empresario')) {
+        //          $programas = Programa::getProgramasTipoByEmpresa($idEmpresa);
+        //          return view ('certificacion.programasSECAD.seguimientoProgramas.ver_informe_LA_FR_212')->with('programa', $programas);
+        //     }
+        //     else
+        //     {
+        //         $programas= Programa::getByUser($idPersonal);
 
-            if (\Auth::user()->hasRole('empresario')) {
-                 $programas = Programa::getProgramasTipoByEmpresa($idEmpresa);
-                 return view ('certificacion.programasSECAD.seguimientoProgramas.ver_informe_LA_FR_212')->with('programa', $programas);
-            }
-            else
-            {
-                $programas= Programa::getByUser($idPersonal);
-
-                return view ('certificacion.programasSECAD.seguimientoProgramas.ver_informe_LA_FR_212')->with('programa', $programas);
-            }
-        }
+        //         return view ('certificacion.programasSECAD.seguimientoProgramas.ver_informe_LA_FR_212')->with('programa', $programas);
+        //     }
+        // }
         
     }
 

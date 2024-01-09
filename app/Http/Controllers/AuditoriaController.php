@@ -27,9 +27,9 @@ class AuditoriaController extends Controller
      */
     public function index()
     {
-        $rol = UsersLDAP::perteneceIGEFA();
+        // $rol = UsersLDAP::perteneceIGEFA();
 
-        if ($rol) {
+        // if ($rol) {
             $audiorias = Auditoria::getAuditoriasTabla();
             $eso = Auditoria::join('dbo.AU_Reg_Empresas', 'dbo.AU_Reg_Empresas.IdEmpresa', '=', 'dbo.AU_Reg_Auditorias.IdEmpresa')
             //$eso = Auditoria::
@@ -38,9 +38,9 @@ class AuditoriaController extends Controller
                             ->get();
                             // echo "<pre>";
                             // dd($eso);
-        }else{
-            $audiorias = Auditoria::getByUserAuditorias($idPersonal, $name);
-        }
+        // }else{
+        //     $audiorias = Auditoria::getByUserAuditorias($idPersonal, $name);
+        // }
         return view ('auditoria.ver_auditoria')->with('audiorias', $audiorias);
     }
 
@@ -88,8 +88,8 @@ class AuditoriaController extends Controller
       $audioria = Auditoria::validateCode($codigoAuditoria)->count();
       if($audioria == 0){
 
-        $idPersonal = Auth::user()->IdPersonal;
-        $name = Auth::user()->name;
+        $idPersonal = Auth::user()->personal_id;
+        $name = Auth::user()->nombre_completo;
 
         $audioria = new Auditoria;
         // store info

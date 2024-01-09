@@ -23,28 +23,29 @@ class ObservacionesProgramaLAFR212Controller extends Controller
      */
     public function index()
     {
-        $idPersonal = Auth::user()->IdPersonal;
-        $idEmpresa = Auth::user()->IdEmpresa;        
+        // $idPersonal = Auth::user()->IdPersonal;
+        // $idEmpresa = Auth::user()->IdEmpresa;
 
-        if (Auth::user()->hasRole('administrador')) {
-            $programas = Programa::all();
-            return view ('certificacion.programasSECAD.seguimientoProgramas.ver_observacionesLAFR212Progamas')->with('programa', $programas);          
-        }else{
+        $programas = Programa::all();
+        return view('certificacion.programasSECAD.seguimientoProgramas.ver_observacionesLAFR212Progamas')->with('programa', $programas);
+        
+        // if (Auth::user()->hasRole('administrador')) {
+        //     $programas = Programa::all();
+        //     return view ('certificacion.programasSECAD.seguimientoProgramas.ver_observacionesLAFR212Progamas')->with('programa', $programas);          
+        // }
+        // else{
 
-            if (Auth::user()->hasRole('empresario')) {
-                 $programas = Programa::getProgramasTipoByEmpresa($idEmpresa);
-                 return view ('certificacion.programasSECAD.seguimientoProgramas.ver_observacionesLAFR212Progamas')->with('programa', $programas);
-            }
-            else
-            {
-                $programas= Programa::getByUser($idPersonal);
+        //     if (Auth::user()->hasRole('empresario')) {
+        //          $programas = Programa::getProgramasTipoByEmpresa($idEmpresa);
+        //          return view ('certificacion.programasSECAD.seguimientoProgramas.ver_observacionesLAFR212Progamas')->with('programa', $programas);
+        //     }
+        //     else
+        //     {
+        //         $programas= Programa::getByUser($idPersonal);
 
-                return view ('certificacion.programasSECAD.seguimientoProgramas.ver_observacionesLAFR212Progamas')->with('programa', $programas);
-            }
-
-
-                      
-        }
+        //         return view ('certificacion.programasSECAD.seguimientoProgramas.ver_observacionesLAFR212Progamas')->with('programa', $programas);
+        //     }                      
+        // }
     }
 
     /**

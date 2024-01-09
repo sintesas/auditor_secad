@@ -22,25 +22,28 @@ class InformeHistorialProgramaController extends Controller
         // $programa = Programa::all();
         // return view ('certificacion.programasSECAD.informes.ver_informe_historial_programa')->with('programa', $programa);
 
-        $idPersonal = Auth::user()->IdPersonal;
-        $idEmpresa = Auth::user()->IdEmpresa;        
+        // $idPersonal = Auth::user()->IdPersonal;
+        // $idEmpresa = Auth::user()->IdEmpresa;
+        
+        $programa = Programa::all();
+        return view ('certificacion.programasSECAD.informes.ver_informe_historial_programa')->with('programa', $programa); 
 
-        if (Auth::user()->hasRole('administrador')) {
-            $programa = Programa::all();
-            return view ('certificacion.programasSECAD.informes.ver_informe_historial_programa')->with('programa', $programa);          
-        }else{
+        // if (Auth::user()->hasRole('administrador')) {
+        //     $programa = Programa::all();
+        //     return view ('certificacion.programasSECAD.informes.ver_informe_historial_programa')->with('programa', $programa);          
+        // }else{
 
-            if (Auth::user()->hasRole('empresario')) {
-                 $programa = Programa::getProgramasTipoByEmpresa($idEmpresa);
-                 return view ('certificacion.programasSECAD.informes.ver_informe_historial_programa')->with('programa', $programa);
-            }
-            else
-            {
-                $programa= Programa::getByUser($idPersonal);
+        //     if (Auth::user()->hasRole('empresario')) {
+        //          $programa = Programa::getProgramasTipoByEmpresa($idEmpresa);
+        //          return view ('certificacion.programasSECAD.informes.ver_informe_historial_programa')->with('programa', $programa);
+        //     }
+        //     else
+        //     {
+        //         $programa= Programa::getByUser($idPersonal);
 
-                return view ('certificacion.programasSECAD.informes.ver_informe_historial_programa')->with('programa', $programa);
-            }
-        }
+        //         return view ('certificacion.programasSECAD.informes.ver_informe_historial_programa')->with('programa', $programa);
+        //     }
+        // }
     }
 
     /**

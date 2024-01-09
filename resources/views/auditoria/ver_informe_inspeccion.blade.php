@@ -39,7 +39,6 @@
 							<td>{{$informeInspeccion->FechaInicio}}</td>
 							<td>{{$informeInspeccion->NombreTipo}}</td>
 							<td>
-								@if ($gl_perfil[12] == true || $gl_perfil[13] == true || $gl_perfil[2] == true)
 								<div class="col-sm-6">
 
 									{!! Form::open(['route' => ['informeInspeccion.destroy', $informeInspeccion->IdCrearInforme], 'method' => 'DELETE']) !!}
@@ -48,7 +47,6 @@
 
 									{!! Form::close() !!}
 								</div>
-							@endif
 
 
 								<div class="col-sm-6">

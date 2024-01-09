@@ -39,10 +39,7 @@
 		@section('card-title')
 			{{Breadcrumbs::render('anotacion')}}
 
-			@if ($rolAdd !== 'limitador-user')
-				<!-- The Modal -->
-				<button type="button" onclick="window.location='{{ route("anotacion.create") }}'" class="btn btn-info ink-reaction btn-primary addbutton" id="myBtn"><span class="fa fa-plus"></span></button>
-			@endif
+			<button type="button" onclick="window.location='{{ route("anotacion.create") }}'" class="btn btn-info ink-reaction btn-primary addbutton" id="myBtn"><span class="fa fa-plus"></span></button>
 
 		@endsection()
 
@@ -64,9 +61,7 @@
 								<th><b>Días restantes</b></th>
 								<th><b>ACR</b></th>
 								<th style="width: 120px;"><b>Acciones</b></th>
-								@if ($rol !== 'limitador')
-									<th><b>Estado</b></th>
-								@endif
+								<th><b>Estado</b></th>
 
 							</tr>
 						</thead>
@@ -117,25 +112,21 @@
 										</td>
 
 										<td>
-											@if ($gl_perfil[12] == true || $gl_perfil[13] == true || $gl_perfil[2] == true)
 												<div class="col-sm-6">
 													{!! Form::open(['route' => ['anotacion.destroy', $anotacion->IdAnotacion], 'method' => 'DELETE']) !!}
 													{!!Form::submit('x', ['class' => 'btn btn-danger deleteButton', 'style' => 'padding-right: 15px ;']) !!}
 													{!! Form::close() !!}
 												</div>
-											@endif
 
 											<div class="col-sm-6">
 												<a href="{{route('anotacion.edit', $anotacion->IdAnotacion) }}" class="btn btn-primary btn-block editbutton" ><div class="gui-icon"><i class="fa fa-pencil iconEdit"></i></div></a>
 											</div>
 										</td>
-										@if ($rol !== 'limitador')
 											<td>
 												<label style="margin-bottom: 50%;" class="checkbox-inline checkbox-styled">
 													{{ Form::checkbox('EstadoAnotacion','1', null, ['class' => 'EstadoAnotacion', 'id' => 'EstadoAnotacion', 'data-id' => $anotacion->IdAnotacion]) }}
 												</label>
 											</td>
-										@endif
 
 									</tr>
 								@endif
@@ -153,16 +144,14 @@
 								<th><b>Días restantes</b></th>
 								<th><b>ACR</b></th>
 								<th><b>Acciones</b></th>
-								@if ($rol !== 'limitador')
-									<th><b>Estado</b></th>
-								@endif
+								<th><b>Estado</b></th>
 							</tr>
 						</tfoot>
 					</table>
 					<h5 id="conteo"></h5>
 
 					<input type="hidden" id="tablehtml">
-					<input type="hidden" name="" id="rol" value="{{$rol}}">
+					{{-- <input type="hidden" name="" id="rol" value="{{$rol}}"> --}}
 
 					{{-- {{route('informeresumenprograma.create') }} --}}
 
