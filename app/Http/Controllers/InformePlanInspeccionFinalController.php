@@ -10,7 +10,7 @@ use Spatie\Permission\Models\Permission;
 use App\Models\Auditoria;
 use App\Models\VWInformeInspeccionFinal;
 use App\Models\UsersLDAP;
-
+use App\Models\Permiso;
 class InformePlanInspeccionFinalController extends Controller
 {
     public function index()
@@ -26,8 +26,10 @@ class InformePlanInspeccionFinalController extends Controller
                 $audiorias = Auditoria::all();
             }
         }*/
+        $p = new Permiso;
+        $permiso = $p->getPermisos('RE');
         return view ('auditoria.informes.ver_informe_inspeccion_final')
-            ->with('audiorias', $audiorias);
+            ->with('audiorias', $audiorias)->with('permiso', $permiso);
     }
 
 

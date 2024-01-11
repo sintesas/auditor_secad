@@ -10,6 +10,7 @@ use App\Models\TiposFuentesRecursos;
 use App\Models\TiposProyectos;
 use App\Models\TiposEmpresas_proyectos;
 use App\Models\TipoEstados_Proyectos;
+use App\Models\Permiso;
 
 class ControlProyectosController extends Controller
 {
@@ -29,12 +30,14 @@ class ControlProyectosController extends Controller
         $TipoEstadosProyectos = TipoEstados_Proyectos::Estado();
         $TipoEstadosProyectos->prepend('none');
   
+        $p = new Permiso;
+        $permiso = $p->getPermisos('FA');
         return view('fomento.proyectos.index')
                 ->with('controlProyectosData',$controlProyectData)
                 ->with('FuentesRecursosData', $FuentesRecursos)
                 ->with('TiposProyectosData', $TiposProyectos)
                 ->with('TiposEmpresas', $TiposEmpresas)
-                ->with('TipoEstadosProyectos', $TipoEstadosProyectos);
+                ->with('TipoEstadosProyectos', $TipoEstadosProyectos)->with('permiso', $permiso);
       }
       /**
        * Show the form for creating a new resource.

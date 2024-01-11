@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\VWPersonalHH;
+use App\Models\Permiso;
 
 class InformePersonalHHController extends Controller
 {
@@ -16,8 +17,10 @@ class InformePersonalHHController extends Controller
     public function index()
     {
         $personalhh = VWPersonalHH::all();
+        $p = new Permiso;
+        $permiso = $p->getPermisos('GR');
         return view ('gestionRecursos.recursoHumano.informes.visual_informe_personal_hh')
-                ->with('personalhh', $personalhh);
+                ->with('personalhh', $personalhh)->with('permiso', $permiso);
     }
 
     /**

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\InfoConvenios;
+use App\Models\Permiso;
 
 class InformeConveniosController extends Controller
 {
@@ -16,8 +17,10 @@ class InformeConveniosController extends Controller
     public function index()
     {
         $convenio = InfoConvenios::all();
+        $p = new Permiso;
+        $permiso = $p->getPermisos('FA');
         return view('fomento.convenios.informes.visual_informe_convenios')
-            ->with('convenio', $convenio);
+            ->with('convenio', $convenio)->with('permiso', $permiso);
     }
 
     /**

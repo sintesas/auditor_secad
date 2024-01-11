@@ -6,14 +6,17 @@ use Illuminate\Http\Request;
 
 use App\Models\Empresa;
 use App\Models\FuncionariosEmpresa;
+use App\Models\Permiso;
 
 class InformeFuncionariosEmpresaController extends Controller
 {
     public function index()
     {
         $empresas = Empresa::all();
+        $p = new Permiso;
+        $permiso = $p->getPermisos('FA');
         return view ('fomento.empresas.informes.ver_informe_funcionarios_empresa')
-                ->with('empresas', $empresas);
+                ->with('empresas', $empresas)->with('permiso', $permiso);
     }
 
     

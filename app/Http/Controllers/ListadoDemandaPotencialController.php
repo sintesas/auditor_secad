@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\ListadoDemandaPotencial;
+use App\Models\Permiso;
 
 class ListadoDemandaPotencialController extends Controller
 {
@@ -15,6 +16,8 @@ class ListadoDemandaPotencialController extends Controller
      */
     public function index()
     {
+        $p = new Permiso;
+        $permiso = $p->getPermisos('CP');
         $listDemandaPotencias = \DB::table('dbo.AUFACVW_ListaDemandaPotencial as p')->select('p.AltaRotacion',
                 'p.AltosTiempos',
                 'p.Año',
@@ -59,7 +62,7 @@ class ListadoDemandaPotencialController extends Controller
                 'p.ValorUnitarioOferta'
                     )->distinct('p.ParteNumero')->get();
 
-        return view ('certificacion.productosAeronauticos.demandapotencial.TDINListadoDemandaPotencial',compact('listDemandaPotencias'));
+        return view ('certificacion.productosAeronauticos.demandapotencial.TDINListadoDemandaPotencial',compact('listDemandaPotencias'))->with('permiso', $permiso);
     }
 
     /**

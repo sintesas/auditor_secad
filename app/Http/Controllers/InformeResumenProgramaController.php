@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\VWInformeResumenPrograma;
 use App\Models\ResumenProgramaRecord;
+use App\Models\Permiso;
 
 class InformeResumenProgramaController extends Controller
 {
@@ -18,12 +19,14 @@ class InformeResumenProgramaController extends Controller
     {
         // $programa = VWInformeResumenPrograma::all();
         // $programa = VWInformeResumenPrograma::orderby('Consecutivo','ASC')->get();
+        $p = new Permiso;
+        $permiso = $p->getPermisos('CP');
         $programa = VWInformeResumenPrograma::orderby('Consecutivo','ASC')->get()->groupBy('IdPrograma');
         $count = VWInformeResumenPrograma::all()->count();
 
         return view ('certificacion.programasSECAD.informes.ver_informe_resumen_programa')
                 ->with('programa', $programa)
-                ->with('count', $count);
+                ->with('count', $count)->with('permiso', $permiso);
     }
 
     /**

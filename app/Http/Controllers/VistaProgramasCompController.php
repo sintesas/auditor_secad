@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\VistaProgramas;
+use App\Models\Permiso;
 
 class VistaProgramasCompController extends Controller
 {
@@ -15,7 +16,9 @@ class VistaProgramasCompController extends Controller
      */
     public function index()
     {
-        return view ('certificacion.programasSECAD.informes.ver_informe_tipo_estado');
+        $p = new Permiso;
+        $permiso = $p->getPermisos('CP');
+        return view ('certificacion.programasSECAD.informes.ver_informe_tipo_estado')->with('permiso', $permiso);
     }
 
     /**

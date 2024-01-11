@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Empresa;
+use App\Models\Permiso;
 
 class InformeActualizacionesEmpController extends Controller
 {
@@ -16,7 +17,9 @@ class InformeActualizacionesEmpController extends Controller
     public function index()
     {
         $empresas = Empresa::all();
-        return view ('fomento.empresas.informes.ver_informe_control_actualizaciones')->with('empresas', $empresas);
+        $p = new Permiso;
+        $permiso = $p->getPermisos('FA');
+        return view ('fomento.empresas.informes.ver_informe_control_actualizaciones')->with('empresas', $empresas)->with('permiso', $permiso);
     }
 
     /**

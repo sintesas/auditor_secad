@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Auditoria;
+use App\Models\Permiso;
 
 class InformeHallazgosGeneradosController extends Controller
 {
@@ -17,8 +18,10 @@ class InformeHallazgosGeneradosController extends Controller
     {
         //informehallazgosgenerados
         $informehallazgosgenerados= \DB::select('EXEC AUFACSP_Inf_Auditorias @ProcId=8');
+        $p = new Permiso;
+        $permiso = $p->getPermisos('RE');
         return view ('auditoria.informes.visual_informe_hallazgos_generados')
-                    ->with('informehallazgosgenerados', $informehallazgosgenerados);
+                    ->with('informehallazgosgenerados', $informehallazgosgenerados)->with('permiso', $permiso);
     }
 
     /**

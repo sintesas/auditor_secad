@@ -5,14 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Ata;
-
+use App\Models\Permiso;
 class AtaController extends Controller
 {
     public function index()
     {        
         // laravel's standard way
         $atas = Ata::all();
-        return view ('certificacion.variables.ver_tablas_ata')->with('atas', $atas);       
+        $p = new Permiso;
+        $permiso = $p->getPermisos('CP');
+        return view ('certificacion.variables.ver_tablas_ata')->with('atas', $atas)->with('permiso', $permiso);       
         
     }
 

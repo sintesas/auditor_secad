@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Personal;
 use App\Models\VWCursosPersonal;
+use App\Models\Permiso;
 
 class InformeCursosFuncionarioController extends Controller
 {
@@ -17,8 +18,10 @@ class InformeCursosFuncionarioController extends Controller
     public function index()
     {
         $personal = Personal::getPersonalWithRango();
+        $p = new Permiso;
+        $permiso = $p->getPermisos('GR');
         return view ('gestionRecursos.capacitacionPersonalSecad.informes.ver_informe_cursos_funcionarios')
-                ->with('personal', $personal);
+                ->with('personal', $personal)->with('permiso', $permiso);
     }
 
     /**

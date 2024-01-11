@@ -47,6 +47,7 @@ use App\Models\AgenteDesarrollador;
 use App\Models\ProduccionEmpresa;
 use App\Models\ProduccionTercerizacion;
 use App\Models\MaquinariaEquipoProduccion;
+use App\Models\Permiso;
 
 class InformacionProduccionController extends Controller
 {
@@ -57,7 +58,9 @@ class InformacionProduccionController extends Controller
         if (Auth::user()->hasRole('administrador')) {*/
             
             $empresas = Empresa::all();
-            return view ('fomento.empresas.ver_tablas_informacion_produccion')->with('empresas', $empresas);
+            $p = new Permiso;
+            $permiso = $p->getPermisos('CP');
+            return view ('fomento.empresas.ver_tablas_informacion_produccion')->with('empresas', $empresas)->with('permiso', $permiso);
 
         /*}else{
 

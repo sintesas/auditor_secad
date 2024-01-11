@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\VWOfertasPorCiudad;
+use App\Models\Permiso;
 
 class InformeOfertasPorCiudadController extends Controller
 {
@@ -16,8 +17,10 @@ class InformeOfertasPorCiudadController extends Controller
     public function index()
     {
         $ofertasPorCiudad = VWOfertasPorCiudad::orderBy('Ciudad', 'asc')->get();
+        $p = new Permiso;
+        $permiso = $p->getPermisos('FA');
         return view ('fomento.sectorAeronautico.informes.visual_informe_ofertas_total_ciudad')
-            ->with('ofertasPorCiudad', $ofertasPorCiudad);
+            ->with('ofertasPorCiudad', $ofertasPorCiudad)->with('permiso', $permiso);
     }
 
     /**

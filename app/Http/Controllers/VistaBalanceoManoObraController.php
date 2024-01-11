@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\VistaProgramas;
+use App\Models\Permiso;
 
 class VistaBalanceoManoObraController extends Controller
 {
@@ -15,7 +16,9 @@ class VistaBalanceoManoObraController extends Controller
      */
     public function index()
     {
-        return view ('certificacion.programasSECAD.informes.ver_informe_balanceo_mano_obra');
+        $p = new Permiso;
+        $permiso = $p->getPermisos('CP');
+        return view ('certificacion.programasSECAD.informes.ver_informe_balanceo_mano_obra')->with('permiso', $permiso);
     }
 
     /**

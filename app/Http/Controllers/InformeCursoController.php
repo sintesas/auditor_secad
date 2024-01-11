@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Cursos;
 use App\Models\Personal;
+use App\Models\Permiso;
 
 class InformeCursoController extends Controller
 {
@@ -17,8 +18,10 @@ class InformeCursoController extends Controller
     public function index()
     {
         $curso = Cursos::all();
+        $p = new Permiso;
+        $permiso = $p->getPermisos('GR');
         return view ('gestionRecursos.capacitacionPersonalSecad.informes.ver_informe_curso')
-                ->with('curso', $curso);
+                ->with('curso', $curso)->with('permiso', $permiso);
     }
 
     /**

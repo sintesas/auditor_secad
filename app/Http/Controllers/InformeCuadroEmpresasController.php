@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\VWEmpresa;
-
+use App\Models\Permiso;
 class InformeCuadroEmpresasController extends Controller
 {
     /**
@@ -16,8 +16,10 @@ class InformeCuadroEmpresasController extends Controller
     public function index()
     {
         $empresas = VWEmpresa::all();
+        $p = new Permiso;
+        $permiso = $p->getPermisos('FA');
         return view ('fomento.empresas.informes.ver_informe_resumen_empresas')
-                ->with('empresas', $empresas);
+                ->with('empresas', $empresas)->with('permiso', $permiso);
     }
 
     /**

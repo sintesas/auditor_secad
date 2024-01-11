@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\VWProyectos;
 use App\Models\VWProyectoObservaciones;
+use App\Models\Permiso;
 
 class InformeObservacionesController extends Controller
 {
@@ -17,9 +18,10 @@ class InformeObservacionesController extends Controller
    */
   function index(){
     $controlProyectData = VWProyectos::Estado();
-
+    $p = new Permiso;
+    $permiso = $p->getPermisos('FA');
     return view('fomento.proyectos.observaciones.ver_informe_observaciones')
-            ->with('proyectosData', $controlProyectData);
+            ->with('proyectosData', $controlProyectData)->with('permiso', $permiso);
   }
 
   /**

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\NivelCompetencias;
+use App\Models\Permiso;
 
 class NivelCompetenciaController extends Controller
 {
@@ -16,8 +17,10 @@ class NivelCompetenciaController extends Controller
     public function index()
     {
         $nivelesComp = NivelCompetencias::all();
+        $p = new Permiso;
+        $permiso = $p->getPermisos('GR');
         return view ('gestionRecursos.recursoHumano.informacionPersonal.ver_nivel_competencia')
-            ->with('nivelesComp', $nivelesComp);
+            ->with('nivelesComp', $nivelesComp)->with('permiso', $permiso);
     }
 
     /**

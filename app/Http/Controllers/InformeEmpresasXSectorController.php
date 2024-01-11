@@ -6,14 +6,17 @@ use Illuminate\Http\Request;
 
 use App\Models\OfertasSectorAeronautico;
 use App\Models\Empresa;
+use App\Models\Permiso;
 
 class InformeEmpresasXSectorController extends Controller
 {
     public function index()
     {
         $OfertaSectorAeronautico = OfertasSectorAeronautico::all();
+        $p = new Permiso;
+        $permiso = $p->getPermisos('FA');
         return view ('fomento.sectorAeronautico.informes.ver_informe_empresas_sector')
-                    ->with('OfertaSectorAeronautico', $OfertaSectorAeronautico);
+                    ->with('OfertaSectorAeronautico', $OfertaSectorAeronautico)->with('permiso', $permiso);
     }
 
     

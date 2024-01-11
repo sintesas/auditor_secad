@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Grado;
+use App\Models\Permiso;
 
 class CostosHHController extends Controller
 {
@@ -16,7 +17,9 @@ class CostosHHController extends Controller
     public function index()
     {
         $costos = Grado::getCostoshh();
-        return  view ('gestionRecursos.recursoHumano.informacionPersonal.ver_costoshh')->with('costos', $costos); 
+        $p = new Permiso;
+        $permiso = $p->getPermisos('GR');
+        return  view ('gestionRecursos.recursoHumano.informacionPersonal.ver_costoshh')->with('costos', $costos)->with('permiso', $permiso); 
     }
 
     /**

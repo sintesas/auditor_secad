@@ -13,6 +13,7 @@ use App\Models\BasesCertificacionPrograma;
 use App\Models\NivelProgBaseCerti;
 use App\Models\Ata;
 use App\Models\Moc;
+use App\Models\Permiso;
 
 class CMDProgramasConsultarController extends Controller
 {
@@ -24,9 +25,11 @@ class CMDProgramasConsultarController extends Controller
     public function index()
     {
         $programas = Programa::getProgramasTipo();
+        $p = new Permiso;
+        $permiso = $p->getPermisos('CP');
 
         return view ('certificacion.cmd.ver_cmd_programas_consultar')
-                ->with('programas', $programas);
+                ->with('programas', $programas)->with('permiso', $permiso);
     }
 
     /**

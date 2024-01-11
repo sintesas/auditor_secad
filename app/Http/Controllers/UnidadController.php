@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Unidad;
 use App\Models\Grado;
+use App\Models\Permiso;
 
 class UnidadController extends Controller
 {
@@ -40,13 +41,16 @@ class UnidadController extends Controller
     {
         $unidades = Unidad::all();
 
+        $p = new Permiso;
+        $permiso = $p->getPermisos('CP');
+
         //Set Dropdown 
         $grado = Grado::all();
         $grado->prepend('None');
 
         return view ('certificacion.variables.ver_tablas_unidad')
                 ->with('unidades', $unidades)
-                ->with('grado', $grado);
+                ->with('grado', $grado)->with('permiso', $permiso);
     }
 
     public function store(Request $request)

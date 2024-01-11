@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\EstadoPrograma;
+use App\Models\Permiso;
 
 class EstadosProgramaController extends Controller
 {
@@ -12,8 +13,10 @@ class EstadosProgramaController extends Controller
     {
 
         $estadosprograma = EstadoPrograma::all();
+        $p = new Permiso;
+        $permiso = $p->getPermisos('CP');
 
-        return view('certificacion.informacionprevia.ver_tablas_estadosprogramas')->with('estadosprograma', $estadosprograma);
+        return view('certificacion.informacionprevia.ver_tablas_estadosprogramas')->with('estadosprograma', $estadosprograma)->with('permiso', $permiso);
     }
     
     public function create()

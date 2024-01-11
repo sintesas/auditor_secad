@@ -8,14 +8,17 @@ use App\Models\Personal;
 use App\Models\VWPersonal;
 use App\Models\CursosPersonal;
 use App\Models\Familiares;
+use App\Models\Permiso;
 
 class InformeHojaDeVidaController extends Controller
 {
     public function index()
     {
         $personal = Personal::getPersonalWithRango();
+        $p = new Permiso;
+        $permiso = $p->getPermisos('GR');
         return view ('gestionRecursos.recursoHumano.informes.ver_informe_hoja_vida')
-                ->with('personal', $personal);
+                ->with('personal', $personal)->with('permiso', $permiso);
     }
 
 

@@ -20,14 +20,17 @@ use App\Models\DemandaPotencialPrioridadUma;
 use App\Models\DemandaPotencialValoracionEconomica;
 use App\Models\DemandaPotencialValoracionTecnica;
 use App\Models\DemandaPotencialOfertaAeronautica;
+use App\Models\Permiso;
 
 class DemandaPotencialController extends Controller
 {
     public function index(){
+        $p = new Permiso;
+        $permiso = $p->getPermisos('CP');
         $demandaspotenciales= DemandaPotencial::where('Activo',1)->get();
 
         return view ('certificacion.productosAeronauticos.demandapotencial.ver_tablas_demandapotencial')
-                ->with('demandaspotenciales', $demandaspotenciales);
+                ->with('demandaspotenciales', $demandaspotenciales)->with('permiso', $permiso);
     }
 
     public function deleteValoracionTecnica($idvaloraciontecnica){

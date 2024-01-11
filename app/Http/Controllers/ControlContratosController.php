@@ -10,6 +10,7 @@ use App\Models\UnidadMedidaCPA;
 use App\Models\Bienyservicio;
 use App\Models\VWcontratoanualsearch;
 use App\Models\Controlcontratostotal;
+use App\Models\Permiso;
 
 class ControlContratosController extends Controller
 {
@@ -30,12 +31,16 @@ class ControlContratosController extends Controller
 
         $Bienyservicio = Bienyservicio::all();
         $Bienyservicio->prepend('None');
+
+        $p = new Permiso;
+        $permiso = $p->getPermisos('PG');
         
         return view('Normogramaycontratos.Contratos.formcontrolcontratos')
                 ->with('contratos', $contratos)
                 ->with('UnidadMedidaCPA', $UnidadMedidaCPA)
                 ->with('EstadoCPA', $EstadoCPA)
-                ->with('Bienyservicio', $Bienyservicio);
+                ->with('Bienyservicio', $Bienyservicio)
+                ->with('permiso', $permiso);
                 
     }
 

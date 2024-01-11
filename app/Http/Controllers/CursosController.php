@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Cursos;
 use App\Models\Ciudades;
 use App\Models\TipoCurso;
+use App\Models\Permiso;
+
 
 class CursosController extends Controller
 {
@@ -18,8 +20,10 @@ class CursosController extends Controller
     public function index()
     {
         $cursos = Cursos::all();
+        $p = new Permiso;
+        $permiso = $p->getPermisos('GR');
         return view ('gestionRecursos.capacitacionPersonalSecad.ver_cursos')
-                    ->with('cursos', $cursos);
+                    ->with('cursos', $cursos)->with('permiso', $permiso);
     }
 
     /**

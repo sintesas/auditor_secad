@@ -5,13 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Moc;
-
+use App\Models\Permiso;
 class MocController extends Controller
 {
     public function readMocs(){
 
 		$mocs = Moc::all();
-        return view('certificacion.variables.ver_tablas_moc')->with('mocs', $mocs );
+        $p = new Permiso;
+        $permiso = $p->getPermisos('CP');
+        return view('certificacion.variables.ver_tablas_moc')->with('mocs', $mocs )->with('permiso', $permiso);
 	}
 
 	public function deleteMoc($idmoc){

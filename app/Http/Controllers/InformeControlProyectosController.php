@@ -6,16 +6,18 @@ use Illuminate\Http\Request;
 
 use App\Models\VWProyectos;
 use App\Models\ResumenProgramaRecord;
+use App\Models\Permiso;
 
 class InformeControlProyectosController extends Controller
 {
     function index(){
         //Data Control proyectos
         $proyectos = VWProyectos::Estado();
-
+        $p = new Permiso;
+        $permiso = $p->getPermisos('FA');
         //Vista Informe proyectos
         return view('fomento.proyectos.informes.visual_informe_proyectos')
-              ->with('proyectos',$proyectos);
+              ->with('proyectos',$proyectos)->with('permiso', $permiso);
     }
 
     function create(){

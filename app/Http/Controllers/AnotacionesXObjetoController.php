@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\APACxAuditoria;
+use App\Models\Permiso;
 
 class AnotacionesXObjetoController extends Controller
 {
@@ -15,7 +16,9 @@ class AnotacionesXObjetoController extends Controller
      */
     public function index()
     {
-        return view ('auditoria.tablasDinamicas.TDINAnotacionesXObjeto');
+        $p = new Permiso;
+        $permiso = $p->getPermisos('RE');
+        return view ('auditoria.tablasDinamicas.TDINAnotacionesXObjeto')->with('permiso', $permiso);
     }
 
     /**

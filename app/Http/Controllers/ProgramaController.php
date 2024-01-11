@@ -39,7 +39,7 @@ use App\Models\Banco;
 // ensayos
 use App\Models\Ensayo;
 use App\Models\TipoEnsayo;
-
+use App\Models\Permiso;
 class ProgramaController extends Controller
 {
     public function index()
@@ -47,6 +47,25 @@ class ProgramaController extends Controller
 
         // $idPersonal = Auth::user()->IdPersonal;
         // dd($role->givePermissionTo('edit articles'));
+<<<<<<< HEAD
+        //$programas= Programa::all();
+        //$p = new Permiso;
+        //$permiso = $p->getPermisos('CP');
+        //return view ('programasSecad.controlProgramas.ver_tablas_Crearprograma')->with('programas', $programas)->with('permiso', $permiso);
+        
+        if (Auth::user()->hasRole('administrador')) {
+            $programas = Programa::all();
+            $p = new Permiso;
+            $permiso = $p->getPermisos('CP');
+            return view ('programasSecad.controlProgramas.ver_tablas_Crearprograma')->with('programas', $programas)->with('permiso', $permiso);           
+        }
+        else {
+            $programas= Programa::getByUser($idPersonal); 
+            $p = new Permiso;
+            $permiso = $p->getPermisos('CP');       
+            return view ('programasSecad.controlProgramas.ver_tablas_Crearprograma')->with('programas', $programas)->with('permiso', $permiso);           
+        }
+=======
         // $programas= Programa::all();
         // return view ('programasSecad.controlProgramas.ver_tablas_Crearprograma')->with('programas', $programas);
 
@@ -61,6 +80,7 @@ class ProgramaController extends Controller
         //     $programas= Programa::getByUser($idPersonal);        
         //     return view ('programasSecad.controlProgramas.ver_tablas_Crearprograma')->with('programas', $programas);           
         // }
+>>>>>>> fb1809335013633e6a5232f65dfe0a283606d0d8
         
     }
 

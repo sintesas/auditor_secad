@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\NivelCompetencias;
 use App\Models\VWPersonal;
+use App\Models\Permiso;
 
 class InformePersonalPerfilController extends Controller
 {
@@ -17,8 +18,10 @@ class InformePersonalPerfilController extends Controller
     public function index()
     {
         $nivelcompetencias = NivelCompetencias::all();
+        $p = new Permiso;
+        $permiso = $p->getPermisos('GR');
         return view ('gestionRecursos.recursoHumano.informes.ver_informe_personal_perfil')
-                ->with('nivelcompetencias', $nivelcompetencias);
+                ->with('nivelcompetencias', $nivelcompetencias)->with('permiso', $permiso);
     }
 
     /**

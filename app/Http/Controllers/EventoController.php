@@ -9,13 +9,16 @@ use App\Models\Empresa;
 use App\Models\TipoAuditoria;
 use App\Models\ClaseEvento;
 use App\Models\TipoEvento;
+use App\Models\Permiso;
 
 class EventoController extends Controller
 {
     public function index()
     {
         $eventos = Evento::all();
-        return view ('auditoria.eventos.eventos')->with('eventos', $eventos);
+        $p = new Permiso;
+        $permiso = $p->getPermisos('RE');
+        return view ('auditoria.eventos.eventos')->with('eventos', $eventos)->with('permiso', $permiso);
     }
 
     

@@ -11,6 +11,7 @@ use App\Models\SubParteMatrizCumpliProg;
 use App\Models\SubparteBaseCertificacion;
 use App\Models\BasesCertificacionPrograma;
 use App\Models\Moc;
+use App\Models\Permiso;
 
 class CMDProgramasController extends Controller
 {
@@ -22,9 +23,11 @@ class CMDProgramasController extends Controller
     public function index()
     {
         $programas = Programa::getProgramasTipo();
+        $p = new Permiso;
+        $permiso = $p->getPermisos('CP');
 
         return view ('certificacion.cmd.ver_cmd_programas')
-                ->with('programas', $programas);
+                ->with('programas', $programas)->with('permiso', $permiso);
     }
 
     /**
