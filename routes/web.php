@@ -206,6 +206,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('usuariorol', UsuarioRolController::class);
     Route::get('usuariorol/asignar/{id}', [UsuarioRolController::class, 'asignarRol'])->name('asignar.rol');
     Route::post('usuariorol/asignar/crear', [UsuarioRolController::class, 'crearAsignar'])->name('crear.asignar');
+    Route::post('usuariorol/asignar/eliminar', [UsuarioRolController::class, 'eliminarAsignar'])->name('eliminar.asignar');
 
     Route::resource('rol', RolController::class);
     Route::resource('rolprivilegio', RolPrivilegioController::class);

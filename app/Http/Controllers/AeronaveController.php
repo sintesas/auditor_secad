@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Spatie\Activitylog\Models\Activity;
 
 use App\Models\Aeronave;
+use App\Models\Permiso;
 
 class AeronaveController extends Controller
 {
@@ -32,7 +33,9 @@ class AeronaveController extends Controller
         public function index()
         {        
             $aeronaves = Aeronave::all();
-            return view ('certificacion.variables.ver_tablas_aeronave')->with('aeronaves', $aeronaves);
+            $p = new Permiso;
+            $permiso = $p->getPermisos('CP');
+            return view ('certificacion.variables.ver_tablas_aeronave')->with('aeronaves', $aeronaves)->with('permiso', $permiso);
         }
     
         public function create()

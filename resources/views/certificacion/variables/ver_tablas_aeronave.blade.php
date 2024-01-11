@@ -13,7 +13,9 @@
         @section('card-title')
 			{{Breadcrumbs::render('aeronaves')}}
 
+            @if ($permiso->crear == 1)
             <button type="button" class="btn btn-info ink-reaction btn-primary addbutton" id="myBtn"><span class="fa fa-plus"></span></button>
+            @endif
 		@endsection()
 
         @section('card-content')
@@ -34,12 +36,16 @@
 								<td>{{ $item->Aeronave }}</td>
 								<td>{{ $item->Grupo }}</td>
                                 <td>
+                                    @if ($permiso->eliminar == 1)
                                     <div class="col-sm-6">
                                         <a href="javascript:void(0)" class="btn btn-danger btn-block editbutton" ><div class="gui-icon"><i class="fa fa-times"></i></div></a>
                                     </div>
+                                    @endif
+                                    @if ($permiso->actualizar == 1)
                                     <div class="col-sm-6">
                                         <a href="javascript:void(0)" class="btn btn-primary btn-block editbutton" ><div class="gui-icon"><i class="fa fa-edit"></i></div></a>
                                     </div>
+                                    @endif
                                 </td>                                                              
                             </tr>
                             @endforeach

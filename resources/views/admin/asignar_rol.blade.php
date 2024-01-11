@@ -81,8 +81,12 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <div class="col-sm-12">
-                                        <a href="javascript:void(0)" class="btn btn-danger btn-block editbutton" ><div class="gui-icon"><i class="fa fa-times"></i></div></a>
+                                    <div class="col-sm-12">                                        
+                                        <form id="frmURol" name="frmURol" method="POST">
+                                            @csrf
+                                            <input name="usuario_rol_id" type="hidden" value="{{ $item->usuario_rol_id }}">
+                                            <button type="button" id="btn-urol-delete" class="btn btn-danger btn-block editbutton"><div class="gui-icon"><i class="fa fa-times"></i></div></button>
+                                        </form>
                                     </div>
                                 </td>
                             </tr>
@@ -110,6 +114,7 @@
                                                     <th>ID Usuario</th>
                                                     <th>ID Rol</th>
                                                     <th>ID Privilegio</th>
+                                                    <th>ID Menu Padre</th>
                                                     <th>ID Menu</th>
                                                     <th>Rol</th>
                                                     <th>Módulo</th>
@@ -129,6 +134,7 @@
                                                     <td>{{ $item->rol_id }}></td>
                                                     <td>{{ $item->rol_privilegio_id }}</td>
                                                     <td>{{ $item->menu_id }}</td>
+                                                    <td>{{ $item->menu_padre_id }}</td>
                                                     <td>{{ $item->rol }}</td>
                                                     <td>{{ $item->modulo }}</td>
                                                     <td>{{ $item->nombre_pantalla }}</td>
@@ -245,7 +251,8 @@
                         { data: "usuario_id" },
                         { data: "rol_id" },
                         { data: "rol_privilegio_id" },
-                        { data: "menu_id" },
+                        { data: "menu_padre_id" },
+                        { data: "menu_id" },                        
                         { data: "rol" },
                         { data: "modulo" },
                         { data: "nombre_pantalla" },
@@ -258,7 +265,7 @@
                 });
 
                 var dtUPriv = $('#tb_upriv').DataTable();
-                dtUPriv.columns([1,2,3,4]).visible(false);
+                dtUPriv.columns([1,2,3,4,5]).visible(false);
 
                 $('#btn_priv').click(function (e) {
                     e.preventDefault();
@@ -279,6 +286,7 @@
                     var rol_id = parseInt(data['rol_id']);
                     var rol_privilegio_id = parseInt(data['rol_privilegio_id']);
                     var menu_id = data['menu_id'];
+                    var menu_padre_id = data['menu_padre_id'];
 
                     idUsuario = usuario_id;
 
@@ -286,6 +294,9 @@
 
                     if (this.checked && index === -1) {
                         menu_selected.push(menu_id);
+                        if (menu_padre_id != 0) {
+                            menu_selected.push(menu_padre_id);
+                        }
                         urol_selected.push({ usuario_id: usuario_id, rol_id: rol_id, rol_privilegio_id: rol_privilegio_id });
                     }
                     else if (!this.checked && index !== -1) {
@@ -313,7 +324,7 @@
                             type: "POST",
                             data: {
                                 usuario_id: usuario_id,
-                                menu_id: menus == "" ? null : menus,
+                                menu_id: menus == "" || menus == 0 ? null : menus,
                                 uroles: JSON.stringify(urol_selected)
                             },
                             dataType: 'json',
@@ -353,6 +364,53 @@
                             confirmButtonColor: "#3085d6"
                         });
                     }
+                });
+
+                $('#btn-urol-delete').click(function (e) {
+                    e.preventDefault();
+
+                    Swal.fire({
+                        icon: 'question',
+                        title: 'Eliminar Rol',
+                        text: '¿Estás seguro que quieres eliminar?',
+                        allowOutsideClick: false,
+                        showConfirmButton: true,
+                        showCancelButton: true,
+                        confirmButtonText: 'Eliminar',
+                        cancelButtonText: 'Cancelar',
+                        cancelButtonColor: "#ed1c24",
+                    }).then(result => {
+                        if (result.dismiss != "cancel") {
+                            $.ajax({
+                                url: "{{ route('eliminar.asignar') }}",
+                                type: $("#frmURol").attr("method"),
+                                data: $("#frmURol").serialize(),
+                                dataType: 'json',
+                                success: function (response) {
+                                    if (response.tipo == 0) {  
+                                        Swal.fire({
+                                            icon: 'success',
+                                            title: 'Asignar Rol',
+                                            html: response.mensaje,
+                                            confirmButtonText: 'Aceptar'
+                                        }).then(result => {
+                                            var ruta = '{{ route("asignar.rol", ":id") }}';
+                                            ruta = ruta.replace(':id', response.id);
+                                            window.location = ruta;
+                                        });  
+                                    }
+                                    else {
+                                        Swal.fire({
+                                            icon: 'error',
+                                            title: 'ERROR',
+                                            html: response.mensaje,
+                                            confirmButtonText: 'Aceptar'
+                                        });
+                                    }
+                                }
+                            });
+                        }
+                    });                    
                 });
             });
         </script>

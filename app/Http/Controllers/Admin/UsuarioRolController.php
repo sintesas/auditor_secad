@@ -89,6 +89,7 @@ class UsuarioRolController extends Controller
     }
 
     public function crearAsignar(Request $request) {
+        // \Log::info($request->get('menu_id'));
         $m = new UsuarioMenu;
         $umenu = $m->crud_usuarios_menu($request);
         $uroles = json_decode($request->get('uroles'));
@@ -108,6 +109,30 @@ class UsuarioRolController extends Controller
         }
         else {
             return response()->json(array('status' => false, 'mensaje' => 'Error guardado.'));
+        }
+    }
+
+    public function eliminarAsignar(Request $request) {
+        $urol = UsuarioRol::find($request->get('usuario_rol_id'));
+        $usuario_rol_id = $urol->usuario_rol_id;
+        $usuario_id = $urol->usuario_id;
+
+        try {
+            $urol->delete();
+
+            if ($urol) {
+                $db = UsuarioMenu::where('usuario_id', $usuario_id)->delete();
+
+                if ($db) {
+                    $response = json_encode(array('mensaje' => 'Fue eliminado exitosamente.', 'id' => $usuario_rol_id, 'tipo' => 0), JSON_NUMERIC_CHECK);
+                    $response = json_decode($response);
+
+                    return response()->json($response, 200);
+                }                
+            }
+        }
+        catch (\Exception $e) {
+            return response()->json(array('tipo' => -1, 'mensaje' => $e));
         }
     }
 }
