@@ -206,7 +206,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('usuariorol', UsuarioRolController::class);
     Route::get('usuariorol/asignar/{id}', [UsuarioRolController::class, 'asignarRol'])->name('asignar.rol');
     Route::post('usuariorol/asignar/crear', [UsuarioRolController::class, 'crearAsignar'])->name('crear.asignar');
-    Route::post('usuariorol/asignar/eliminar', [UsuarioRolController::class, 'eliminarAsignar'])->name('eliminar.asignar');
+    Route::get('usuariorol/asignar/eliminar/{id}', [UsuarioRolController::class, 'eliminarAsignar'])->name('eliminar.asignar');
 
     Route::resource('rol', RolController::class);
     Route::resource('rolprivilegio', RolPrivilegioController::class);
@@ -324,6 +324,9 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('informehistorialprograma', InformeHistorialProgramaController::class);
     Route::post('pdftodb', [InformeResumenProgramaController::class,'pdftodb'])->name('pdftodb');
     Route::resource('informeresumenprograma', InformeResumenProgramaController::class);
+
+    Route::get('informe/informelafr212/preview/{id}', [InformeLAFR212Controller::class, 'informe_preview'])->name('lafr212.informe.preview');
+    Route::get('informe/informelafr212/{id}', [InformeLAFR212Controller::class, 'informe'])->name('lafr212.informe');
     
     Route::resource('observaContratos', ObservacionesContratoController::class);
     Route::resource('detalleprograma', DetalleProgramaController::class);

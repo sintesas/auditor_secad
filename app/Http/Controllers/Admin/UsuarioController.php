@@ -109,10 +109,35 @@ class UsuarioController extends Controller
         $password = $request->get('password');
         $password_match = $request->get('password_match');
 
-        if ($password == $password_match) {
+        if ($password != "") {
+            if ($password == $password_match) {
+                $user = Usuario::find($usuario_id);
+                $user->usuario = strtolower($request->get('usuario'));
+                $user->password = bcrypt($password);
+                $user->nombre_completo = strtoupper($request->get('nombre_completo'));
+                $user->email = strtolower($request->get('email'));
+                $user->activo = ($request->get('activo') == true) ? 1 : 0;
+                $user->usuario_modificador = \Session::get('username');
+                $user->fecha_modificacion = \DB::raw("GETDATE()");
+                $user->save();
+
+                $notification = array(
+                    'message' => 'El usuario se actualizó correctamente', 
+                    'alert-type' => 'success'
+                );
+                return redirect()->route('usuario.index')->with($notification);
+            }
+            else {     
+                $notification = array(
+                    'message' => 'Las contraseñas no coinciden.', 
+                    'alert-type' => 'error'
+                );
+                return back()->with($notification);   
+            }
+        }
+        else {
             $user = Usuario::find($usuario_id);
             $user->usuario = strtolower($request->get('usuario'));
-            $user->password = bcrypt($password);
             $user->nombre_completo = strtoupper($request->get('nombre_completo'));
             $user->email = strtolower($request->get('email'));
             $user->activo = ($request->get('activo') == true) ? 1 : 0;
@@ -125,13 +150,6 @@ class UsuarioController extends Controller
                 'alert-type' => 'success'
             );
             return redirect()->route('usuario.index')->with($notification);
-        }
-        else {     
-            $notification = array(
-                'message' => 'Las contraseñas no coinciden.', 
-                'alert-type' => 'error'
-            );
-            return back()->with($notification);   
         }
     }
 

@@ -1166,7 +1166,6 @@ textarea {
 
 ::-webkit-scrollbar {
     width: 8px;
-    height: 8px;
 }
   
 ::-webkit-scrollbar-thumb {
@@ -1176,4 +1175,120 @@ textarea {
 
 ::-webkit-scrollbar-thumb:hover{
     background: rgba(0, 0, 0, 0.384); 
+}
+
+.modal-box {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1050;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    outline: 0;
+    background: rgba(0, 0, 0, 0.7);    
+}
+
+.modal-box-1 {
+    z-index: 1051 !important;
+}
+
+.modal-box-inner {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.modal-box-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    pointer-events: auto;
+    border-radius: 0.35rem;
+    box-shadow: 0 0.25rem 0.5rem rgb(0 0 0 / 50%);
+}
+
+.modal-box-sm {
+    width: 25vw;
+}
+
+.modal-box-md {
+    width: 35vw;
+}
+
+.modal-box-lg {
+    width: 50vw;
+}
+
+.modal-box-lg1 {
+    width: 80vw;
+}
+
+.modal-box-h95 {
+    height: 95vh;
+}
+
+.modal-box-header {
+    width: 100%;
+    height: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #001767;
+    color: white;
+    border-top-left-radius: 0.35rem;
+    border-top-right-radius: 0.35rem;
+}
+
+.modal-header-dark {
+    background-color: #00a65a !important;
+}
+
+.modal-box-body {
+    flex: 1;
+    background-color: white;
+    padding: 20px;
+    overflow: hidden;
+}
+
+.modal-box-footer {
+    background-color: #dfdfdf;
+    padding: 0.7rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    border-top: 1px solid #ced4da;
+    border-bottom-left-radius: 0.35rem;
+    border-bottom-right-radius: 0.35rem;
+}
+
+.modal-box-footer .btn {
+    padding: 0.25rem 1rem;
+    font-size: 13px;
+    width: 100px !important;
+}
+
+.modal-box-footer .btn-primary {
+    background-color: #3c8dbc;
+}
+
+.modal-box-footer > * {
+    margin: 0.25rem;
+}
+
+.close-modal {
+    cursor: pointer;
+}
+
+.modal-box .close {
+    opacity: unset;
+    color: white;
 }

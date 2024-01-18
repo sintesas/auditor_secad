@@ -98,6 +98,10 @@ class DetalleProgramaController extends Controller
 
         $areas = ['ACPA'=>'ACPA - Área Certificación Productos Aeronáuticos',
                   'AREV'=>'AREV - Área Reconocimiento y Evaluación'];
+
+        $estado_cert = \DB::select("select * from vw_cp_estado_certificacion");
+        $estadosc = collect($estado_cert);
+        $estadosc->prepend('None');
  
         return view ('programasSecad.controlProgramas.ver_tablas_detallePrograma')
                ->with('consecutivo', $consecutivo)
@@ -112,7 +116,8 @@ class DetalleProgramaController extends Controller
                ->with('Repuesto', $Repuesto)
                ->with('alcances', $alcances)
                ->with('areas', $areas)
-               ->with('Referencia', $Referencia);
+               ->with('Referencia', $Referencia)
+               ->with('estadosc', $estadosc);
     }
 
     public function generate_numbers($start, $count, $digits) {
@@ -177,6 +182,8 @@ class DetalleProgramaController extends Controller
        $programa->FechaTermino = $request->input('FechaTermino');
        $programa->IdRespuestoModificacion = $request->input('IdRespuestoModificacion');
        $programa->IdAReferenciaPrograma = $request->input('IdAReferenciaPrograma');
+       $programa->AnioCertificacion = $request->input('AnioCertificacion');
+       $programa->IdEstadoCertificacion = $request->input('IdEstadoCertificacion');
        // $programa->IdBaseCertificacion = $request->input('IdBaseCertificacion');
        $programa->Finalizado = $request->input('Finalizado');
        $programa->FechaFin = $request->input('FechaFin');

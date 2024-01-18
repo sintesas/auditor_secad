@@ -45,9 +45,9 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <div class="col-sm-6">
+                                    {{!--<div class="col-sm-6">
                                         <a href="javascript:void(0)" class="btn btn-danger btn-block editbutton" ><div class="gui-icon"><i class="fa fa-times"></i></div></a>
-                                    </div>
+                                    </div>--}}
                                     <div class="col-sm-6">
                                         <a href="{{ route('listasvalores.edit', $item->lista_dinamica_id) }}" class="btn btn-primary btn-block editbutton" ><div class="gui-icon"><i class="fa fa-pencil"></i></div></a>
                                     </div>

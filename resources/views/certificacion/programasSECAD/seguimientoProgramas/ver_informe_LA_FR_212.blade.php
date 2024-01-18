@@ -20,7 +20,7 @@
 
 		@section('card-content')
 
-			<div class="col-lg-12 text-center" >
+		<div class="col-lg-12 text-center" >
 			 <div class="row encabezadoPlanInspeccion">
                             
 				<div class="col-xs-12 text-center">
@@ -36,8 +36,10 @@
 						<tr>
 							<th><b>Consecutivo</b></th>
 							<th><b>Proyecto</b></th>
+							{{-- @role('jefe-area-certificacion|administrador') --}}
 							<th><b>Observaciones</b></th>
-							<th style="width: 120px;" colspan = "1 " class="text-center"><b>Ver Informe</b></th>
+							{{-- @endrole --}}
+							<th style="width: 120px;" colspan = "1" class="text-center"><b>Ver Informe</b></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -45,6 +47,7 @@
 						<tr>
 							<td>{{$programas->Consecutivo}}</td>
 							<td>{{$programas->Proyecto}}</td>
+							{{-- @role('jefe-area-certificacion|administrador') --}}
 							<td>
 								<div class="col-sm-6">
 
@@ -52,6 +55,7 @@
 
 								</div>
 							</td>
+							{{-- @endrole --}}
 							<td>
 								{{-- <div class="col-sm-6">
 
@@ -63,10 +67,12 @@
 								</div> --}}
 
 
+								{{-- <div class="col-sm-6">
+									<a href="{{route('informelafr212.show', $programas->IdPrograma) }}" class="btn btn-danger btn-block editbutton" ><div class="gui-icon"><i class="fa fa-search"></i></div></a>
+								</div> --}}
+
 								<div class="col-sm-6">
-
-									<a href="{{route('informelafr212.show', $programas->IdPrograma) }}" class="btn btn-primary btn-block editbutton" ><div class="gui-icon"><i class="fa fa-search"></i></div></a>
-
+									<button type="button" class="btn btn-primary btn-block editbutton" onclick="informe({{$programas->IdPrograma}})"><div class="gui-icon"><i class="fa fa-search"></i></div></button>
 								</div>
 							</td>
 							{{-- <td>{{$ata->Activo}}</td> --}}
@@ -84,10 +90,34 @@
 			</div><!--end .table-responsive -->
 		</div><!--end .col -->
 
+		<div id="lafr212Modal" class="modal-box">
+			<div class="modal-box-inner">
+				<div class="modal-box-content modal-box-lg1 modal-box-h95">
+					<div class="modal-box-header">
+						<h3 class="modal-box-title">Informe</h3>
+						<span class="close-modal" onclick="document.getElementById('lafr212Modal').style.display='none'"><i class="fa fa-times-circle"></i></span>
+					</div>
+					<div class="modal-box-body">
+						<iframe id="iframe" width="100%"></iframe>
+					</div>
+					<div class="modal-box-footer">
+        				<button type="button" class="btn btn-danger" onclick="document.getElementById('lafr212Modal').style.display='none'">Cerrar</button>
+        				<button type="button" class="btn btn-primary"><a id="larfr212Descargar" href="" style="text-decoration: none;">Descargar</a></button>
+    				</div>
+				</div>
+			</div>
+		</div>
+
 		@endsection()
 
 
 	@endsection()
+
+	<style>
+		#iframe {
+    		height: calc(100% - 2px);
+		}
+    </style>
 
 @section('addjs')
 
@@ -98,8 +128,20 @@
 		$('#example').DataTable({
 			"order": [[ 0, "desc" ]]
 		});
-		
 	});
+</script>
+<script>
+	function informe(id) {
+		var url = '{{ route("lafr212.informe.preview", ":id") }}';
+      	url = url.replace(':id', id) + '#zoom=100&toolbar=0';
+		document.getElementById('iframe').src = url;
+
+		var url_descargar = '{{ route("lafr212.informe", ":id") }}'
+		url_descargar = url_descargar.replace(':id', id);
+		document.getElementById('larfr212Descargar').href = url_descargar;
+
+		document.getElementById('lafr212Modal').style.display = 'block';
+	};
 </script>
 
 @endsection()
