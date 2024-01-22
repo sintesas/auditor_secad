@@ -559,8 +559,7 @@
         </thead>
         <tbody>
             <tr>
-                <td style="font-size: 11px; padding: 0px 5px !important;">
-                    <p>Observaciones:</p>
+                <td style="font-size: 11px; padding: 0px 5px !important;">                    
                     @if($obervaciones != null)
                     <p>{{$obervaciones->Observacion}}</p>
                     @else
