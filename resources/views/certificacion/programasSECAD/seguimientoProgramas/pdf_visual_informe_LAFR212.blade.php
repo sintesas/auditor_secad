@@ -53,7 +53,7 @@
         .top {
             vertical-align: top;
         }
-        .table1, .table2, .table3, .table4 {
+        .table1, .table2, .table3 {
             width: 100%;
             border-collapse: collapse;
         }
@@ -71,6 +71,9 @@
         .table1 img {
             width: 30%;
             vertical-align: middle;
+        }
+        .table4 {
+            width: 100%;
         }
         .d1 {
             border-bottom: 1px solid black;
@@ -205,6 +208,19 @@
             border-bottom: 2px solid black;
             border-right: 1px solid black;
         }
+        div.table {
+            border: 1px solid black;
+            display: table; width: 100%;
+        }
+        div.tr {
+            border: 1px solid black;
+            display: table-row;            
+        }
+        div.td {
+            border: 1px solid black;
+            display: table-cell;
+            padding: 5px;
+        }
     </style>
 </head>
 <body>
@@ -284,22 +300,20 @@
                                 <td class="td3 center">{{$informelafr212R->Nombre}}</td>
                                 <td class="td3 center">{{$informelafr212R->Equipo}}</td>
                                 <td class="td3">
-                                    <table class="table4">
-                                        <tbody>
-                                            <tr>
-                                                <td>Nombre:</td>
-                                                <td>{{($informelafr212R->ParteNumero)?$informelafr212R->ParteNumero:'---'}}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Original (OEM):</td>
-                                                <td>{{($informelafr212R->NSN)?$informelafr212R->NSN:'---'}}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Otro (¿Cuál?):</td>
-                                                <td>---</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                    <div class="table">
+                                        <div class="tr">
+                                            <div class="td">Nombre:</div>
+                                            <div class="td">{{($informelafr212R->ParteNumero)?$informelafr212R->ParteNumero:'---'}}</div>
+                                        </div>
+                                        <div class="tr">
+                                            <div class="td">Original (OEM):</div>
+                                            <div class="td">{{($informelafr212R->NSN)?$informelafr212R->NSN:'---'}}</div>
+                                        </div>
+                                        <div class="tr">
+                                            <div class="td">Otro (¿Cuál?):</div>
+                                            <div class="td">---</div>
+                                        </div>
+                                    </div>
                                 </td>
                                 <td class="td3">
                                     @foreach($programa->programas as $certificacion)
@@ -484,8 +498,8 @@
                 <th class="th1-1 center">5.1. Valor Porcentual de Avance (%)</th>
             </tr>
             <tr>
-                <td class="center"><p style="padding: 5px !important;font-size: 14px;font-weight: 700;">Relación del <u>Número de Actividades Cumplidas </u> con respecto al  <u>Número Total de Actividades del Procedimiento</u></p></td>
-                <td class="center"><p style="padding: 5px !important;font-size: 20px;font-weight: 700;">{{$porcentajeTotal}}%</p></td>
+                <td class="center"><p style="padding: 5px !important;font-size: 10px;">Relación del <u>Número de Actividades Cumplidas </u> con respecto al <u>Número Total de Actividades del Procedimiento</u></p></td>
+                <td class="center"><p style="padding: 5px !important;font-size: 10px;">{{$porcentajeTotal}}%</p></td>
             </tr>
         </tbody>
     </table>
@@ -500,36 +514,49 @@
             <td colspan="6" style="background: #c0c0c0;font-size: 10px; padding: 5px !important;">La autoridad representada por SECAD se reserva el derecho de aceptación de los datos registrados en el presente documento.</td>
             </tr>
             <tr>
-                <td colspan="2" class="center" style="background: #c0c0c0;font-size: 11px; padding: 5px !important;"><strong>Marcar con una "X"</strong></td>
-                <td class="center" style="background: #c0c0c0;font-size: 11px; padding: 5px !important;"><strong>Dependencia SECAD</strong></td>
-                <td colspan="2" class="center" style="background: #c0c0c0;font-size: 11px; padding: 5px !important;"><strong>Firma</strong></td>
-                <td class="center" style="background: #c0c0c0;font-size: 11px; padding: 5px !important;"><strong>Fecha</strong></td>
+                <td class="center" style="background: #c0c0c0;font-size: 11px; padding: 5px !important;"><strong>Marcar con una "X"</strong></td>
+                <td class="center" style="background: #c0c0c0;font-size: 11px; padding: 5px !important;"><strong>GRADO NOMBRES Y APELLIDOS</strong></td>
+                <td class="center" style="background: #c0c0c0;font-size: 11px; padding: 5px !important;"><strong>CARGO</strong></td>
+                <td colspan="2" class="center" style="background: #c0c0c0;font-size: 11px; padding: 5px !important;"><strong>FIRMA</strong></td>
+                <td class="center" style="background: #c0c0c0;font-size: 11px; padding: 5px !important;"><strong>FECHA</strong></td>
             </tr>
             <tr>                    
-                <td style="font-size: 11px; padding: 5px !important;">&nbsp;</td>
-                <td style="font-size: 11px; padding: 5px !important;">Aceptado</td>
-                <td rowspan="2" class="center" style="font-size: 11px; padding: 5px !important;">Responsable Programa de Certificación SECAD</td>
-                <td colspan="2" rowspan="2" style="font-size: 11px; padding: 5px !important;">&nbsp;</td>
-                <td rowspan="2" style="font-size: 11px; padding: 5px !important;">&nbsp;</td>
+                <td style="font-size: 12px; padding: 5px 5x 5px 10px !important;">
+                    <div class="checkboxes">
+                        <label><input type="checkbox"><span>Aceptado</span><label>
+                    </div>
+                    <div class="checkboxes">
+                        <label><input type="checkbox"><span>Denegado</span><label>
+                    </div>
+                </td>
+                <td class="center" style="font-size: 11px; padding: 5px !important;">{{ $jefe->Nombres }} {{ $jefe->Apellidos }}</td>
+                <td class="center" style="font-size: 9px; padding: 5px !important;">Responsable Programa de Certificación SECAD</td>
+                <td colspan="2" class="center" style="font-size: 11px; padding: 5px !important;"></td>
+                <td class="center" style="font-size: 11px; padding: 5px !important;">{{ date('d-m-Y') }}</td>
             </tr>
             <tr>                    
-                <td style="font-size: 11px; padding: 5px !important;">&nbsp;</td>
-                <td style="font-size: 11px; padding: 5px !important;">Denegado</td>
-            </tr>
-            <tr>
-                <td style="font-size: 11px; padding: 5px !important;">&nbsp;</td>
-                <td style="font-size: 11px; padding: 5px !important;">Aceptado</td>
-                <td rowspan="2" class="center" style="font-size: 11px; padding: 5px !important;">Jefe Área SECAD (ACPA / AREV)</td>
-                <td colspan="2" rowspan="2" style="font-size: 11px; padding: 5px !important;">&nbsp;</td>
-                <td rowspan="2" style="font-size: 11px; padding: 5px !important;">&nbsp;</td>
-            </tr>
-            <tr>                    
-                <td style="font-size: 11px; padding: 5px !important;">&nbsp;</td>
-                <td style="font-size: 11px; padding: 5px !important;">Denegado</td>
+                <td style="font-size: 12px; padding: 5px 5x 5px 10px !important;">
+                    <div class="checkboxes">
+                        <label><input type="checkbox"><span>Aceptado</span><label>
+                    </div>
+                    <div class="checkboxes">
+                        <label><input type="checkbox"><span>Denegado</span><label>
+                    </div>
+                </td>
+                <td class="center" style="font-size: 11px; padding: 5px !important;">{{ $suplente->Nombres }} {{ $suplente->Apellidos }}</td>
+                <td class="center" style="font-size: 9px; padding: 5px !important;">Jefe Área Certificación Productos Aeronáuticos (ACPAE) /<br />Jefe Área Reconocimiento y Evaluación (AREVA)</td>
+                <td colspan="2" class="center" style="font-size: 11px; padding: 5px !important;"></td>
+                <td class="center" style="font-size: 11px; padding: 5px !important;">{{ date('d-m-Y') }}</td>
             </tr>
         </tbody>
     </table>
     <table class="table2">
+        <thead>
+            <tr>
+                <th class="th1-1 center" style="width: 500px;">6.1 Observaciones</th>
+                <th class="th1-1 center">6.2 Sello Secad</th>
+            </tr>
+        </thead>
         <tbody>
             <tr>
                 <td style="font-size: 11px; padding: 0px 5px !important;">
@@ -540,6 +567,7 @@
                     <p></p>
                     @endif
                 </td>
+                <td>&nbsp;</td>
             </tr>
         </tbody>
     </table>
@@ -547,7 +575,7 @@
         <tbody>
             <tr>
                 <td style="font-weight: 700; font-size: 11px; text-align: center; font-style: italic;">
-                    <p>Fuerza Aérea Colombiana (FAC) - Autoridad Aeronáutica de la Aviación de Estado (AAAE) - Decreto No. 2937 del 05-Agosto-2010</p>
+                    <p>Fuerza Aeroespacial Colombiana (FAC) - Autoridad Aeronáutica de la Aviación de Estado (AAAE) - Decreto No. 2937 del 05-Agosto-2010</p>
                 </td>
             </tr>
         </tbody>

@@ -380,7 +380,7 @@ class InformeLAFR212Controller extends Controller
         $obervaciones = ObservacionesLAFR212::getLastByIdprograma($IdPrograma);
         $informelafr212R = $informelafr212->first();
         $jefe = Programa::infoPersona($informelafr212R->IdPersonalJefePrograma);
-        $suplente = Programa::infoPersona($informelafr212R->IdPersonalJefeSuplente);
+        $suplente = Programa::infoPersona($informelafr212R->IdPersonalJefeSuplente);        
 
         $pdf = Pdf::loadView('certificacion.programasSECAD.seguimientoProgramas.pdf_visual_informe_LAFR212',
                     compact('informelafr212',

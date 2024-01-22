@@ -19,7 +19,7 @@ class TipoProgramaController extends Controller
         $p = new Permiso;
         $permiso = $p->getPermisos('CP');
         /*$tipoprogramas= \DB::select("EXEC AUFACSP_Mst_TiposPrograma @ProcId = 5");*/
-        $tipoprogramas= TipoPrograma::orderBy('Tipo', 'asc')->paginate(10);
+        $tipoprogramas= TipoPrograma::all();
         return view ('certificacion.variables.ver_tipo_programa')->with('tipoprogramas', $tipoprogramas)->with('permiso', $permiso);
     }
 
