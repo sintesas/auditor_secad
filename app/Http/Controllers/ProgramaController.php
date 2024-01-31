@@ -39,6 +39,7 @@ use App\Models\Banco;
 // ensayos
 use App\Models\Ensayo;
 use App\Models\TipoEnsayo;
+use App\Models\Permiso;
 
 class ProgramaController extends Controller
 {
