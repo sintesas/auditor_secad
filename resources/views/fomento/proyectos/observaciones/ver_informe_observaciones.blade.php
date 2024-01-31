@@ -30,6 +30,7 @@
                 </thead>
                 <tbody>
                     @foreach ($proyectosData as $item)
+                    @if ($permiso->consultar == 1)
                     <tr>
                         <td>{{$item->NombreProyecto}}</td>
                         <td>{{$item->FuenteRecurso}}</td>
@@ -41,6 +42,7 @@
                             </div>
                         </td>
                     </tr>
+                    @endif
                     @endforeach
                 </tbody>
             </table>

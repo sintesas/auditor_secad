@@ -29,6 +29,7 @@ Informe Personal Perfil
 			</thead>
 			<tbody>
 				@foreach ($nivelcompetencias as $nivelcompetenciasR)
+				@if ($permiso->consultar == 1)
 				<tr>
 					<td>{{$nivelcompetenciasR->NivelCompetencia}}</td>
 					<td>{{$nivelcompetenciasR->Denominacion}}</td>
@@ -42,6 +43,7 @@ Informe Personal Perfil
 					</td>
 					{{-- <td>{{$ata->Activo}}</td> --}}
 				</tr>
+				@endif
 				@endforeach
 			</tbody>
 		</table>

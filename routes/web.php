@@ -206,11 +206,13 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('usuariorol', UsuarioRolController::class);
     Route::get('usuariorol/asignar/{id}', [UsuarioRolController::class, 'asignarRol'])->name('asignar.rol');
     Route::post('usuariorol/asignar/crear', [UsuarioRolController::class, 'crearAsignar'])->name('crear.asignar');
+    Route::get('usuariorol/asignar/eliminar/{id}', [UsuarioRolController::class, 'eliminarAsignar'])->name('eliminar.asignar');
 
     Route::resource('rol', RolController::class);
     Route::resource('rolprivilegio', RolPrivilegioController::class);
     Route::get('rolprivilegio/privilegio/{id}', [RolPrivilegioController::class, 'getRolPrivilegiosById'])->name('rolprivilegio.indice');
     Route::get('rolprivilegio/privilegio/crear/{id}', [RolPrivilegioController::class, 'createRolPrivilegio'])->name('rolprivilegio.crear');
+    Route::post('rolprivilegio/privilegio/eliminar', [RolPrivilegioController::class, 'eliminarPrivilegios'])->name('rolprivilegio.eliminar');
 
     Route::resource('nombrelista', ListaController::class);
     Route::resource('listasvalores', ListaDinamicaController::class);
@@ -323,6 +325,9 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('informehistorialprograma', InformeHistorialProgramaController::class);
     Route::post('pdftodb', [InformeResumenProgramaController::class,'pdftodb'])->name('pdftodb');
     Route::resource('informeresumenprograma', InformeResumenProgramaController::class);
+    
+    Route::get('informe/informelafr212/preview/{id}', [InformeLAFR212Controller::class, 'informe_preview'])->name('lafr212.informe.preview');
+    Route::get('informe/informelafr212/{id}', [InformeLAFR212Controller::class, 'informe'])->name('lafr212.informe');
     
     Route::resource('observaContratos', ObservacionesContratoController::class);
     Route::resource('detalleprograma', DetalleProgramaController::class);
@@ -484,6 +489,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('informeofertasporciudad', InformeOfertasPorCiudadController::class);
     Route::resource('informeofertasporcapacidad', InformeOfertasPorCapacidadController::class);
     Route::resource('informeControlObservaciones', InformeControlObservacionesController::class);
+    Route::post('informeControlObservaciones/crear', [InformeControlObservacionesController::class,'create'])->name('controlObservaciones.create');
+    Route::get('informeControlObservaciones/download', [InformeControlObservacionesController::class, 'download'])->name('controlObservaciones.download');
     //*** End Informes Fomento Aeronautico *****
     
     //*** Informes Agremiaciones *****

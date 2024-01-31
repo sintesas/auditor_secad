@@ -20,7 +20,9 @@ MOC
 
 {{ Breadcrumbs::render('moc') }}
 <!-- Begin Modal -->
+@if ($permiso->crear == 1)
 <button type="button" onclick="document.getElementById('id1').style.display='block'" style="margin-left:800px;" class="btn btn-info ink-reaction btn-primary addbutton" id="myBtn"><span class="fa fa-plus"></span></button>
+@endif
 {{-- End modal --}}
 
 @endsection()
@@ -41,24 +43,29 @@ MOC
 			</thead>
 			<tbody>
 				@foreach ($mocs as $moc)
+				@if ($permiso->consultar == 1)
 				<tr class="moc{{$moc->IdMOC}}">
 					<td>{{$moc->Numero}}</td>
 					<td>{{$moc->Medio}}</td>
 					<td>{{$moc->CodigoAC2324}}</td>
 					<td>{{$moc->DescripcionAC2324}}</td>
 					<td>
+					@if ($permiso->eliminar == 1)
 						<div class="col-sm-6">
 							<button class="btn btn-danger btn-delete delete-record " value="{{$moc->IdMOC}}"><span class="glyphicon glyphicon-trash"></span></button>
 
 						</div>
-
+						@endif
+						@if ($permiso->actualizar == 1)
 						<div class="col-sm-6">
 							<button class="btn btn-primary btn-default edit-modal" data-idmoc="{{$moc->IdMOC}}" data-numero="{{$moc->Numero}}" data-medio="{{$moc->Medio}}" data-codigo="{{$moc->CodigoAC2324}}" data-descripcion="{{$moc->DescripcionAC2324}}">
 								<span class="fa fa-edit"></span>
 							</button>
 						</div>
+						@endif
 					</td>
 				</tr>
+				@endif
 				@endforeach
 			</tbody>
 		</table>

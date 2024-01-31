@@ -11,10 +11,10 @@
                 <div class="panel-body">
                     <form method="POST" action="{{ route('login') }}">
                         {{csrf_field()}}                                    
-                        <div class="form-group {{ $errors->has('email') ? 'has-error' : '' }}">
-                            <label for="email">Email</label>
-                                <input class="form-control" type="email" name="email" value="{{old('email')}}" placeholder="Ingrese su correo">
-                                {!! $errors->first('email', '<span class="help-block">:message </span>') !!}
+                        <div class="form-group {{ $errors->has('usuario') ? 'has-error' : '' }}">
+                            <label for="Usuario">Usuario</label>
+                                <input class="form-control" type="text" name="usuario" value="{{old('usuario')}}" placeholder="Ingrese su correo">
+                                {!! $errors->first('usuario', '<span class="help-block">:message </span>') !!}
                         </div>
                         <div class="form-group {{ $errors->has('password') ? 'has-error' : '' }}" >
                             <label for="password">Contraseña </label>

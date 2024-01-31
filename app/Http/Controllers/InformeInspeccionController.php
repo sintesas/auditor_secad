@@ -10,6 +10,7 @@ use Spatie\Permission\Models\Permission;
 use App\Models\InformeInspeccion;
 use App\Models\Auditoria;
 use App\Models\TipoInforme;
+use App\Models\Permiso;
 
 class InformeInspeccionController extends Controller
 {
@@ -36,7 +37,9 @@ class InformeInspeccionController extends Controller
       }*/
 
       $informesInspeccion = InformeInspeccion::getInformes();
-          return view ('auditoria.ver_informe_inspeccion')->with('informesInspeccion', $informesInspeccion);
+      $p = new Permiso;
+      $permiso = $p->getPermisos('RE');
+          return view ('auditoria.ver_informe_inspeccion')->with('informesInspeccion', $informesInspeccion)->with('permiso', $permiso);
 
     }
 

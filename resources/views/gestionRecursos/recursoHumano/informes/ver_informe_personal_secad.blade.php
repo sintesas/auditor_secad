@@ -28,6 +28,7 @@ Informe Personal por Area SECAD
 			</thead>
 			<tbody>
 				@foreach ($cargos as $cargosR)
+				@if ($permiso->consultar == 1)
 				<tr>
 					<td>{{$cargosR->Cargo}}</td>
 					{{-- <td>{{$cargosR->Cedula}}</td> --}}
@@ -40,6 +41,7 @@ Informe Personal por Area SECAD
 					</td>
 					{{-- <td>{{$ata->Activo}}</td> --}}
 				</tr>
+				@endif
 				@endforeach
 			</tbody>
 		</table>

@@ -16,6 +16,7 @@ use App\Models\AspectoEstrategico;
 // grid
 use App\Models\ObjetivoEstrategicoAspecto;
 use App\Models\SistemaCertificacionCalidad;
+use App\Models\Permiso;
 
 class InformacionCalidadController extends Controller
 {
@@ -29,7 +30,9 @@ class InformacionCalidadController extends Controller
         // $idEmpresa = Auth::user()->IdEmpresa;
 
         $empresas = Empresa::all();
-        return view ('fomento.empresas.ver_tablas_informacion_calidad')->with('empresas', $empresas);
+        $p = new Permiso;
+        $permiso = $p->getPermisos('FA');
+        return view ('fomento.empresas.ver_tablas_informacion_calidad')->with('empresas', $empresas)->with('permiso', $permiso);
 
         // if (Auth::user()->hasRole('administrador')) {
             

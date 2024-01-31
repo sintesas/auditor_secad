@@ -13,9 +13,9 @@ Ver Especialidades
 {{ Breadcrumbs::render('especialidades') }}
 
 <!-- The Modal -->
+@if ($permiso->crear == 1)
 <button type="button" onclick="document.getElementById('id1').style.display='block'" class="btn btn-info ink-reaction btn-primary addbutton" id="myBtn"><span class="fa fa-plus"></span></button>
-
-
+@endif
 @endsection()
 
 @section('card-content')
@@ -33,12 +33,13 @@ Ver Especialidades
 			</thead>
 			<tbody>
 				@foreach ($especialidades as $especialidad)
+				@if ($permiso->consultar == 1)
 				<tr>
 					<td>{{$especialidad->NombreCuerpo}}</td>
 					<td>{{$especialidad->NombreEspecialidad}}</td>
 
 					<td>
-						
+					@if ($permiso->eliminar == 1)
 						<div class="col-sm-6">
 
 							{!! Form::open(['route' => ['especialidades.destroy', $especialidad->IdEspecialidad], 'method' => 'DELETE']) !!}									
@@ -47,19 +48,18 @@ Ver Especialidades
 
 							{!! Form::close() !!}
 						</div>
-
-
-						
-
+					@endif
+					@if ($permiso->actualizar == 1)
 						<div class="col-sm-6">
 
 							<a href="{{route('especialidades.edit', $especialidad->IdEspecialidad) }}" class="btn btn-primary btn-block editbutton" ><div class="gui-icon"><i class="fa fa-pencil"></i></div></a>
 
 						</div>
-						
+					@endif
 					</td>
 					{{-- <td>{{$ata->Activo}}</td> --}}
 				</tr>
+				@endif
 				@endforeach
 			</tbody>
 		</table>

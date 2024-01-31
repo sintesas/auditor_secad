@@ -14,9 +14,9 @@
 {{-- <button type="button" onclick="window.location='{{ route("especialistasSeg.show", "$programa->IdPrograma" . "&" ."$actividad->IdActividad") }}'" class="btn btn-info ink-reaction btn-primary addbutton" id="myBtn"><span class="fa fa-plus"></span></button> --}}
 
 <!-- The Modal -->
-@if ($gl_perfil[12] == true || $gl_perfil[13] == true || $gl_perfil[1] == true || $gl_perfil[7] == true || $gl_perfil[8] == true)
+
 <button type="button" onclick="document.getElementById('id1').style.display='block'" class="btn btn-info ink-reaction btn-primary addbutton" id="myBtn"><span class="fa fa-plus"></span></button>
-@endif
+
 @endsection()
 
 @section('card-content')
@@ -32,9 +32,9 @@
 					<th><b>Fecha</b></th>
 					<th><b>Especialista</b></th>
 					<th><b>Horas</b></th>
-					@if ($gl_perfil[12] == true || $gl_perfil[13] == true || $gl_perfil[1] == true)
+					
 					<th style="width: 120px;"><b>Acciones</b></th>
-				@endif
+	
 				</tr>
 			</thead>
 			<tbody>
@@ -43,7 +43,7 @@
 					<td>{{$especialista->Fecha}}</td>
 					<td>{{$especialista->Nombres}}</td>
 					<td>{{$especialista->Horas}}</td>
-					@if ($gl_perfil[12] == true || $gl_perfil[13] == true || $gl_perfil[1] == true)
+					
 					<td>
 						<div class="col-sm-6">
 
@@ -54,7 +54,7 @@
 							{!! Form::close() !!}
 						</div>
 					</td>
-				@endif
+		
 				</tr>
 				@endforeach
 			</tbody>

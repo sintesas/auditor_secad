@@ -42,47 +42,35 @@ use App\Models\TipoEnsayo;
 use App\Models\Permiso;
 class ProgramaController extends Controller
 {
-    public function index()
-    {
+  public function index()
+  {
 
-        // $idPersonal = Auth::user()->IdPersonal;
-        // dd($role->givePermissionTo('edit articles'));
-<<<<<<< HEAD
-        //$programas= Programa::all();
-        //$p = new Permiso;
-        //$permiso = $p->getPermisos('CP');
-        //return view ('programasSecad.controlProgramas.ver_tablas_Crearprograma')->with('programas', $programas)->with('permiso', $permiso);
-        
-        if (Auth::user()->hasRole('administrador')) {
-            $programas = Programa::all();
-            $p = new Permiso;
-            $permiso = $p->getPermisos('CP');
-            return view ('programasSecad.controlProgramas.ver_tablas_Crearprograma')->with('programas', $programas)->with('permiso', $permiso);           
-        }
-        else {
-            $programas= Programa::getByUser($idPersonal); 
-            $p = new Permiso;
-            $permiso = $p->getPermisos('CP');       
-            return view ('programasSecad.controlProgramas.ver_tablas_Crearprograma')->with('programas', $programas)->with('permiso', $permiso);           
-        }
-=======
-        // $programas= Programa::all();
-        // return view ('programasSecad.controlProgramas.ver_tablas_Crearprograma')->with('programas', $programas);
+      $idPersonal = Auth::user()->IdPersonal;
+      // $idPersonal = Auth::user()->IdPersonal;
+      // dd($role->givePermissionTo('edit articles'));
+      // $programas= Programa::all();
+      // return view ('programasSecad.controlProgramas.ver_tablas_Crearprograma')->with('programas', $programas);
 
-        $programas = Programa::all();
-        return view ('programasSecad.controlProgramas.ver_tablas_Crearprograma')->with('programas', $programas);
-        
-        // if (Auth::user()->hasRole('administrador')) {
-        //     $programas = Programa::all();
-        //     return view ('programasSecad.controlProgramas.ver_tablas_Crearprograma')->with('programas', $programas);           
-        // }
-        // else {
-        //     $programas= Programa::getByUser($idPersonal);        
-        //     return view ('programasSecad.controlProgramas.ver_tablas_Crearprograma')->with('programas', $programas);           
-        // }
->>>>>>> fb1809335013633e6a5232f65dfe0a283606d0d8
-        
-    }
+      
+      //$programas = Programa::all();
+     
+
+     
+      // if (Auth::user()->hasRole('administrador')) {
+      //     $programas = Programa::all();
+      //     return view ('programasSecad.controlProgramas.ver_tablas_Crearprograma')->with('programas', $programas);           
+      // }
+      // else {
+      //     $programas= Programa::getByUser($idPersonal);        
+      //     return view ('programasSecad.controlProgramas.ver_tablas_Crearprograma')->with('programas', $programas);           
+      // }
+
+      $programas = Programa::all();
+      $p = new Permiso;
+      $permiso = $p->getPermisos('CP');
+      return view ('programasSecad.controlProgramas.ver_tablas_Crearprograma')->with('programas', $programas)->with('permiso', $permiso);
+  }
+
 
 
 
@@ -198,6 +186,8 @@ class ProgramaController extends Controller
        $programa->FechaTermino = $request->FechaTermino;
        $programa->IdRespuestoModificacion = $request->IdRespuestoModificacion;
        $programa->IdAReferenciaPrograma = $request->IdAReferenciaPrograma;
+       $programa->AnioCertificacion = $request->AnioCertificacion;
+       $programa->IdEstadoCertificacion = $request->IdEstadoCertificacion;
        // $programa->IdBaseCertificacion = $request->IdBaseCertificacion;
        $programa->Finalizado = $request->Finalizado;
        $programa->FechaFin = $request->FechaFin;
@@ -308,6 +298,10 @@ class ProgramaController extends Controller
         $areas = ['ACPA'=>'ACPA - Área Certificación Productos Aeronáuticos',
                   'AREV'=>'AREV - Área Reconocimiento y Evaluación'];
 
+        $estado_cert = \DB::select("select * from vw_cp_estado_certificacion");
+        $estadosc = collect($estado_cert);
+        $estadosc->prepend('None');
+
         return view('programasSecad.controlProgramas.ver_tablas_editarPrograma')
             ->withPrograma($programa)
             ->with('TipoProgramas', $TipoProgramas)
@@ -329,7 +323,8 @@ class ProgramaController extends Controller
             ->with('listapersonal', $listapersonal)
             ->with('alcances', $alcances)
             ->with('areas', $areas)
-            ->with('listaespecialidadescertificacion', $listaespecialidadescertificacion);
+            ->with('listaespecialidadescertificacion', $listaespecialidadescertificacion)
+            ->with('estadosc', $estadosc);
     }
 
 
@@ -353,6 +348,8 @@ class ProgramaController extends Controller
        $programa->FechaTermino = $request->FechaTermino;
        $programa->IdRespuestoModificacion = $request->IdRespuestoModificacion;
        $programa->IdAReferenciaPrograma = $request->IdAReferenciaPrograma;
+       $programa->AnioCertificacion = $request->AnioCertificacion;
+       $programa->IdEstadoCertificacion = $request->IdEstadoCertificacion;
        // $programa->IdBaseCertificacion = $request->IdBaseCertificacion;
        if($request->Finalizado)
        {

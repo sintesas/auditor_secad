@@ -60,6 +60,7 @@
 
 						<tbody id="data_table" name="data_table">
 							@foreach ($actividades as $actividad)
+							@if ($permiso->consultar == 1)
 								<tr>
 									<td>
 										<?php
@@ -69,9 +70,21 @@
 												$respSeguimiento = explode(".", $actividad->Name);
 											}
 										?>
+										@if($isAdmin == true)
 										<div class="col-sm-6">
 											<a href="{{route('actividadesHallazgo.show', $actividad->IdTarea) }}" class="btn btn-primary btn-block editbutton" ><div class="gui-icon"><i class="fa fa-plus"></i></div></a>
-										</div>										
+										</div>
+										@else
+											@foreach ($respSeguimiento as $resp)
+
+												@if (strcmp(trim($userLogueado),trim($resp)) == 0)
+													<div class="col-sm-6">
+														<a href="{{route('actividadesHallazgo.show', $actividad->IdTarea) }}" class="btn btn-primary btn-block editbutton" ><div class="gui-icon"><i class="fa fa-plus"></i></div></a>
+													</div>
+													@break
+												@endif
+											@endforeach
+										@endif
 									</td>
 									<td>{{$actividad->EmpresaAuditadaNombre}}</td>
 									<td>{{$actividad->EmpresaAuditaNombre}}</td>
@@ -111,6 +124,7 @@
 									<td>{{$actividad->NombreFalencia}}</td>
 									<td>{{$actividad->Proceso}}</td>
 								</tr>
+								@endif
 							@endforeach
 
 						</tbody>

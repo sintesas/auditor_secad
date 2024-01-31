@@ -62,6 +62,7 @@
 					
 					<tbody id="data_table" name="data_table">
 						 @foreach ($programa as $id=> $programas)
+						 @if ($permiso->consultar == 1)
 						<tr>
 							<td style="font-size: 9px;">{{$programas[0]->Consecutivo}}</td>
 							<td style="font-size: 9px;">{{$programas[0]->Anio}}</td>
@@ -77,9 +78,11 @@
 							<td style="font-size: 8px;">{{$programas[0]->Nombres.' '.$programas[0]->Apellidos}}</td>
 							<td style="font-size: 8px;">{{$programas[0]->NombresSuplente.' '.$programas[0]->ApellidosSuplente}}</td>
 						</tr>
+						@endif
 						@endforeach 
 					</tbody>
 				</table>
+				@if ($permiso->consultar == 1)
 				<h5 id="conteo"></h5>
 				<input type="hidden" id="tablehtml">
 
@@ -88,6 +91,7 @@
 				{{--route('informeresumenprograma.create') --}}
 
 				</div><!--end .table-responsive -->
+				@endif
 			</div><!--end .col -->
 		</div>
 			 

@@ -13,9 +13,10 @@
 {{ Breadcrumbs::render('criterios') }}
 <!-- Begin Modal -->
 @if ($rol)
+@if ($permiso->crear == 1)
   <button type="button" onclick="document.getElementById('id1').style.display='block'"
         style="margin-left:800px;" class="btn btn-info ink-reaction btn-primary addbutton" id="myBtn">
-
+@endif
 @endif
   <span class="fa fa-plus"></span></button>
 {{-- End modal --}}
@@ -51,11 +52,13 @@
                     </thead>
                     <tbody>
                       @foreach($criterios as $item)
+                      @if ($permiso->consultar == 1)
                       <tr>
                         <td>{{$item->Norma}}</td>
                         <td>{{$item->Proceso}}</td>
                         <td>{{$item->SubProceso}}</td>
                         <td>
+                        @if ($permiso->eliminar == 1)
                             <div class="col-sm-6">
 
                             {!! Form::open(['route' => ['criteriosAuditoria.destroy', $item->IdCriterio], 'method' => 'DELETE']) !!}
@@ -64,13 +67,17 @@
 
                             {!! Form::close() !!}
                           </div>
+                        @endif
+                        @if ($permiso->actualizar == 1)
                           <div class="col-sm-6">
                             <a href="{{route('criteriosAuditoria.edit', $item->IdCriterio) }}" class="btn btn-primary btn-block editbutton">
                               <div class="gui-icon"><i class="fa fa-pencil"></i></div>
                             </a>
                           </div>
+                        @endif
                         </td>
                       </tr>
+                      @endif
                       @endforeach
                     </tbody>
                   </table>

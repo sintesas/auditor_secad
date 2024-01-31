@@ -47,6 +47,7 @@ Informe Afiliados Cluster
 			</thead>
 			<tbody>
 				@foreach ($cluster as $CLusters)
+				@if ($permiso->consultar == 1)
 				<tr>
 					<td>{{$CLusters->NombreCluster}}</td>
 					<td>{{$CLusters->Sigla}}</td>
@@ -59,6 +60,7 @@ Informe Afiliados Cluster
 					</td>
 					{{-- <td>{{$ata->Activo}}</td> --}}
 				</tr>
+				@endif
 				@endforeach
 			</tbody>
 		</table>

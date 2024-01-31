@@ -13,11 +13,10 @@
 		{{ Breadcrumbs::render('personal') }}
 
 		<!-- The Modal -->
-		@foreach ($gbPerfil as $itemPerfil)
-			@if ($itemPerfil->IdRol == 12 || $itemPerfil->IdRol == 21)
+		
+		@if ($permiso->crear == 1)
 			<button type="button" onclick="window.location='{{ route("personal.create") }}'" class="btn btn-info ink-reaction btn-primary addbutton" id="myBtn"><span class="fa fa-plus"></span></button>
-			@endif
-		@endforeach
+		@endif
 		@endsection()
 
 		@section('card-content')
@@ -31,25 +30,23 @@
 							<th><b>Nombres</b></th>
 							<th><b>Apellidos</b></th>
 							<th><b>Cedula</b></th>
-							@foreach ($perfil as $itemPerfil)
-								@if ($itemPerfil->IdRol == 12 || $itemPerfil->IdRol == 21)
+							
 									<th style="width: 100px;"><b>Familiares</b></th>
 									<th style="width: 100px;"><b>Cursos</b></th>
 									<th style="width: 120px;"><b>Acción</b></th>
-								@endif
-							@endforeach
+								
 						</tr>
 					</thead>
 					<tbody>
 						@foreach ($personales as $personal)
+						@if ($permiso->consultar == 1)
 						<tr>
 							<td>{{$personal->Abreviatura}}</td>
 							<td>{{$personal->Nombres}}</td>
 							<td>{{$personal->Apellidos}}</td>
 							<td>{{$personal->Cedula}}</td>
 
-							@foreach ($perfil as $itemPerfil)
-								@if ($itemPerfil->IdRol == 12 || $itemPerfil->IdRol == 21)
+							
 									<td>
 
 										<div class="col-sm-1">
@@ -65,6 +62,7 @@
 
 									</td>
 									<td>
+									@if ($permiso->eliminar == 1)
 										<div class="col-sm-6">
 
 											{!! Form::open(['route' => ['personal.destroy', $personal->IdPersonal], 'method' => 'DELETE']) !!}
@@ -73,18 +71,20 @@
 
 											{!! Form::close() !!}
 										</div>
+									@endif
 
-
+									@if ($permiso->actualizar == 1)
 										<div class="col-sm-6">
 
 											<a href="{{route('personal.edit', $personal->IdPersonal) }}" class="btn btn-primary btn-block editbutton" ><div class="gui-icon"><i class="fa fa-pencil"></i></div></a>
 
 										</div>
+									@endif
 
 									</td>
-								@endif
-							@endforeach
+						
 						</tr>
+						@endif
 						@endforeach
 					</tbody>
 				</table>

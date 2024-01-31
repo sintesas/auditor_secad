@@ -28,6 +28,7 @@ Informe Hoja de Vida
 			</thead>
 			<tbody>
 				@foreach ($personal as $personals)
+				@if ($permiso->consultar == 1)
 				<tr>
 					<td>{{$personals->Nombres}}</td>
 					{{-- <td>{{$personals->Cedula}}</td> --}}
@@ -40,6 +41,7 @@ Informe Hoja de Vida
 					</td>
 					{{-- <td>{{$ata->Activo}}</td> --}}
 				</tr>
+				@endif
 				@endforeach
 			</tbody>
 		</table>

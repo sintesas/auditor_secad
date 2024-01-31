@@ -77,7 +77,8 @@
                                         <th class="th-x" > Tiempo Duración  </th>
                                   </tr>
                                    @if(count($cursos) != 0)
-                                   @foreach($cursos as $cursosR)                              
+                                   @foreach($cursos as $cursosR)  
+                                   @if ($permiso->consultar == 1)                            
                                     <tr class="line-a">  
                                         <th class="">{{$cursosR->NombreCurso}}</th>                                       
                                         <th class="">{{$cursosR->LugarEntidad}}</th>
@@ -85,6 +86,7 @@
                                         <th class="">{{$cursosR->FechaTermino}}</th>                                        
                                         <th class="">{{$cursosR->TiempoDuracion}}</th>
                                     </tr>  
+                                    @endif
                                     @endforeach
                                       @else
                                       <tr class="line-a"> 
@@ -100,8 +102,9 @@
                 </section>
             </div><!--end #content-->
             <!-- END CONTENT -->
-
+            @if ($permiso->consultar == 1)
             <input name="Imprimir"  type="submit" id="btnExportToPDF" value="Descargar PDF" onclick="pdfToHTML()"/>			
+            @endif
         </div>
     </div>
 

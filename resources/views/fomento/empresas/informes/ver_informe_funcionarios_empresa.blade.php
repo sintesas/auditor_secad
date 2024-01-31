@@ -40,6 +40,7 @@ Informe Funcionarios Empresa
 			</thead>
 			<tbody>
 				@foreach ($empresas as $Empresas)
+				@if ($permiso->consultar == 1)
 				<tr>
 					<td>{{$Empresas->NombreEmpresa}}</td>
 					<td>{{$Empresas->SiglasNombreClave}}</td>
@@ -52,6 +53,7 @@ Informe Funcionarios Empresa
 					</td>
 					{{-- <td>{{$ata->Activo}}</td> --}}
 				</tr>
+				@endif
 				@endforeach
 			</tbody>
 		</table>

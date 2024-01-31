@@ -41,11 +41,13 @@ OFICINA CERTIFICACION AERONAUTICA DE LA DEFENSA - SECAD
 			</thead>
 			<tbody>
 				@foreach ($empresas as $empresa)
+				@if ($permiso->consultar == 1)
 				<tr>
 					<td>{{$empresa->NombreEmpresa}}</td>
 					<td>{{$empresa->FechaCreacion}}</td>
 					<td>{{$empresa->FechaActualizacion}}</td>
 				</tr>
+				@endif
 				@endforeach
 			</tbody>
 			<tfoot>

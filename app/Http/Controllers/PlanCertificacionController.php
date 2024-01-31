@@ -10,18 +10,23 @@ use App\Models\DemandaPotencial;
 use App\Models\PlanCertificacionAnual;
 use App\Models\NotasPCA;
 use App\Models\NotasProductoAeronautico;
+use App\Models\Permiso;
 
 class PlanCertificacionController extends Controller
 {
     public function index()
   {
       $pca = \DB::table('AU_Reg_PlanCertificacionAnual')->get();
-      return view ('certificacion.planCertificacionAnual.ver_certificacion')->with('pca', $pca);
+      $p = new Permiso;
+      $permiso = $p->getPermisos('PG');
+      return view ('certificacion.planCertificacionAnual.ver_certificacion')->with('pca', $pca)->with('permiso', $permiso);
   }
 
   public function notas($id)
   {
     $notas = NotasPCA::where('id_PCA',$id)->get();
+    $p = new Permiso;
+    $permiso = $p->getPermisos('PG');
     return view ('certificacion.planCertificacionAnual.notas_certificacion')
     ->with('notas', $notas);
   }

@@ -10,6 +10,7 @@ use App\Models\Personal;
 use App\Models\Rol;
 use App\Models\Roluser;
 use App\Models\User;
+use App\Models\Permiso;
 
 class AsignarUsuarioController extends Controller
 {
@@ -18,15 +19,18 @@ class AsignarUsuarioController extends Controller
 
         $personal = Personal::getlistPersonalWithRangoAndEmail();
         $roles = Role::all();
+        $p = new Permiso;
+        $permiso = $p->getPermisos('GR');
 
-        $perfil = Rol::rolUser();
+        //$perfil = Rol::rolUser();
         //$perfil=Rol::rolesUser();
 
         //dd($perfil);
         return view ('gestionRecursos/recursoHumano/ver_personal_asignar')
         ->with('personal', $personal)
-        ->with('perfil', $perfil)
-        ->with('roles', $roles);
+        //->with('perfil', $perfil)
+        ->with('roles', $roles)
+        ->with('permiso', $permiso);
     }
 
     public function create()

@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\CriteriosAuditorias;
 use App\Models\CriteriosAsociados;
 use App\Models\UsersLDAP;
+use App\Models\Permiso;
+
 
 class CriteriosController extends Controller
 {
@@ -19,10 +21,13 @@ class CriteriosController extends Controller
     {
         $rol = UsersLDAP::perteneceIGEFA();
 
-        $criterios = CriteriosAuditorias::All();   
+        $criterios = CriteriosAuditorias::All();  
+        $p = new Permiso;
+        $permiso = $p->getPermisos('RE'); 
         return view ('auditoria.crear_criterios')
                     ->with('criterios', $criterios)
-                    ->with('rol', $rol);
+                    ->with('rol', $rol)
+                    ->with('permiso', $permiso);
     }
 
     /**

@@ -9,6 +9,7 @@ use Spatie\Permission\Models\Permission;
 
 use App\Models\Anotacion;
 use App\Models\VWInformePlanMejora;
+use App\Models\Permiso;
 
 class InformePlanMejoraController extends Controller
 {
@@ -16,16 +17,13 @@ class InformePlanMejoraController extends Controller
     {
         $idPersonal = Auth::user()->IdPersonal;
 
-        if (Auth::user()->hasRole('administrador')) {
-           // $anotaciones = new Anotacion;
-            $anotaciones = Anotacion::all();            
-        }else{
-            // $anotaciones = new Anotacion;
-            $anotaciones = Anotacion::getAnotacionesByUser($idPersonal);          
-        }
+     
+        $anotaciones = Anotacion::all();   
+        $p = new Permiso;
+        $permiso = $p->getPermisos('RE');
 
         return view ('auditoria.informes.ver_informe_plan_mejora')
-                    ->with('anotaciones', $anotaciones);
+                    ->with('anotaciones', $anotaciones)->with('permiso', $permiso);
     }
     
 

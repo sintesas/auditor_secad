@@ -38,9 +38,9 @@
 	@section('card-content')
 		@section('card-title')
 			{{Breadcrumbs::render('anotacion')}}
-
+			@if ($permiso->crear == 1)
 			<button type="button" onclick="window.location='{{ route("anotacion.create") }}'" class="btn btn-info ink-reaction btn-primary addbutton" id="myBtn"><span class="fa fa-plus"></span></button>
-
+			@endif
 		@endsection()
 
 		@section('card-content')
@@ -68,6 +68,7 @@
 
 						<tbody id="data_table" name="data_table">
 							@foreach ($anotaciones as $anotacion)
+							@if ($permiso->consultar == 1)
 								@if($anotacion->EstadoAnotacion!='0')
 									<tr>
 										<td  >
@@ -112,15 +113,18 @@
 										</td>
 
 										<td>
+										@if ($permiso->eliminar == 1)
 												<div class="col-sm-6">
 													{!! Form::open(['route' => ['anotacion.destroy', $anotacion->IdAnotacion], 'method' => 'DELETE']) !!}
 													{!!Form::submit('x', ['class' => 'btn btn-danger deleteButton', 'style' => 'padding-right: 15px ;']) !!}
 													{!! Form::close() !!}
 												</div>
-
+										@endif
+										@if ($permiso->actualizar == 1)
 											<div class="col-sm-6">
 												<a href="{{route('anotacion.edit', $anotacion->IdAnotacion) }}" class="btn btn-primary btn-block editbutton" ><div class="gui-icon"><i class="fa fa-pencil iconEdit"></i></div></a>
 											</div>
+										@endif
 										</td>
 											<td>
 												<label style="margin-bottom: 50%;" class="checkbox-inline checkbox-styled">
@@ -129,6 +133,7 @@
 											</td>
 
 									</tr>
+								@endif
 								@endif
 							@endforeach
 

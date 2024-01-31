@@ -75,6 +75,7 @@
                                                 <tbody id="data_tableConvenio" name="data_tableConvenio">
                                                 @if(count($convenio) != 0)
                                                 @foreach($convenio as $convenioR)
+                                                @if ($permiso->consultar == 1)
                                                     <tr class="line-b">
                                                         <th class="text-center">{{$convenioR->NombreConv}}</th>
                                                         <th class="text-center">{{$convenioR->IdConvenios}}</th>
@@ -92,6 +93,7 @@
                                                         <th class="text-center">{{$convenioR->Pendiente}}</th>
                                                         <th class="text-center">{{$convenioR->DSDS}}</th>
                                                     </tr>
+                                                @endif
                                                 @endforeach
 
                                                 @else
@@ -102,6 +104,7 @@
                                                 </div>
                                                 @endif
                                                 </tbody>
+                                                @if ($permiso->consultar == 1)
                                                 <tfoot>
                                                     <tr>
                                                         <th class="th-x text-center" > Nombre Convenio</th>
@@ -122,6 +125,7 @@
 
                                                     </tr>
                                                 </tfoot>
+                                                @endif
                                             </table>
                                             <h5 id="conteoConvenio"></h5>
 

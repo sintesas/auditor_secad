@@ -11,7 +11,8 @@
 @section('card-content')
 @section('card-title')
 {{ Breadcrumbs::render('verseguimiento', $programa->IdPrograma, $actividad->IdActividad.'&'.$programa->IdPrograma) }}
-@if ($gl_perfil[12] == true || $gl_perfil[13] == true || $gl_perfil[1] == true || $gl_perfil[7] == true || $gl_perfil[8] == true)
+
+@if ($permiso->crear == 1)
 <button type="button" onclick="window.location='{{ route("seguimiento.show", "$programa->IdPrograma" . "&" ."$actividad->IdActividad") }}'" class="btn btn-info ink-reaction btn-primary addbutton" id="myBtn"><span class="fa fa-plus"></span></button>
 @endif
 @endsection()
@@ -29,9 +30,9 @@
 					<th><b>Situacion</b></th>
 					<th><b>Evidencias</b></th>
 					<th><b>Especialistas</b></th>
-				@if ($gl_perfil[12] == true || $gl_perfil[13] == true || $gl_perfil[1] == true)
+				
 					<th style="width: 120px;"><b>Acciones</b></th>
-				@endif
+		
 				</tr>
 			</thead>
 			<tbody>
@@ -41,14 +42,17 @@
 					<td>{{$seguimiento->Situacion}}</td>
 					<td>{{$seguimiento->Evidencias}}</td>
 					<td>
+		
 						<div class="col-sm-6">
 
 							<a href="{{route('especialistasSeg.show', $seguimiento->IdListaSeguimiento) }}" class="btn btn-primary btn-block editbutton" ><div class="gui-icon"><i class="fa fa-pencil"></i></div></a>
 
 						</div>
 					</td>
-					@if ($gl_perfil[12] == true || $gl_perfil[13] == true || $gl_perfil[1] == true)
+			
+					
 					<td>
+					@if ($permiso->eliminar == 1)
 						<div class="col-sm-6">
 
 							{!! Form::open(['route' => ['seguimientoActividades.destroy', $seguimiento->IdListaSeguimiento], 'method' => 'DELETE']) !!}
@@ -57,7 +61,7 @@
 
 							{!! Form::close() !!}
 						</div>
-
+					@endif
 
 						{{-- <div class="col-sm-6">
 
@@ -66,7 +70,7 @@
 						</div> --}}
 
 					</td>
-				@endif
+
 				</tr>
 				@endforeach
 			</tbody>

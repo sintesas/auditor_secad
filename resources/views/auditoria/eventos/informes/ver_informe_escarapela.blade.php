@@ -12,7 +12,9 @@
 		@section('card-title')
 		{{ Breadcrumbs::render('eventos') }}
 		<!-- Begin Modal -->
+		@if ($permiso->crear == 1)
 		<button type="button" onclick="window.location='{{ route("evento.create") }}'" class="btn btn-info ink-reaction btn-primary addbutton" id="myBtn"><span class="fa fa-plus"></span></button>
+		@endif
 		{{-- End modal --}}
 
 
@@ -36,6 +38,7 @@
 					</thead>
 					<tbody>
 						@foreach ($eventos as $evento)
+						@if ($permiso->consultar == 1)
 						<tr>
 							<td>{{$evento->Evento}}</td>
 							<td>{{$evento->Fecha}}</td>
@@ -51,6 +54,7 @@
 							</td>
 							{{-- <td>{{$ata->Activo}}</td> --}}
 						</tr>
+						@endif
 						@endforeach
 					</tbody>
 				</table>

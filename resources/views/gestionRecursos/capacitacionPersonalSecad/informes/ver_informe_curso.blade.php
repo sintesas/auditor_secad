@@ -28,6 +28,7 @@ Informe por Curso
 			</thead>
 			<tbody>
 				@foreach ($curso as $cursos)
+				@if ($permiso->consultar == 1)
 				<tr>
 					<td>{{$cursos->NombreCurso}}</td>
 					<td>{{$cursos->TiempoDuracion}}</td>
@@ -40,6 +41,7 @@ Informe por Curso
 					</td>
 					{{-- <td>{{$ata->Activo}}</td> --}}
 				</tr>
+				@endif
 				@endforeach
 			</tbody>
 		</table>

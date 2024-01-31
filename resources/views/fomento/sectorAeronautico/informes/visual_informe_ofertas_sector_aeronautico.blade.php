@@ -57,7 +57,7 @@
                             </div>
                         </div><!--end .row -->
                                                 
-                    
+                        @if ($permiso->consultar == 1)
                     
                         <!-- PRIMER BLOQUE DE INFOMACION -->
                         <div class="row">                            
@@ -105,7 +105,7 @@
                         <br><br>
 
                         <a href="{{route('informeofertassectoraeronautico.create') }}" style="width: 150px; font-style: Roboto;" class="btn btn-primary btn-block editbutton pull-left"><span class="fa fa-download">    Descargar PDF</span></a>
-
+                        @endif
                         
                     </div><!--end .section-body -->                   
                 </section>

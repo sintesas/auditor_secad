@@ -35,7 +35,7 @@ class UsuarioRol extends Model
     }
 
     public function eliminar_usuarios_roles_by_id(Request $request) {
-        $db = UsuarioRol::find($request->get('usuario_rol_id'));
+        $db = UsuarioRol::find($request->get('rol_privilegio_id'));
         $db->delete();
 
         return $db;

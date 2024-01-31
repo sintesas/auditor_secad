@@ -37,19 +37,19 @@
                         <div class="row">
                             <div class="col-sm-2">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="usuario" name="usuario" value="{{old('usuario', $usuario->usuario)}}" disabled>
+                                    <input type="text" class="form-control" id="usuario" name="usuario" value="{{old('usuario', $usuario->usuario)}}">
                                     <label for="usuario">Usuario</label>
                                 </div>
                             </div>
                             <div class="col-sm-5">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="nombre_completo" name="nombre_completo" value="{{old('nombre_completo', $usuario->nombre_completo)}}" disabled>
+                                    <input type="text" class="form-control" id="nombre_completo" name="nombre_completo" value="{{old('nombre_completo', $usuario->nombre_completo)}}">
                                     <label for="nombre_completo">Nombre Completo</label>
                                 </div>
                             </div>
                             <div class="col-sm-3">
                                 <div class="form-group">
-                                    <input type="email" class="form-control" id="email" name="email" value="{{old('email', $usuario->email)}}" disabled>
+                                    <input type="email" class="form-control" id="email" name="email" value="{{old('email', $usuario->email)}}">
                                     <label for="email">Email</label>
                                 </div>
                             </div>
@@ -63,13 +63,13 @@
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <input type="password" class="form-control" id="password" name="password" required>
+                                    <input type="password" class="form-control" id="password" name="password">
                                     <label for="password">Contraseña</label>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <input type="password" class="form-control" id="password_match" name="password_match" required>
+                                    <input type="password" class="form-control" id="password_match" name="password_match">
                                     <label for="password_match">Confirmar Contraseña</label>
                                 </div>
                             </div>

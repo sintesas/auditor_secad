@@ -62,6 +62,7 @@
                                     {{-- <tr>
                                         <th colspan="7"> Ciudad: <p> </p></th>
                                     </tr> --}}
+                                    @if ($permiso->consultar == 1)
                                      @if(count($ofertasPorCiudad) != 1)
                                      @foreach($ofertasPorCiudad as $ofertasPorCiudadR)
                                     <tr class="line-b">  
@@ -82,6 +83,7 @@
                                         </div>
                                       </div>
                                     @endif
+                                    @endif
                                     <!--<tr class="line-b" id="filaFinal">  
                                         <th class="">TOTAL(Capacidades x Empresas)=</th>               <th class="">...</th>
                                                                           
@@ -93,8 +95,9 @@
                 </section>
             </div><!--end #content-->
             <!-- END CONTENT -->
-
+            @if ($permiso->consultar == 1)
             <a href="{{route('informeofertasporciudad.create') }}" style="width: 150px; font-style: Roboto;" class="btn btn-primary btn-block editbutton pull-left"><span class="fa fa-download">    Descargar PDF</span></a>	
+            @endif
         </div>
     </div>
 

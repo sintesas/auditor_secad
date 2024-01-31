@@ -77,7 +77,8 @@
                                       
                                   </tr>                                  
                                    @if(count($cluster) != 1)
-                                   @foreach($cluster as $clusterR)                
+                                   @foreach($cluster as $clusterR) 
+                                   @if ($permiso->consultar == 1)               
                                     <tr class="line-b">                                                                    
                                         <th class="text-center">{{$clusterR->IdCluster}}</th>
                                         <th class="text-center">{{$clusterR->Ciudad}}</th>                             
@@ -88,6 +89,7 @@
                                         <th class="text-center">{{$clusterR->Email}}</th>
                                         <th class="text-center">{{$clusterR->Sigla}}</th>
                                   </tr>
+                                    @endif
                                     @endforeach
                                     @else
                                       <div class="section-body">
@@ -107,9 +109,9 @@
                 </section>
             </div><!--end #content-->
             <!-- END CONTENT -->
-
+            @if ($permiso->consultar == 1)
             <a href="{{ route('informeresumencluster.create') }}" style="width: 150px; font-style: Roboto;" class="btn btn-primary btn-block editbutton pull-right"><span class="fa fa-download">    Descargar PDF</span></a>
-
+            @endif
         </div>
     </div>
 

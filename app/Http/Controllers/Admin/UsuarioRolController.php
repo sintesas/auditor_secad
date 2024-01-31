@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\DB; // Agrega esta línea
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use App\Models\RolPrivilegio;
 use App\Models\Usuario;
 use App\Models\UsuarioMenu;
@@ -92,7 +95,9 @@ class UsuarioRolController extends Controller
         $m = new UsuarioMenu;
         $umenu = $m->crud_usuarios_menu($request);
         $uroles = json_decode($request->get('uroles'));
-
+        
+        $creadosExitosamente = true;
+    
         foreach ($uroles as $item) {
             $m = new UsuarioRol;
             $m->usuario_id = $item->usuario_id;
@@ -100,14 +105,40 @@ class UsuarioRolController extends Controller
             $m->rol_privilegio_id = $item->rol_privilegio_id;
             $m->usuario_creador = \Session::get('username');
             $m->fecha_creacion = \DB::raw('GETDATE()');
-            $m->save();
+    
+            
+            if (!$m->save()) {
+                $creadosExitosamente = false;
+        
+            }
         }
-
-        if ($umenu[0]->id != 0) {
+    
+        if ($creadosExitosamente) {
             return response()->json(array('status' => true, 'mensaje' => 'Fue creado exitosamente.', 'id' => $umenu[0]->id));
-        }
-        else {
-            return response()->json(array('status' => false, 'mensaje' => 'Error guardado.'));
+        } else {
+            return response()->json(array('status' => false, 'mensaje' => 'No se pudo crear correctamente.'));
         }
     }
+    
+
+    public function eliminarAsignar($usuario_rol_id) {
+        $urol = UsuarioRol::find($usuario_rol_id);
+        $usuario_id = $urol->usuario_id;
+        
+        try {
+            $urol->delete();
+
+            if ($urol) {
+                \DB::select('exec pr_actualizar_usuario_menu ?,?', [ $usuario_id, \Session::get('username') ]);  
+                $response = json_encode(array('mensaje' => 'Fue eliminado exitosamente.', 'id' => $usuario_id, 'tipo' => 0), JSON_NUMERIC_CHECK);
+                $response = json_decode($response);
+
+                return response()->json($response, 200);
+            }
+        }
+        catch (\Exception $e) {
+            return response()->json(array('tipo' => -1, 'mensaje' => $e));
+        }
+    }
+    
 }

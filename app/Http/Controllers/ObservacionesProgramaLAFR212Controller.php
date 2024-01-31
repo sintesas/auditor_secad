@@ -13,6 +13,7 @@ use App\Models\ActividadesInformeLAFR212;
 use App\Models\ObservacionesLAFR212;
 use App\Models\Tools;
 use App\Models\TipoPrograma;
+use App\Models\Permiso;
 
 class ObservacionesProgramaLAFR212Controller extends Controller
 {
@@ -27,7 +28,9 @@ class ObservacionesProgramaLAFR212Controller extends Controller
         // $idEmpresa = Auth::user()->IdEmpresa;
 
         $programas = Programa::all();
-        return view('certificacion.programasSECAD.seguimientoProgramas.ver_observacionesLAFR212Progamas')->with('programa', $programas);
+        $p = new Permiso;
+        $permiso = $p->getPermisos('CP');
+        return view('certificacion.programasSECAD.seguimientoProgramas.ver_observacionesLAFR212Progamas')->with('programa', $programas)->with('permiso', $permiso);
         
         // if (Auth::user()->hasRole('administrador')) {
         //     $programas = Programa::all();

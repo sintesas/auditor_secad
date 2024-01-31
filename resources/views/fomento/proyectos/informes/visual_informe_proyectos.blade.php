@@ -51,7 +51,7 @@
 							<th style="width: 1000px;padding-left: 0px; padding-right: 0px; text-align: center;"> Observación</th>
 						</tr>
 					</thead>
-					
+					@if ($permiso->consultar == 1)
 					<tbody id="data_table" name="data_table">
 						@forelse($proyectos as $item)
 						<tr class="line-b">
@@ -89,12 +89,14 @@
 						</tr>
 						@endforelse
 					</tbody>
+					@endif
 				</table>
+				@if ($permiso->consultar == 1)
 				<h5 id="conteo"></h5>
 				<input type="hidden" id="tablehtml">
 
 				<a id="pdfAction" href="{{route('informeControlProyectos.create') }}"  style="width: 150px; font-style: Roboto;" class="btn btn-primary btn-block editbutton pull-left"><span class="fa fa-download">    Descargar PDF</span></a>
-				
+				@endif
 				{{--route('informeresumenprograma.create') --}}
 
 				</div><!--end .table-responsive -->

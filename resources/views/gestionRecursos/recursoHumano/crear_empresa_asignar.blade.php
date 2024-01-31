@@ -88,13 +88,11 @@ Crear Usuario
 	</div>
 
 	<div  class="row">
-		@foreach ($perfil as $itemPerfil)
-			@if ($itemPerfil->IdRol == 12)
+		
 			<div class="col-sm-6">	
 				{{Form::submit('Guardar', ['class' => 'btn btn-info btn-block'])}}	
 			</div>	
-			@endif
-		@endforeach
+		
 		<div class="col-sm-6">	
 			<button type="button" onclick="window.location='{{ route("asignarusuarioEmpresa.index") }}'" style="" class="btn btn-danger btn-block">Cancelar</button>	
 		</div>										

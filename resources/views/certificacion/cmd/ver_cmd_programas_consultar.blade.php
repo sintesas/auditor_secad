@@ -28,6 +28,7 @@
 					</thead>
 					<tbody>
 						@foreach ($programas as $programa)
+						@if ($permiso->consultar == 1)
 						<tr>
 							<td>{{$programa->Consecutivo}}</td>
 							<td>{{$programa->Proyecto}}</td>
@@ -37,6 +38,7 @@
 								</div>
 							</td>
 						</tr>
+						@endif
 						@endforeach
 					</tbody>
 				</table>

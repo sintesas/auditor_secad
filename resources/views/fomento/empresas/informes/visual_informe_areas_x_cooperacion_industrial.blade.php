@@ -23,6 +23,7 @@
 		@endsection()
 
 		@section('card-content')       
+        @if ($permiso->consultar == 1)
 
 		<div class="card-body floating-label">
 		<!-- BEGIN BASE-->
@@ -127,6 +128,7 @@
 
 
 		{!! Form::close() !!}
+        @endif
         @endsection()
 
 	@endsection()

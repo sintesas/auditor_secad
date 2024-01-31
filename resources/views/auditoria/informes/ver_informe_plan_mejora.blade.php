@@ -30,6 +30,7 @@
 					</thead>
 					<tbody>
 						@foreach ($anotaciones as $anotacion)
+						@if ($permiso->consultar == 1)
 						<tr>
 							<td>{{$anotacion->NoAnota}}</td>
 							<td>{{$anotacion->Antecedente}}</td>
@@ -41,6 +42,7 @@
 							</td>
 							{{-- <td>{{$ata->Activo}}</td> --}}
 						</tr>
+						@endif
 						@endforeach
 					</tbody>
 				</table>

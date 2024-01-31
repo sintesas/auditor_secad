@@ -9,6 +9,7 @@ use App\Models\ActividadesTipoPrograma;
 use App\Models\TipoPrograma;
 use App\Models\ListasSeguimiento;
 use App\Models\EspecialistasSeguimiento;
+use App\Models\Permiso;
 
 class ListaSeguimientoProgActController extends Controller
 {
@@ -59,13 +60,16 @@ class ListaSeguimientoProgActController extends Controller
         $actividad = ActividadesTipoPrograma::find($idActividad);
         $tipoPrograma = TipoPrograma::find($programa->IdTipoPrograma);
         $seguimientos = ListasSeguimiento::getSeguimientoByProgByActi($idPrograma,$idActividad);
+        $p = new Permiso;
+        $permiso = $p->getPermisos('CP');
+
 
         //return view ('certificacion.programasSECAD.seguimientoProgramas.crear_lista_seguimiento')
         return view ('certificacion.programasSECAD.seguimientoProgramas.ver_lista_seguimiento')
                 ->with('programa', $programa)
                 ->with('actividad', $actividad)
                 ->with('tipoPrograma', $tipoPrograma)
-                ->with('seguimientos', $seguimientos);
+                ->with('seguimientos', $seguimientos)->with('permiso', $permiso);
     }
 
     /**

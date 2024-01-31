@@ -41,11 +41,12 @@
 					</thead>
 					<tbody>
 						@foreach ($contrat as $vwcontra)
+						@if ($permiso->consultar == 1)
 						<tr>
 							<td class="text-center">{{$vwcontra->Vigencia}}</td>
 							<td class="text-center">{{$vwcontra->CANT}}</td>
 							<td class="text-center">{{$vwcontra->VATOPRE }}</td>
-							@role('jefe-area-certificacion|administrador') 
+							
 							<td class="text-right">
 								<div class="col-lg-6 text-right">
 
@@ -53,8 +54,9 @@
 
 								</div>
 							</td>
-							@endrole 
+						
 						 </tr>
+						 @endif
 						 @endforeach
 					</tbody>
 				</table>

@@ -30,6 +30,7 @@ Informe Inspeccion IC FR 08
 			</thead>
 			<tbody>
 				@foreach ($audiorias as $audioria)
+				@if ($permiso->consultar == 1)
 				<tr>
 					<td>{{$audioria->Codigo}}</td>
 					<td>{{$audioria->IdEmpresa}}</td>
@@ -44,6 +45,7 @@ Informe Inspeccion IC FR 08
 					</td>
 					{{-- <td>{{$ata->Activo}}</td> --}}
 				</tr>
+				@endif
 				@endforeach
 			</tbody>
 		</table>

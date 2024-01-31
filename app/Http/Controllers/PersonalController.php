@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use File;
-
 use App\Models\Personal;
 use App\Models\TipoDocumento;
 use App\Models\CuerposFAC;
@@ -23,6 +22,8 @@ use App\Models\Talleres;
 use App\Models\Grupos;
 use App\Models\Escuadrones;
 use App\Models\Rol;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Permiso;
 
 class PersonalController extends Controller
 {
@@ -38,13 +39,15 @@ class PersonalController extends Controller
 //dd(Rol::rolesUser());
         // $perfil=Rol::rolUser();
         $idPersonal = Auth::user()->personal_id;
+        $p = new Permiso;
+        $permiso = $p->getPermisos('FA');
         $perfil = \DB::table('Rol_User as userAdmin')
                         ->where('userAdmin.IdUser',$idPersonal)
                         ->get();
         $personales = Personal::getlistPersonalWithRango();
         return view ('gestionRecursos.recursoHumano.ver_personal')
         ->with('perfil', $perfil)
-        ->with('personales', $personales);
+        ->with('personales', $personales)->with('permiso', $permiso);
     }
 
     /**

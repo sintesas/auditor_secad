@@ -37,7 +37,7 @@ class LoginController extends Controller
         $opc = 0;
 
         $credentials = $request->validate([
-            'email' => ['required', 'email'],
+            'usuario' => ['required', 'string'],
             'password' => ['required'],
         ]);
  
@@ -73,7 +73,7 @@ class LoginController extends Controller
             }
             else {
                 alert()->error('Error', "El usuario '" . $user->usuario . "' no se encuentra activo.")->persistent(true,false)->showConfirmButton('Aceptar', '#3085d6');
-                return redirect('/');
+                return view("auth.login");
             }
         }
         else {

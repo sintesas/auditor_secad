@@ -17,7 +17,7 @@ use App\Models\RegActividadesEconomicas;
 use App\Models\Municipio;
 use App\Models\VWEmpresa;
 use App\Models\Rol;
-
+use App\Models\Permiso;
 class EmpresasController extends Controller
 {
     public function get_client_ip() {
@@ -41,13 +41,15 @@ class EmpresasController extends Controller
         
     public function index()
     {   
-        $perfil = Rol::rolUser();
+        //$perfil = Rol::rolUser();
         $empresas = Empresa::all();
         $vwempresa = VWEmpresa::all();
+        $p = new Permiso;
+        $permiso = $p->getPermisos('FA');
         return view ('fomento.empresas.ver_tablas_empresas')
                 ->with('empresas', $empresas)
-                ->with('perfil', $perfil)
-                ->with('vwempresa', $vwempresa);
+                //->with('perfil', $perfil)
+                ->with('vwempresa', $vwempresa)->with('permiso', $permiso);
     }
     
     public function create()

@@ -63,6 +63,7 @@
 					
 					<tbody id="data_table" name="data_table">
 						 @foreach ($programa as $programas)
+						 @if ($permiso->consultar == 1)
 						<tr>
 							<td style="font-size: 9px;">{{$programas->Consecutivo}}</td>
 							<td style="font-size: 9px;">{{$programas->Anio}}</td>
@@ -77,6 +78,7 @@
 							<td style="font-size: 8px;">{{$programas->Jefe}}</td>
 							<td style="font-size: 8px;">{{$programas->ApellidosSuplente}} {{$programas->NombresSuplente}}</td>
 						</tr>
+						@endif
 						@endforeach 
 					</tbody>
 					<tfoot  style="font-size: 10px;">
@@ -96,12 +98,23 @@
 				</table>
 				<h5 id="conteo"></h5>
 				<input type="hidden" id="tablehtml">
+				@if ($permiso->consultar == 1)
+				<form id="miFormulario" action="{{ route('controlObservaciones.create') }}" method="post" enctype="multipart/form-data">
+    @csrf
+    <!-- Otros campos del formulario aquí -->
+    <button type="submit" style="width: 150px; font-family: 'Roboto';" class="btn btn-primary btn-block editbutton pull-left">
+        <span class="fa fa-download"></span> Generar PDF
+    </button>
+</form>
 
-				<a id="pdfAction" href="{{route('informeControlObservaciones.create') }}"  style="width: 150px; font-style: Roboto;" class="btn btn-primary btn-block editbutton pull-left"><span class="fa fa-download">    Descargar PDF</span></a>
+
 				
 				{{-- {{route('informeresumenprograma.create') }} --}}
-
+@endif
 				</div><!--end .table-responsive -->
+				
+</form>
+
 			</div><!--end .col -->
 		</div>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
@@ -115,6 +128,64 @@
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js"></script>
 {{-- <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.10.19/filtering/row-based/range_dates.js"></script> --}}
 
+<script>
+document.getElementById("miFormulario").addEventListener("submit", function (event) {
+    var estados = obtenerEstados();
+	var consecutivos = obtenerConsecutivo();
+
+    var inputEstados = document.createElement("input");
+    inputEstados.type = "hidden";
+    inputEstados.name = "estados";
+    inputEstados.value = estados;
+    this.appendChild(inputEstados);
+
+	var inputConsecutivo = document.createElement("input");
+    inputConsecutivo.type = "hidden";
+    inputConsecutivo.name = "consecutivos";
+    inputConsecutivo.value = consecutivos;
+    this.appendChild(inputConsecutivo);
+
+	
+});
+
+function obtenerEstados() {
+    var estados = "";
+    var tabla = document.getElementById("data_table");
+
+    if (tabla.rows.length > 0) {
+        for (var i = 0, row; row = tabla.rows[i]; i++) {
+            var estado = row.cells[7].innerHTML;
+            estados += estado + ",";
+        }
+        estados = estados.slice(0, -1);
+    }
+
+    return estados;
+}
+
+function obtenerConsecutivo() {
+    var consecutivos = "";
+
+    var tabla = document.getElementById("data_table");
+
+    if (tabla.rows.length > 0) {
+        for (var i = 0, row; row = tabla.rows[i]; i++) {
+            var consecutivo = row.cells[0].innerHTML; // Usar una variable diferente aquí
+            consecutivos += consecutivo + ","; // Agregar el valor al string
+        }
+        consecutivos = consecutivos.slice(0, -1);
+    }
+
+    return consecutivos;
+}
+
+
+
+
+
+</script>
+
+  
 <script type="text/javascript">
 
 $(document).ready(function() {

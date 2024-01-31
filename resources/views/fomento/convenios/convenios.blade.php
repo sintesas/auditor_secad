@@ -12,7 +12,9 @@ Convenios
 @section('card-title')
 {{ Breadcrumbs::render('convenios') }}
 <!-- Begin Modal -->
+@if ($permiso->crear == 1)
 <button type="button" onclick="document.getElementById('id1').style.display='block'" style="margin-left:800px;" class="btn btn-info ink-reaction btn-primary addbutton" id="myBtn"><span class="fa fa-plus"></span></button>
+@endif
 {{-- End modal --}}
 
 
@@ -56,6 +58,7 @@ Convenios
 										</thead>
 										<tbody>
 											@foreach ($convenios as $convenio)
+											@if ($permiso->consultar == 1)
 											<tr>
 												<td>{{$convenio->NombreConv}}</td>
 												<td>{{$convenio->Entidad}}</td>
@@ -66,6 +69,7 @@ Convenios
 
 
 												<td>
+												@if ($permiso->eliminar == 1)
 													<div class="col-sm-6">
 
 														{!! Form::open(['route' => ['convenio.destroy', $convenio->IdConvenios], 'method' => 'DELETE']) !!}
@@ -74,17 +78,19 @@ Convenios
 
 														{!! Form::close() !!}
 													</div>
-
-
+												@endif
+												@if ($permiso->actualizar == 1)
 													<div class="col-sm-6">
 
 														<a href="{{route('convenio.edit', $convenio->IdConvenios) }}" class="btn btn-primary btn-block editbutton" ><div class="gui-icon"><i class="fa fa-pencil"></i></div></a>
 
 													</div>
+												@endif
 
 												</td>
 
 											</tr>
+											@endif
 											@endforeach
 										</tbody>
 									</table>

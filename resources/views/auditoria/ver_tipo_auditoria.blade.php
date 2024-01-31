@@ -14,8 +14,9 @@ Crear Tipo Auditoria
 
 
 <!-- The Modal -->
+@if ($permiso->crear == 1)
 <button type="button" onclick="document.getElementById('id1').style.display='block'" class="btn btn-info ink-reaction btn-primary addbutton" id="myBtn"><span class="fa fa-plus"></span></button>
-
+@endif
 
 @endsection()
 
@@ -33,10 +34,12 @@ Crear Tipo Auditoria
 			</thead>
 			<tbody>
 				@foreach ($tipoAuds as $tipoAud)
+				@if ($permiso->consultar == 1)
 				<tr>
 					<td>{{$tipoAud->TipoAuditoria}}</td>
 
 						<td>
+						@if ($permiso->eliminar == 1)
 							<div class="col-sm-6">
 
 								{!! Form::open(['route' => ['tipoAuditoria.destroy', $tipoAud->IdTipoAuditoria], 'method' => 'DELETE']) !!}
@@ -45,19 +48,21 @@ Crear Tipo Auditoria
 
 								{!! Form::close() !!}
 							</div>
+						@endif
 
 
-
+						@if ($permiso->actualizar == 1)
 							<div class="col-sm-6">
 
 								<a href="{{route('tipoAuditoria.edit', $tipoAud->IdTipoAuditoria) }}" class="btn btn-primary btn-block editbutton" ><div class="gui-icon"><i class="fa fa-pencil"></i></div></a>
 
 							</div>
-
+						@endif
 						</td>
 
 					{{-- <td>{{$ata->Activo}}</td> --}}
 				</tr>
+				@endif
 				@endforeach
 			</tbody>
 		</table>

@@ -15,13 +15,15 @@
 		@endsection
 
 		@section('card-title')
-			Cantidad Anotaciones
+			CantidadS Anotaciones
 			{{-- {{ Breadcrumbs::render('APACxAuditoria') }} --}}
 
 		@endsection()
 
 		@section('card-content')
 
+	
+		@if ($permiso->consultar == 1)
 			<div class="card-body floating-label">
 				<div style="overflow-x: auto;" id="output"></div>
 			</div>
@@ -42,6 +44,7 @@
 			        );
 				});
         	</script>
+		@endif
 		@endsection()
 
 	@endsection()

@@ -24,10 +24,10 @@ class AsignarUsuarioEmpresaController extends Controller
     {
         $userComamies = User::getCompanyUsers();
 
-        $perfil = Rol::rolUser();
+        //$perfil = Rol::rolUser();
 
         return view ('gestionRecursos/recursoHumano/ver_empresa_asignar')
-            ->with('perfil', $perfil)
+            //->with('perfil', $perfil)
             ->with('userComamies', $userComamies);
     }
 
@@ -42,7 +42,7 @@ class AsignarUsuarioEmpresaController extends Controller
         $empresas = Empresa::all(['IdEmpresa', 'NombreEmpresa']);
         $empresas->prepend('None');
 
-        $perfil = Rol::rolUser();
+       // $perfil = Rol::rolUser();
 
         $idPersonal = Auth::user()->IdPersonal;
 
@@ -51,7 +51,7 @@ class AsignarUsuarioEmpresaController extends Controller
 
         return view ('gestionRecursos/recursoHumano/crear_empresa_asignar')
                 ->with('empresas', $empresas)
-                ->with('perfil', $perfil)
+                //->with('perfil', $perfil)
                 ->with('ResultUsersLDAP', $ResultUsersLDAP);
     }
 

@@ -36,6 +36,7 @@ Informe Empresas Por Sector
 			</thead>
 			<tbody>
 				@foreach ($OfertaSectorAeronautico as $OfertasSectorAeronautico)
+				@if ($permiso->consultar == 1)
 				<tr>
 					<td>{{$OfertasSectorAeronautico->OfertaComercial}}</td>
 					<td>{{$OfertasSectorAeronautico->Descripcion}}</td>
@@ -48,6 +49,7 @@ Informe Empresas Por Sector
 					</td>
 					{{-- <td>{{$ata->Activo}}</td> --}}
 				</tr>
+				@endif
 				@endforeach
 			</tbody>
 		</table>

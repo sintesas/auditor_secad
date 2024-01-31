@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\ObservacionesLAFR212;
 use App\Models\Programa;
 use App\Models\TipoPrograma;
+use App\Models\Permiso;
 
 class ObservacionesLAFR212Controller extends Controller
 {
@@ -18,9 +19,10 @@ class ObservacionesLAFR212Controller extends Controller
     public function index()
     {
         $programas = Programa::getProgramasTipo();
-
+        $p = new Permiso;
+        $permiso = $p->getPermisos('CP');
         return view ('certificacion.programasSECAD.seguimientoProgramas.ver_observacionesLAFR212_progamas')
-                ->with('programas', $programas);
+                ->with('programas', $programas)->with('permiso', $permiso);
     }
 
     /**

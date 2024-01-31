@@ -23,11 +23,9 @@ Usuarios Empresa
 Crear Usuarios Empresas
 
 <!-- The Modal -->
-	@foreach ($perfil as $itemPerfil)
-		@if ($itemPerfil->IdRol == 12)
+
 		<button type="button" onclick="window.location='{{ route("asignarusuarioEmpresa.create") }}'" class="btn btn-info ink-reaction btn-primary addbutton" id="myBtn"><span class="fa fa-plus"></span></button>
-		@endif
-	@endforeach
+	
 @endsection()
 
 @section('card-content')
@@ -42,11 +40,9 @@ Crear Usuarios Empresas
 					<th><b>Empresa</b></th>
 					<th><b>Nombre</b></th>
 					<th><b>Email</b></th>
-					@foreach ($perfil as $itemPerfil)
-						@if ($itemPerfil->IdRol == 12)
+					
 						<th style="width: 160px;"><b>Acción</b></th>
-						@endif
-					@endforeach
+						
 				</tr>
 			</thead>
 			<tbody>
@@ -58,9 +54,9 @@ Crear Usuarios Empresas
 
 					<td>{{$user->email}}</td>
 					
-					@foreach ($perfil as $itemPerfil)
+					
 						<td>
-							@if ($itemPerfil->IdRol == 12)
+							
 							<div class="col-sm-4">
 
 								{!! Form::open(['route' => ['asignarusuarioEmpresa.destroy', $user->id], 'method' => 'DELETE']) !!}
@@ -76,9 +72,9 @@ Crear Usuarios Empresas
 								<a href="{{route('asignarusuarioEmpresa.edit', $user->id) }}" class="btn btn-primary btn-block editbutton" ><div class="gui-icon"><i class="fa fa-pencil"></i></div></a>
 	
 							</div>
-							@endif
+						
 						</td>
-					@endforeach
+				
 				</tr>
 				@endforeach
 			</tbody>

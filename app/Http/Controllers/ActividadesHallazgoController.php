@@ -10,6 +10,7 @@ use Spatie\Permission\Models\Permission;
 use App\Models\UsersLDAP;
 use App\Models\DependenciasLDAP;
 use App\Models\CausasRaizTareas;
+use App\Models\Permiso;
 
 class ActividadesHallazgoController extends Controller
 {
@@ -44,9 +45,11 @@ class ActividadesHallazgoController extends Controller
         // }
 
 
+        $p = new Permiso;
+        $permiso = $p->getPermisos('RE');
 
         return view('auditoria.actividadesHallazgos.ver_tablas_actividades_hallazgos')
-                ->with('actividades', $actividades);
+                ->with('actividades', $actividades)->with('permiso', $permiso);
     }
 
     /**

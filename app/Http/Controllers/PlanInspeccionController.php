@@ -10,6 +10,7 @@ use Spatie\Permission\Models\Permission;
 use App\Models\PlanInspeccion;
 use App\Models\Auditoria;
 use App\Models\Personal;
+use App\Models\Permiso;
 
 class PlanInspeccionController extends Controller
 {
@@ -23,11 +24,13 @@ class PlanInspeccionController extends Controller
         // $idPersonal = Auth::user()->IdPersonal;
         // $name = Auth::user()->name;
 
+        $p = new Permiso;
+        $permiso = $p->getPermisos('RE');
         $planesIns = PlanInspeccion::orderBy('IdPlanInspeccion', 'desc')
             ->join('dbo.AU_Reg_Auditorias', 'dbo.AU_Reg_PlanesInspeccion.IdAuditoria', '=', 'dbo.AU_Reg_Auditorias.IdAuditoria')
             ->select('dbo.AU_Reg_PlanesInspeccion.IdPlanInspeccion','dbo.AU_Reg_Auditorias.IdAuditoria' , 'dbo.AU_Reg_Auditorias.Codigo', 'dbo.AU_Reg_PlanesInspeccion.Fecha', 'dbo.AU_Reg_PlanesInspeccion.Observaciones')
             ->get();
-            return view ('auditoria.ver_plan_inspeccion')->with('planesIns', $planesIns);
+            return view ('auditoria.ver_plan_inspeccion')->with('planesIns', $planesIns)->with('permiso', $permiso);
 
         // if (Auth::user()->hasRole('administrador')) {
         //     //$auditoriaInsp = Auditoria::find('IdPlanInspeccion')->planesInspeccion;

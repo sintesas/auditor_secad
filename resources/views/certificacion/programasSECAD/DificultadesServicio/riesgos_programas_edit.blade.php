@@ -28,16 +28,19 @@
 					</thead>
 					<tbody>
 						@foreach ($programas as $programa)
+						@if ($permiso->consultar == 1)
 						<tr>
 							<td>{{$programa->Consecutivo}}</td>
 							<td>{{$programa->Proyecto}}</td>
 							<td>
-
+							@if ($permiso->actualizar == 1)
 								<div class="col-sm-6">
 									<a href="{{route('riesgoprograma.edit', $programa->IdPrograma) }}" class="btn btn-primary btn-block editbutton" ><div class="gui-icon"><i class="fa fa-pencil"></i></div></a>
 								</div>
+							@endif
 							</td>
 						</tr>
+						@endif
 						@endforeach
 					</tbody>
 				</table>

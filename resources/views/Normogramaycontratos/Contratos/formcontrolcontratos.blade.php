@@ -12,7 +12,9 @@ Control de Contratos
 @section('card-title')
 {{ Breadcrumbs::render('formcontrolcontratos') }}
 <!-- Begin Modal -->
+@if ($permiso->crear == 1)
 <button type="button" onclick="document.getElementById('id1').style.display='block'" style="margin-left:800px;" class="btn btn-info ink-reaction btn-primary addbutton" id="myBtn"><span class="fa fa-plus"></span></button>
+@endif
 {{-- End modal --}}
 
 
@@ -59,6 +61,7 @@ Control de Contratos
 										</thead>
 										<tbody>
 											@foreach ($contratos as $contrato)
+											@if ($permiso->consultar == 1)
 											<tr>
 												<td>{{$contrato->NumeroContrato}}</td>
 												<td>{{$contrato->NombreContrato}}</td>
@@ -73,6 +76,7 @@ Control de Contratos
 												
 
 												<td>
+												@if ($permiso->eliminar == 1)
 													<div class="col-sm-6">
 
 														{!! Form::open(['route' => ['FormularioContrato.destroy', $contrato->IdPCA], 'method' => 'DELETE']) !!}
@@ -81,17 +85,18 @@ Control de Contratos
 
 														{!! Form::close() !!}
 													</div>
-
-
+												@endif
+												@if ($permiso->actualizar == 1)
 													<div class="col-sm-6">
 
 														<a href="{{route('FormularioContrato.edit', $contrato->IdPCA) }}" class="btn btn-primary btn-block editbutton" ><div class="gui-icon"><i class="fa fa-pencil"></i></div></a>
 
 													</div>
-
+												@endif
 												</td>
 												
 											</tr>
+											@endif
 											@endforeach
 										</tbody>
 									</table>

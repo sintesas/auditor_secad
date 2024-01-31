@@ -11,9 +11,7 @@
 	@section('card-content')
 		@section('card-title')
 		{{ Breadcrumbs::render('Observaciones212') }}
-		@if ($gl_perfil[12] == true || $gl_perfil[13] == true || $gl_perfil[1] == true || $gl_perfil[7] == true || $gl_perfil[8] == true)
 		<button type="button" onclick="document.getElementById('id1').style.display='block'" style="margin-left:800px;" class="btn btn-info ink-reaction btn-primary addbutton" id="myBtn"><span class="fa fa-plus"></span></button>
-		@endif
 		@endsection()
 
 		@section('card-content')
@@ -28,9 +26,7 @@
 						<tr>
 							<th><b>Observación</b></th>
 							<th><b>Fecha</b></th>
-						@if ($gl_perfil[12] == true || $gl_perfil[13] == true || $gl_perfil[1] == true)
 							<th style="width: 120px;"><b>Acciones</b></th>
-						@endif
 						</tr>
 					</thead>
 					<tbody>
@@ -38,7 +34,6 @@
 						<tr>
 							<td>{{$observacion->Observacion}}</td>
 							<td>{{$observacion->Fecha}}</td>
-						@if ($gl_perfil[12] == true || $gl_perfil[13] == true || $gl_perfil[1] == true)
 							<td>
 
 								<div class="col-sm-6">
@@ -47,7 +42,6 @@
 									{!! Form::close() !!}
 								</div>
 							</td>
-						@endif
 							{{-- <td>{{$ata->Activo}}</td> --}}
 						</tr>
 						@endforeach

@@ -71,14 +71,15 @@
                                         <th class="th-x" > Teléfono </th>
                                   </tr>
                                    @if(count($empresas) != 1)
-                                    @foreach($empresas as $empresasR)                                 
+                                    @foreach($empresas as $empresasR)     
+                                    @if ($permiso->consultar == 1)                            
                                         <tr class="line-a">  
                                             <th class="">{{$empresasR->NombreEmpresa}}</th>                                       
                                             <th class="">{{$empresasR->Nit}}</th>
                                             <th class="">{{$empresasR->Ciudad}}</th>
                                             <th class="">{{$empresasR->Telefono}}</th>
                                         </tr>
-
+                                    @endif
                                     @endforeach
                                    @else
                                     <div class="section-body">
@@ -91,8 +92,9 @@
                             </div>
                         </div><!--end .row -->     
                             <br><br>
+                        @if ($permiso->consultar == 1)
                         <a href="{{route('informetotalempresas.create') }}" style="width: 150px; font-style: Roboto;" class="btn btn-primary btn-block editbutton pull-left"><span class="fa fa-download">    Descargar PDF</span></a>    
-                        
+                        @endif
                     </div><!--end .section-body -->                   
                 </section>
             </div><!--end #content-->

@@ -13,8 +13,9 @@
 			{{Breadcrumbs::render('productos')}}
 
 		<!-- The Modal -->
+		@if ($permiso->crear == 1)
 		<button type="button" onclick="window.location='{{ route("productos.create") }}'" class="btn btn-info ink-reaction btn-primary addbutton" id="myBtn"><span class="fa fa-plus"></span></button>
-
+		@endif
 
 		@endsection()
 
@@ -39,6 +40,7 @@
 					</thead>
 					<tbody>
 						@foreach ($productos as $producto)
+						@if ($permiso->consultar == 1)
 						<tr>
 							<td>{{$producto->Anio}}</td>
 							<td>{{$producto->Nombre}}</td>
@@ -52,6 +54,7 @@
 								</div>
 							</td> --}}
 							<td>
+							@if ($permiso->eliminar == 1)
 								<div class="col-sm-4">
 									@if($producto->Activo)
 									{!! Form::open(['route' => ['productos.destroy', $producto->IdDemandaPotencial], 'method' => 'DELETE']) !!}
@@ -67,13 +70,15 @@
 									{!! Form::close() !!}
 									@endif
 								</div>
+								@endif
 
-
+								@if ($permiso->actualizar == 1)
 								<div class="col-sm-4">
 
 									<a href="{{route('productos.edit', $producto->IdDemandaPotencial) }}" class="btn btn-primary btn-block editbutton" title="Editar"><div class="gui-icon"><i class="fa fa-pencil"></i></div></a>
 
 								</div>
+								@endif
 								<div class="col-sm-4">
 
 									<a href="{{route('productos.notas', $producto->IdDemandaPotencial) }}" class="btn btn-primary btn-block editbutton" title="Ver notas"><div class="gui-icon"><i class="fa fa-clipboard"></i></div></a>
@@ -97,6 +102,7 @@
 									</div>
 							</td>
 						</tr>
+						@endif
 						@endforeach
 					</tbody>
 				</table>

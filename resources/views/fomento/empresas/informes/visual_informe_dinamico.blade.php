@@ -53,7 +53,7 @@
                         </div><!--end .row -->
 
 
-
+                        @if ($permiso->consultar == 1)
                         <!-- PRIMER BLOQUE DE INFOMACION -->
                         <div class="row">
                             <div class="col-sm-4">
@@ -125,7 +125,7 @@
                 </section>
             </div><!--end #content-->
             <!-- END CONTENT -->
-
+            @endif
 
         @if(isset($empresas))
 		{!! Form::close() !!}

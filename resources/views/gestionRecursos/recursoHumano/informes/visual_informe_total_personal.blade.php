@@ -77,7 +77,8 @@
                                         <th class="th-x" > Cargo  </th>
                                   </tr>
                                    @if(count($personal) != 0)
-                                   @foreach($personal as $personalR)                              
+                                   @foreach($personal as $personalR)  
+                                   @if ($permiso->consultar == 1)                            
                                     <tr class="line-a">  
                                         <th class="">{{$personalR->Abreviatura}}</th>                                       
                                         <th class="">{{$personalR->Apellidos}}</th>
@@ -85,6 +86,7 @@
                                         <th class="">{{$personalR->Cedula}}</th>                                        
                                         <th class="">{{$personalR->Cargo}}</th>
                                     </tr>  
+                                    @endif
                                     @endforeach
                                       @else
                                       <div class="section-body">
@@ -100,9 +102,9 @@
                 </section>
             </div><!--end #content-->
             <!-- END CONTENT -->
-
+            @if ($permiso->consultar == 1)
             <a href="{{route('informetotalpersonal.create') }}" style="width: 150px; font-style: Roboto;" class="btn btn-primary btn-block editbutton pull-right"><span class="fa fa-download">    Descargar PDF</span></a>
-
+            @endif
 
         </div>
     </div>

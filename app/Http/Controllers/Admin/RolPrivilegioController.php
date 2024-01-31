@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Rol;
 use App\Models\RolPrivilegio;
+use App\Models\UsuarioRol;
 
 class RolPrivilegioController extends Controller
 {
@@ -89,11 +90,27 @@ class RolPrivilegioController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $rol_privilegio_id)
     {
-        //
+        $rolprivilegio = RolPrivilegio::find($rol_privilegio_id);
+    
+        // Actualiza los campos según los datos del formulario
+        $rolprivilegio->modulo = $request->input('modulo');
+        $rolprivilegio->nombre_pantalla = $request->input('nombre_pantalla');
+        $rolprivilegio->consultar = ($request->get('consultar') == true) ? 1 : 0;
+        $rolprivilegio->crear = ($request->get('crear') == true) ? 1 : 0;
+        $rolprivilegio->actualizar = ($request->get('actualizar') == true) ? 1 : 0;
+        $rolprivilegio->eliminar = ($request->get('eliminar') == true) ? 1 : 0;
+        $rolprivilegio->activo = ($request->get('activo') == true) ? 1 : 0;
+        // Actualiza otros campos según sea necesario
+    
+        // Guarda los cambios
+        $rolprivilegio->save();
+    
+        // Redirige con un mensaje de éxito
+        return redirect()->route('rolprivilegio.indice', $rolprivilegio->rol_id)->with('success', 'Rol Privilegio actualizado correctamente');
     }
-
+    
     /**
      * Remove the specified resource from storage.
      */
@@ -120,4 +137,35 @@ class RolPrivilegioController extends Controller
             ->with('rol_id', $rol_id)
             ->with('modulos', $modulos);
     }
+
+    
+
+    public function eliminarPrivilegios(Request $request) {
+        $rol_privilegio_id = $request->get('rol_privilegio_id');
+    
+        try {
+            // Obtener el último rol_privilegio_id de la tabla tb_ad_roles_privilegios
+            $ultimoRolPrivilegioId = \DB::table('tb_ad_roles_privilegios')->max('rol_privilegio_id');
+    
+            // Actualizar registros relacionados en UsuarioRol
+            \DB::table('tb_ad_usuarios_roles')
+                ->where('rol_privilegio_id', $rol_privilegio_id)
+                ->update(['rol_privilegio_id' => $ultimoRolPrivilegioId]);
+    
+            // Eliminar el registro en RolPrivilegio
+            \DB::table('tb_ad_roles_privilegios')->where('rol_privilegio_id', $rol_privilegio_id)->delete();
+    
+            $response = json_encode(array('mensaje' => 'Fue eliminado exitosamente.', 'id' => $rol_privilegio_id, 'tipo' => 0), JSON_NUMERIC_CHECK);
+            $response = json_decode($response);
+    
+            return response()->json($response, 200);
+        } catch (\Exception $e) {
+            return response()->json(array('tipo' => -1, 'mensaje' => $e->getMessage()));
+        }
+    }
+    
+    
+    
+    
+
 }

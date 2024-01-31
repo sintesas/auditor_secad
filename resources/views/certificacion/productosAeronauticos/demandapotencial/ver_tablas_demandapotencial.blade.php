@@ -44,6 +44,7 @@
 					</thead>
 					<tbody>
 						@foreach ($demandaspotenciales as $demandapotencial)
+						@if ($permiso->consultar == 1)
 						<tr>
 							<td>{{$demandapotencial->Nombre}}</td>
 							<td>{{$demandapotencial->ParteNumero}}</td>
@@ -59,16 +60,17 @@
 									{!! Form::close() !!}
 								</div> --}}
 
-
+								@if ($permiso->actualizar == 1)
 								<div class="col-sm-6">
 
 									<a href="{{route('demandapotencial.edit', $demandapotencial->IdDemandaPotencial) }}" class="btn btn-primary btn-block editbutton" ><div class="gui-icon"><i class="fa fa-pencil"></i></div></a>
 
 								</div>
+								@endif
 							</td>
 							{{-- <td>{{$ata->Activo}}</td> --}}
 						</tr>
-
+						@endif
 						@endforeach
 					</tbody>
 					<tfoot>

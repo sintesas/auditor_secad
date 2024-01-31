@@ -9,6 +9,7 @@ use Spatie\Permission\Models\Permission;
 
 use App\Models\Programa;
 use App\Models\VWInformeHistorialPrograma;
+use App\Models\Permiso;
 
 class InformeHistorialProgramaController extends Controller
 {
@@ -26,7 +27,10 @@ class InformeHistorialProgramaController extends Controller
         // $idEmpresa = Auth::user()->IdEmpresa;
         
         $programa = Programa::all();
-        return view ('certificacion.programasSECAD.informes.ver_informe_historial_programa')->with('programa', $programa); 
+        
+        $p = new Permiso;
+        $permiso = $p->getPermisos('CP');
+        return view ('certificacion.programasSECAD.informes.ver_informe_historial_programa')->with('programa', $programa)->with('permiso', $permiso); 
 
         // if (Auth::user()->hasRole('administrador')) {
         //     $programa = Programa::all();

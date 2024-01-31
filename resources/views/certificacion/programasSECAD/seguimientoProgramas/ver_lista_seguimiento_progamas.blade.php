@@ -29,20 +29,24 @@
 					</thead>
 					<tbody>
 						@foreach ($programas as $programa)
+						@if ($permiso->consultar == 1)
 						<tr>
 							<td>{{$programa->Consecutivo}}</td>
 							<td>{{$programa->Proyecto}}</td>
 							<td>{{$programa->Tipo}}</td>
 							<td>
 
+							@if ($permiso->actualizar == 1)
 								<div class="col-sm-6">
 
 									<a href="{{route('listasProyecto.show', $programa->IdPrograma) }}" class="btn btn-primary btn-block editbutton" ><div class="gui-icon"><i class="fa fa-pencil"></i></div></a>
 
 								</div>
+								@endif
 							</td>
 							{{-- <td>{{$ata->Activo}}</td> --}}
 						</tr>
+						@endif
 						@endforeach
 					</tbody>
 				</table>

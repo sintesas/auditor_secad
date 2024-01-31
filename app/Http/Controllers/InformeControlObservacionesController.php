@@ -29,19 +29,34 @@ class InformeControlObservacionesController extends Controller
           ->with('count', $count)->with('permiso', $permiso);
     }
 
-    public function create()
+    public function create(Request $request)
     {
-      $programas = VWInformeResumenPrograma::orderby('Consecutivo','ASC')->get();
-      $count = VWInformeResumenPrograma::all()->count();
-      $fecha = date("d-m-Y G:i");
-      
-      //return view ('certificacion.programasSECAD.informes.pdf_informe_controlobservaciones', compact('data','fecha'));
-      return \PDF::loadView('certificacion.programasSECAD.informes.pdf_informe_controlobservaciones', 
-            ['programas' => $programas, 'count' => $count, 'fecha' => $fecha])
-            ->setOption('margin-top', '15mm')
-            ->setOption('lowquality', false)
-            ->setOption('page-width', '150000mm')
-            ->setOption('orientation', 'landscape')
-            ->download('test-proyectos.pdf');
+        try {
+            $estados = $request->input('estados');
+            $consecutivo = $request->input('consecutivos');
+            \Log::info("Estados recibidos: " . $estados);
+            \Log::info("Consecutivos Recibidos: ". $consecutivo);
+            
+            $programas = VWInformeResumenPrograma::whereIn('consecutivo',  explode(',',$consecutivo))
+            ->whereIn('estado',  explode(',',$estados))
+            ->orderBy('Consecutivo', 'ASC')
+            ->get();
+        
+            $count = $programas->count();
+            $fecha = date("d-m-Y G:i");
+    
+            \Log::info("consultaprogramas: " . $programas);
+    
+            return \PDF::loadView('certificacion.programasSECAD.informes.pdf_informe_controlobservaciones', 
+                ['programas' => $programas, 'count' => $count, 'fecha' => $fecha])
+                ->setOption('margin-top', '15mm')
+                ->setOption('lowquality', false)
+                ->setOption('page-width', '150000mm')
+                ->setOption('orientation', 'landscape')
+                ->download('test-proyectos.pdf');
+        } catch (\Exception $e) {
+            \Log::error("Error en el controlador: " . $e->getMessage());
+            return response()->json(['error' => 'Error en el servidor'], 500);
+        }
     }
 }

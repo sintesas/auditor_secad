@@ -12,8 +12,9 @@ Tablas Base Certificación
 @section('card-title')
 {{ Breadcrumbs::render('basecertificacion') }}
 <!-- The Modal -->
+@if ($permiso->crear == 1)
 <button type="button" onclick="window.location='{{ route("baseCertificacion.create") }}'" class="btn btn-info ink-reaction btn-primary addbutton" id="myBtn"><span class="fa fa-plus"></span></button>
-
+@endif
 
 @endsection()
 
@@ -37,6 +38,7 @@ Tablas Base Certificación
 					</thead>
 					<tbody>
 						@foreach ($basesCertifica as $baseCertifica)
+						@if ($permiso->consultar == 1)
 						<tr>
 							<td>{{$baseCertifica->Origen}}</td>
 							<td>{{$baseCertifica->Autoridad}}</td>
@@ -47,6 +49,7 @@ Tablas Base Certificación
 							<td>{{$baseCertifica->FechaEnmienda}}</td>
 							<td>
 
+							@if ($permiso->eliminar == 1)
 								<div class="col-sm-6">
 
 									{!! Form::open(['route' => ['baseCertificacion.destroy', $baseCertifica->IdBaseCertificacion], 'method' => 'DELETE']) !!}									
@@ -55,15 +58,19 @@ Tablas Base Certificación
 
 									{!! Form::close() !!}
 								</div>
+								@endif
 
+								@if ($permiso->actualizar == 1)
 								<div class="col-sm-6">
 
 									<a href="{{route('baseCertificacion.edit', $baseCertifica->IdBaseCertificacion) }}" class="btn btn-primary btn-block editbutton" ><div class="gui-icon"><i class="fa fa-pencil"></i></div></a>
 
 								</div>
+								@endif
 
 							</td>
 						</tr>
+						@endif
 						@endforeach
 					</tbody>
 				</table>

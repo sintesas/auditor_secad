@@ -19,6 +19,7 @@
 		@endsection()
 
 		@section('card-content')
+		@if ($permiso->consultar == 1)
 
 			<div class="card-body floating-label">
 				<div style="overflow-x: auto;" id="output"></div>
@@ -49,6 +50,7 @@
 			        
 			     });
         	</script>
+		@endif
 		@endsection()
 
 	@endsection()

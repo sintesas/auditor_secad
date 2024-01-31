@@ -11,9 +11,7 @@
 @section('card-content')
 @section('card-title')
 {{ Breadcrumbs::render('verseguimientoEmp', $programa->IdPrograma,  $actividad->IdActividad.'&'.$programa->IdPrograma) }}
-@if ($gl_perfil[12] == true || $gl_perfil[13] == true || $gl_perfil[1] == true || $gl_perfil[7] == true || $gl_perfil[8] == true)
 <button type="button" onclick="window.location='{{ route("seguimientoEmp.show", "$programa->IdPrograma" . "&" ."$actividad->IdActividad") }}'" class="btn btn-info ink-reaction btn-primary addbutton" id="myBtn"><span class="fa fa-plus"></span></button>
-@endif
 @endsection()
 
 @section('card-content')
@@ -28,9 +26,7 @@
 					<th><b>Fecha</b></th>
 					<th><b>Usuario</b></th>
 					<th><b>Observaciones</b></th>
-					@if ($gl_perfil[12] == true || $gl_perfil[13] == true || $gl_perfil[1] == true )
 					<th style="width: 120px;"><b>Acciones</b></th>
-				@endif
 				</tr>
 			</thead>
 			<tbody>
@@ -39,7 +35,6 @@
 					<td>{{$seguimiento->Fecha}}</td>
 					<td>{{$seguimiento->Usuario}}</td>
 					<td>{{$seguimiento->Observaciones}}</td>
-					@if ($gl_perfil[12] == true || $gl_perfil[13] == true || $gl_perfil[1] == true )
 					<td>
 						<div class="col-sm-6">
 
@@ -58,7 +53,6 @@
 						</div> --}}
 
 					</td>
-				@endif
 				</tr>
 				@endforeach
 			</tbody>

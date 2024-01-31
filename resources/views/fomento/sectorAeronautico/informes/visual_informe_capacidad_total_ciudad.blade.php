@@ -58,6 +58,7 @@
                                         <th class="th-x" > Cantidad de Empresas </th>
                                                                               
                                     </tr>  
+                                    @if ($permiso->consultar == 1)
                                   @if(count($cantidadesTotalCiudad) != 1)
                                   <?php $ciudadOld = 0;?> 
                                   @foreach($cantidadesTotalCiudad as $cantidadesTotalCiudadR)     
@@ -88,11 +89,12 @@
                                         <h3>No hay datos para mostrar informe</h3>
                                     </div>
                                   </div>
-                                  @endif     
+                                  @endif    
+                                  @endif 
                                 </table>
                             </div>
                         </div><!--end .row -->
-                        
+                        @if ($permiso->consultar == 1)
                        <!--  BLOQUE FIRMAS -->
                         <div class="row">                         
                                 <div class="col-xs-12 firmaFormulario">
@@ -102,15 +104,15 @@
                             </div>      
                                 </div>
                         </div><!--end .row -->                                
-                                   
+                          @endif         
                                        
                     </div><!--end .section-body -->                   
                 </section>
             </div><!--end #content-->
             <!-- END CONTENT -->
-
+            @if ($permiso->consultar == 1)
              <a href="{{route('informecapacidadtotalciudad.create') }}" style="width: 150px; font-style: Roboto;" class="btn btn-primary btn-block editbutton pull-left"><span class="fa fa-download">    Descargar PDF</span></a>
-             	
+            @endif
         </div>
     </div>
 

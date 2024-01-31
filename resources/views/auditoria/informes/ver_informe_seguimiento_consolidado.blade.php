@@ -31,6 +31,7 @@
 					</thead>
 					<tbody>
 						@foreach ($audiorias as $audioria)
+						@if ($permiso->consultar == 1)
 						<tr>
 							<td>{{$audioria->Codigo}}</td>
 							<td>{{$audioria->NombreEmpresa}}</td>
@@ -45,6 +46,7 @@
 							</td>
 							{{-- <td>{{$ata->Activo}}</td> --}}
 						</tr>
+						@endif
 						@endforeach
 					</tbody>
 				</table>

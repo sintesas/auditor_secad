@@ -17,6 +17,7 @@ use App\Models\CriteriosAuditorias;
 use App\Models\CriteriosAsociados;
 use App\Models\ExpertosTecnicosAsociados;
 use App\Models\UsersLDAP;
+use App\Models\Permiso;
 
 class AuditoriaController extends Controller
 {
@@ -31,6 +32,8 @@ class AuditoriaController extends Controller
 
         // if ($rol) {
             $audiorias = Auditoria::getAuditoriasTabla();
+            $p = new Permiso;
+            $permiso = $p->getPermisos('RE');
             $eso = Auditoria::join('dbo.AU_Reg_Empresas', 'dbo.AU_Reg_Empresas.IdEmpresa', '=', 'dbo.AU_Reg_Auditorias.IdEmpresa')
             //$eso = Auditoria::
             ->leftjoin('dbo.AU_Reg_Empresas as emp2', 'emp2.IdEmpresa', '=', 'dbo.AU_Reg_Auditorias.IdEmpresaAudita')
@@ -41,7 +44,7 @@ class AuditoriaController extends Controller
         // }else{
         //     $audiorias = Auditoria::getByUserAuditorias($idPersonal, $name);
         // }
-        return view ('auditoria.ver_auditoria')->with('audiorias', $audiorias);
+        return view ('auditoria.ver_auditoria')->with('audiorias', $audiorias)->with('permiso', $permiso);
     }
 
     /**

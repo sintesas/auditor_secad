@@ -153,7 +153,7 @@ Editar Programa
 								<div class="input-group date" id="demo-date-format">
 									<div class="input-group-content">
 										{{ Form::text('FechaTermino', old('FechaTermino',  isset($programa->FechaTermino) ? $programa->FechaTermino : null), array('class' => 'form-control', 'required' => '' )) }}
-										{{ Form::label('FechaTermino', 'Fecha Termino')}}	
+										{{ Form::label('FechaTermino', 'Fecha de Certificación')}}	
 									</div>
 									<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 								</div>	
@@ -184,6 +184,20 @@ Editar Programa
 								<label class="checkbox-inline checkbox-styled">
 									{{ Form::checkbox('Finalizado', '1', old('Finalizado',  isset($programa->Finalizado) ? $programa->Finalizado : null)) }}<span>Finalizado</span>
 								</label>
+							</div>
+						</div>
+
+						<div class="col-lg-3">
+							<div class="form-group floating-label">
+								{{ Form::input('number', 'AnioCertificacion', old('AnioCertificacion', $programa->AnioCertificacion), array('class' => 'form-control' )) }}
+								{{ Form::label('AnioCertificacion', 'Año de Certificación') }}
+							</div>
+						</div>
+
+						<div class="col-lg-3">	
+							<div class="form-group floating-label">
+								{{ Form::select('IdEstadoCertificacion', $estadosc->pluck('EstadoCertificacion', 'IdEstadoCertificacion'), old('IdEstadoCertificacion', isset($programa->IdEstadoCertificacion) ? $programa->IdEstadoCertificacion : null), ['class' => 'form-control']) }}
+								{{ Form::label('IdEstadoCertificacion', 'Estado de Certificación')}}
 							</div>
 						</div>
 					</div>															

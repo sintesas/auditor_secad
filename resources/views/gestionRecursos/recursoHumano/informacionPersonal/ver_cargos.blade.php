@@ -13,8 +13,9 @@ Ver Cargos
 {{ Breadcrumbs::render('cargos') }}
 
 <!-- The Modal -->
+@if ($permiso->crear == 1)
 <button type="button" onclick="document.getElementById('id1').style.display='block'" class="btn btn-info ink-reaction btn-primary addbutton" id="myBtn"><span class="fa fa-plus"></span></button>
-
+@endif
 
 @endsection()
 
@@ -36,6 +37,7 @@ Ver Cargos
 			</thead>
 			<tbody>
 				@foreach ($cargos as $cargo)
+				@if ($permiso->consultar == 1)
 				<tr>
 					<td>{{$cargo->AreaCargo}}</td>
 					<td>{{$cargo->Cargo}}</td>
@@ -44,7 +46,7 @@ Ver Cargos
 					<td>{{$cargo->Dotacion}}</td>
 
 					<td>
-						
+					@if ($permiso->eliminar == 1)
 						<div class="col-sm-6">
 
 							{!! Form::open(['route' => ['cargos.destroy', $cargo->IdCargo], 'method' => 'DELETE']) !!}									
@@ -53,19 +55,20 @@ Ver Cargos
 
 							{!! Form::close() !!}
 						</div>
-
+					@endif
 
 						
-
+					@if ($permiso->actualizar == 1)
 						<div class="col-sm-6">
 
 							<a href="{{route('cargos.edit', $cargo->IdCargo) }}" class="btn btn-primary btn-block editbutton" ><div class="gui-icon"><i class="fa fa-pencil"></i></div></a>
 
 						</div>
-						
+					@endif
 					</td>
 					{{-- <td>{{$ata->Activo}}</td> --}}
 				</tr>
+				@endif
 				@endforeach
 			</tbody>
 		</table>

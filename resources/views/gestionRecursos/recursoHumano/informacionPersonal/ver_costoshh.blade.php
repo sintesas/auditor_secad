@@ -30,12 +30,14 @@ Ver Costos H/H
 			</thead>
 			<tbody>
 				@foreach ($costos as $costo)
+				@if ($permiso->consultar == 1)
 				<tr>
 					<td>{{$costo->Abreviatura}}</td>
 					<td>{{$costo->NombreGrado}}</td>
 					<td>$ {{$costo->Salario}}</td>
 					<td>$ {{$costo->hh}}</td>
 				</tr>
+				@endif
 				@endforeach
 			</tbody>
 		</table>

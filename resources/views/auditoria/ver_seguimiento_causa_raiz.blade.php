@@ -50,17 +50,18 @@
 			{{ Breadcrumbs::render('seguimientocausaraiz') }}
 
 			<!-- The Modal -->
+			@if ($permiso->crear == 1)
 			<button type="button" onclick="window.location='{{ route("seguimientoCausaRaiz.create") }}'" class="btn btn-info ink-reaction btn-primary addbutton" id="myBtn"><span class="fa fa-plus"></span></button>
-
-
+			@endif
 		@endsection()
 
 		@section('card-content')
 
 		<div class="total-card">
-			<div class="table-responsive col-lg-12">				
+			<div class="table-responsive col-lg-12">		
+			@if ($permiso->consultar == 1)		
 			<a href="{{url('exportSeguimientoCausaRaiz')}}" class="btn btn-md btn-info pull-left">Descargar EXCEL</a>
-
+			@endif
 				<table id="datatable1" class="table table-striped table-hover table-responsive">
 					<thead style="font-size: 12px;">
 						<tr>
@@ -80,6 +81,7 @@
 					<tbody id="data_table" name="data_table">
 
 						@foreach ($seguimientos as $seguimiento)
+						@if ($permiso->consultar == 1)
 
 						<tr style="font-size: 12px;">
 							<td>
@@ -109,13 +111,14 @@
 
 								<div class="col">
 
+								@if ($permiso->actualizar == 1)
 										<a style="padding:5px 10px" href="{{route('seguimientoCausaRaiz.edit', $seguimiento->IdSeguimiento) }}" class="btn btn-primary " ><div class="gui-icon-view"><i class="fa fa-pencil"></i></div></a>
 
 										<a style="padding:5px 10px" href="{{route('seguimientoCausaRaiz.edit', $seguimiento->IdSeguimiento) }}" class="btn btn-primary " ><div class="gui-icon-view"><i class="fa fa-eye"></i></div></a>
-
+							    @endif
 										<a style="padding:5px 10px" href="{{route('seguimientoCausaRaiz.show', $seguimiento->IdSeguimiento) }}" class="btn btn-success " ><div class="gui-icon-view"><i class="fa fa-check"></i></div></a>
 
-
+							
 									<!--RESPONSABLE-->
 									@if ($seguimiento->IdEstadoSeguimiento == 1 || $seguimiento->IdEstadoSeguimiento == 4)
 
@@ -168,6 +171,7 @@
 								</div>
 							</td>
 						</tr>
+						@endif
 						@endforeach
 					</tbody>
 				</table>

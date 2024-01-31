@@ -8,6 +8,7 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
 use App\Models\Auditoria;
+use App\Models\Permiso;
 
 class InformeInspeccionIcfr03Controller extends Controller
 {
@@ -19,9 +20,11 @@ class InformeInspeccionIcfr03Controller extends Controller
     public function index()
     {
         $audiorias = Auditoria::getAllTableInpeccionICFR03();     
+        $p = new Permiso;
+        $permiso = $p->getPermisos('RE');
 
         return view ('auditoria.informes.ver_informe_inspeccion_icfr03')
-            ->with('audiorias', $audiorias);
+            ->with('audiorias', $audiorias)->with('permiso', $permiso);
     }
 
     /**

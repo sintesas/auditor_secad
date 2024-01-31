@@ -67,6 +67,7 @@
 						{{$fecha}}
 					</div>
 				</div>
+				
 
 	@endsection()
 

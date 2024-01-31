@@ -3,7 +3,7 @@
 @extends('layout')
 
 @section('title')
-Informe Personal por Area SECAD
+Informes Personal por Area SECAD
 @endsection()
 
 @section('content')

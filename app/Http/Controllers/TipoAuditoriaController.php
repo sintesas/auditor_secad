@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Models\TipoAuditoria;
 use App\Models\UsersLDAP;
+use App\Models\Permiso;
 
 class TipoAuditoriaController extends Controller
 {
@@ -20,9 +21,13 @@ class TipoAuditoriaController extends Controller
         $rol = UsersLDAP::perteneceIGEFA();
         
         $tipoAuds = TipoAuditoria::all();
+        
+        $p = new Permiso;
+        $permiso = $p->getPermisos('RE');
         return view ('auditoria.ver_tipo_auditoria')
                     ->with('tipoAuds', $tipoAuds)
-                    ->with('rol', $rol);
+                    ->with('rol', $rol)
+                    ->with('permiso', $permiso);
     }
 
     /**

@@ -53,6 +53,7 @@
                             <!-- Proceso -->
                             <div class="col-xs-12 filaFormulario table-fixed">
                                 <table class="table  table-x" id="table1">
+                                @if ($permiso->consultar == 1)
                                   <tr>
                                         <th class="th-x"> No Anota</th>
                                       
@@ -89,15 +90,17 @@
                                         <th class="">.Hola manonla me dijeron por ahi que nadie te para bolas..</th>
                                         <th class="">.Hola manonla me dijeron por ahi que nadie te para bolas..</th>                                        
                                   </tr>
+                                  @endif
                                 </table>
                             </div>
                             <!-- FIN Div-->
                         </div><!--end .row -->                                                  
                     </div><!--end .section-body --> 
                 </section>
+                @if ($permiso->consultar == 1)
 
                 <a href="{{route('informehallazgosgenerados.create') }}" style="width: 150px; font-style: Roboto;" class="btn btn-primary btn-block editbutton pull-right"><span class="fa fa-download"> Descargar PDF</span></a>
-
+                @endif
                 @endforeach
                 @else
                   <div class="section-body">

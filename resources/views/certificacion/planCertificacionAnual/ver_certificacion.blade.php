@@ -13,7 +13,7 @@
 			{{Breadcrumbs::render('pca')}}
 
 		<!-- The Modal -->
-		@if ($gl_perfil[12] == true || $gl_perfil[13] == true || $gl_perfil[1] == true)
+		@if ($permiso->crear == 1)
 		<button type="button" onclick="window.location='{{ route("PlanCertificacion.create") }}'" class="btn btn-info ink-reaction btn-primary addbutton" id="myBtn"><span class="fa fa-plus"></span></button>
 		@endif
 
@@ -30,22 +30,23 @@
 							<th><b>Año</b></th>
 							<th><b>Edición</b></th>
 							<th><b>PDF</b></th>
-							@if ($gl_perfil[12] == true || $gl_perfil[13] == true || $gl_perfil[1] == true)
+							
 							<th style="width: 200px;"><b>Acción</b></th>
-							@endif
+							
 						</tr>
 					</thead>
 					<tbody>
 						@foreach ($pca as $pca_item)
+						@if ($permiso->consultar == 1)
 						<tr>
 							<td>{{$pca_item->anio}}</td>
 							<td>{{$pca_item->edicion}}</td>
 							<td>
 								<a class="btn btn-primary" href="{{URL::asset('pdf/' . $pca_item->id)}}">Descargar</a>
 							</td>
-							@if ($gl_perfil[12] == true || $gl_perfil[13] == true || $gl_perfil[1] == true)
+							
 							<td>
-								@if ($gl_perfil[12] == true || $gl_perfil[13] == true)
+							@if ($permiso->eliminar == 1)
 								<div class="col-sm-4">
 									@if($pca_item->Activo)
 									{!! Form::open(['route' => ['PlanCertificacion.destroy', $pca_item->id], 'method' => 'DELETE']) !!}
@@ -59,17 +60,18 @@
 									{!!Form::submit('✓', ['class' => 'btn btn-success','style'=>'height: 36px;width: 36px;', 'title' =>'Mostrar']) !!}
 
 									{!! Form::close() !!}
-									@endif
+									
 								</div>
-								@endif
+							@endif							
 
 
+							@if ($permiso->actualizar == 1)
 								<div class="col-sm-4">
 
 									<a href="{{route('PlanCertificacion.edit', $pca_item->id) }}" class="btn btn-primary btn-block editbutton" title="Editar"><div class="gui-icon"><i class="fa fa-pencil"></i></div></a>
 
 								</div>
-
+							@endif
 								<div class="col-sm-4">
 
 									<a href="{{route('PlanCertificacion.notas', $pca_item->id) }}" class="btn btn-primary btn-block editbutton" title="Ver notas"><div class="gui-icon"><i class="fa fa-clipboard"></i></div></a>
@@ -80,6 +82,7 @@
 							@endif
 
 						</tr>
+						@endif
 						@endforeach
 					</tbody>
 				</table>

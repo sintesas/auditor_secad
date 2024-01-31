@@ -33,23 +33,22 @@ Roles Personal
 				<tr>
 					<th><b>Nombre</b></th>
 					<th><b>Email</b></th>
-					@foreach ($perfil as $itemPerfil)
-						@if ($itemPerfil->IdRol == 12)
+				
 						<th style="width: 160px;"><b>Acción</b></th>
-						@endif
-					@endforeach
+					
 				</tr>
 			</thead>
 			<tbody>
 				@foreach ($personal as $persona)
+				@if ($permiso->consultar == 1)
 				<tr>
 					<td>{{$persona->Abreviatura}} | {{$persona->Nombres . $persona->Apellidos}}</td>
 
 					<td>{{$persona->Email}}</td>
 
-					@foreach ($perfil as $itemPerfil)
+					
 						<td>
-							@if ($itemPerfil->IdRol == 12)
+						@if ($permiso->eliminar == 1)
 							<div class="col-sm-4">
 
 								{!! Form::open(['route' => ['asignarusuario.destroy', $persona->IdPersonal], 'method' => 'DELETE']) !!}
@@ -58,23 +57,28 @@ Roles Personal
 
 								{!! Form::close() !!}
 							</div>
+						@endif
 
-
+						@if ($permiso->actualizar == 1)
 							{{--<div class="col-sm-4">
 
 								<a href="{{route('asignarusuario.edit', $persona->Idpersonal) }}" class="btn btn-primary btn-block editbutton" ><div class="gui-icon"><i class="fa fa-pencil"></i></div></a>
 
 							</div>--}}
+						@endif
 
+						@if ($permiso->crear == 1)
+						
 							<div class="col-sm-4">
 
 								<button type="button" onclick="window.location='{{ route("asignarusuario.show", $persona->IdPersonal) }}'" class="btn btn-info ink-reaction btn-primary" id="myBtn"><span class="fa fa-plus"></span></button>
 
 							</div>
-							@endif
+						@endif
 						</td>
-					@endforeach
+				
 				</tr>
+				@endif
 				@endforeach
 			</tbody>
 		</table>

@@ -12,8 +12,9 @@
 		@section('card-title')
 			{{ Breadcrumbs::render('cursos') }}
 		<!-- The Modal -->
+		@if ($permiso->crear == 1)
 		<button type="button" onclick="window.location='{{ route("cursos.create") }}'" class="btn btn-info ink-reaction btn-primary addbutton" id="myBtn"><span class="fa fa-plus"></span></button>
-
+		@endif
 
 		@endsection()
 
@@ -33,12 +34,13 @@
 					</thead>
 					<tbody>
 						@foreach ($cursos as $curso)
+						@if ($permiso->consultar == 1)
 						<tr>
 							<td>{{$curso->NombreCurso}}</td>
 							<td>{{$curso->LugarEntidad}}</td>
 							<td>{{$curso->FechaTermino}}</td>
 							<td>
-							
+							@if ($permiso->eliminar == 1)
 								<div class="col-sm-6">
 
 									{!! Form::open(['route' => ['cursos.destroy', $curso->IdCurso], 'method' => 'DELETE']) !!}									
@@ -47,19 +49,20 @@
 
 									{!! Form::close() !!}
 								</div>
+							@endif
 
-
-								
+							@if ($permiso->actualizar == 1)
 
 								<div class="col-sm-6">
 
 									<a href="{{route('cursos.edit', $curso->IdCurso) }}" class="btn btn-primary btn-block editbutton" ><div class="gui-icon"><i class="fa fa-pencil"></i></div></a>
 
 								</div>
-	
+							@endif
 							</td>
 							{{-- <td>{{$ata->Activo}}</td> --}}
 						</tr>
+						@endif
 						@endforeach
 					</tbody>
 				</table>

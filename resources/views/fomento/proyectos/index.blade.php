@@ -12,9 +12,11 @@ Control Proyectos
 @section('card-title')
 {{ Breadcrumbs::render('controlProyectos') }}
 <!-- Begin Modal -->
+@if ($permiso->crear == 1)
 <button type="button" onclick="document.getElementById('id1').style.display='block'"
       style="margin-left:800px;" class="btn btn-info ink-reaction btn-primary addbutton" id="myBtn">
   <span class="fa fa-plus"></span></button>
+@endif
 {{-- End modal --}}
 
 <!-- Section Dowload-->
@@ -58,6 +60,7 @@ Control Proyectos
                     </thead>
                     <tbody>
                       @foreach($controlProyectosData as $item)
+                      @if ($permiso->consultar == 1)
                       <tr>
                         <td>{{$item->NombreProyecto}}</td>
                         <td>{{$item->TipoProyecto}}</td>
@@ -70,6 +73,7 @@ Control Proyectos
                           </a>
                         </td>
                         <td>
+                        @if ($permiso->eliminar == 1)
                           <div class="col-sm-6">
 
                             {!! Form::open(['route' => ['controlProyectos.destroy', $item->IdControlProyecto], 'method' => 'DELETE']) !!}
@@ -78,13 +82,17 @@ Control Proyectos
 
                             {!! Form::close() !!}
                           </div>
+                        @endif
+                        @if ($permiso->actualizar == 1)
                           <div class="col-sm-6">
                             <a href="{{route('controlProyectos.edit', $item->IdControlProyecto) }}" class="btn btn-primary btn-block editbutton">
                               <div class="gui-icon"><i class="fa fa-pencil"></i></div>
                             </a>
                           </div>
+                        @endif
                         </td>
                       </tr>
+                      @endif
                       @endforeach
                     </tbody>
                   </table>

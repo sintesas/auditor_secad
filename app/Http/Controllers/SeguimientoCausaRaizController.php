@@ -17,6 +17,7 @@ use App\Models\SeguimientoFiles;
 use App\Models\CausasRaizTareas;
 use App\Models\Rol;
 use App\Models\UsersLDAP;
+use App\Models\Permiso;
 
 class SeguimientoCausaRaizController extends Controller
 {
@@ -40,6 +41,8 @@ class SeguimientoCausaRaizController extends Controller
         // }
 
         $email = Auth::user()->email;
+        $p = new Permiso;
+        $permiso = $p->getPermisos('RE');
 
         // if($rol || $rol_IGEFA || $rol_CEOAF || $rolAdmin){
         //     $seguimientos = SeguimientoCausaRaiz::getAll();
@@ -53,7 +56,8 @@ class SeguimientoCausaRaizController extends Controller
             ->with('rol_IGEFA', $rol_IGEFA)
             ->with('rol_CEOAF', $rol_CEOAF)
             ->with('email', $email)
-            ->with('seguimientos', $seguimientos);
+            ->with('seguimientos', $seguimientos)
+            ->with('permiso', $permiso);
 
         $result = File::makeDirectory('/certifi');
     }

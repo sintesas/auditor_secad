@@ -20,7 +20,9 @@ Clusters
 {{Breadcrumbs::render('clusters')}}
 
 @if(count($clusters)>0)
+@if ($permiso->crear == 1)
 <button type="button" onclick="document.getElementById('id1').style.display='block'" style="margin-left:800px;" class="btn btn-info ink-reaction btn-primary addbutton" id="myBtn"><span class="fa fa-plus"></span></button>
+@endif
 @endif()
 @endsection()
 {{-- card title ends --}}
@@ -50,6 +52,7 @@ Clusters
 			<tbody>
 
 				@foreach($clusters as $cluster)
+				@if ($permiso->consultar == 1)
 				
 				<tr class="cluster{{$cluster->IdCluster}}">
 					<td>{{$cluster->NombreCluster}}</td>
@@ -63,18 +66,22 @@ Clusters
 						</div>
 					</td>
 					<td>
+					@if ($permiso->eliminar == 1)
 						<div class="col-sm-6">
 							<button class="btn btn-danger btn-delete delete-record" value="{{$cluster->IdCluster}}"><span class="glyphicon glyphicon-trash"></span></button>
 
 						</div>
+						@endif
+						@if ($permiso->actualizar == 1)
 						<div class="col-sm-6">
 							<button class="btn btn-primary btn-default edit-modal" data-id="{{$cluster->IdCluster}}" data-nombrecluster="{{$cluster->NombreCluster}}" data-sigla="{{$cluster->Sigla}}" data-ciudad="{{$cluster->Ciudad}}" data-region="{{$cluster->Region}}" data-rep="{{$cluster->RepresLegal}}" data-direccion="{{$cluster->Direccion}}" data-email="{{$cluster->Email}}" data-telefono="{{$cluster->Telefono}}">
                     			<span class="glyphicon glyphicon-edit"></span>
                 			</button>
 						</div>
+						@endif
 					</td>
 				</tr>
-				
+				@endif
 				@endforeach()
 
 			</tbody>

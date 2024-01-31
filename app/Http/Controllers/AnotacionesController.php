@@ -27,6 +27,7 @@ use App\Models\DependenciasLDAP;
 use App\Models\AnotacionesResponsables;
 use App\Models\AnotacionesFiles;
 use App\Models\ActividadesInspeccion;
+use App\Models\Permiso;
 
 class AnotacionesController extends Controller
 {
@@ -36,6 +37,8 @@ class AnotacionesController extends Controller
         // $rolAdd = "";
 
         $anotaciones = Anotacion::getAllAnotaciones();
+        $p = new Permiso;
+        $permiso = $p->getPermisos('RE');
 
         // if($rol){
         //     $anotaciones = Anotacion::getAllAnotaciones();
@@ -60,7 +63,7 @@ class AnotacionesController extends Controller
 
 
          return view('auditoria.anotaciones.ver_tablas_anotaciones')
-                ->with('anotaciones', $anotaciones);
+                ->with('anotaciones', $anotaciones)->with('permiso', $permiso);
     }
 
     //Genera Consecutivo auditoria siguente para el empresa

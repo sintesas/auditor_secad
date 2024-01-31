@@ -77,7 +77,8 @@
                                         <th class="th-x" > Costo H/H  </th>
                                   </tr>
                                    @if(count($personalhh) != 0)
-                                   @foreach($personalhh as $personalR)                              
+                                   @foreach($personalhh as $personalR)    
+                                   @if ($permiso->consultar == 1)                          
                                     <tr class="line-a">  
                                         <th class="">{{$personalR->Abreviatura}}</th>                                       
                                         <th class="">{{$personalR->Apellidos}}</th>
@@ -85,6 +86,7 @@
                                         <th class="">{{$personalR->Cedula}}</th>                                        
                                         <th class="">{{$personalR->H_H}}</th>
                                     </tr>  
+                                    @endif
                                     @endforeach
                                       @else
                                       <div class="section-body">
@@ -100,8 +102,9 @@
                 </section>
             </div><!--end #content-->
             <!-- END CONTENT -->
-
+            @if ($permiso->consultar == 1)
             <input name="Imprimir"  type="submit" id="btnExportToPDF" value="Descargar PDF" onclick="pdfToHTML()"/>			
+            @endif
         </div>
     </div>
 

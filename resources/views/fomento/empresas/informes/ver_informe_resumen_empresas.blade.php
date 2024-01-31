@@ -64,6 +64,7 @@
 					</thead>
 
 					<tbody id="data_table" name="data_table">
+					@if ($permiso->consultar == 1)
 						@foreach ($empresas as $empresa)
 						<tr>
 							<td  >{{$empresa->NombreEmpresa}}</td>
@@ -100,6 +101,7 @@
 							<th ><b>Fecha Actualización</b></th>
 						</tr>
 					</tfoot>
+					@endif
 				</table>
 				<h5 id="conteo"></h5>
 

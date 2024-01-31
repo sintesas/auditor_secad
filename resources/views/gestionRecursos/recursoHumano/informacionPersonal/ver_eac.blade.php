@@ -13,7 +13,9 @@ Ver Especialidades Aeronautica de Certificacion EAC
 {{ Breadcrumbs::render('eac') }}
 
 <!-- The Modal -->
+@if ($permiso->crear == 1)
 <button type="button" onclick="document.getElementById('id1').style.display='block'" class="btn btn-info ink-reaction btn-primary addbutton" id="myBtn"><span class="fa fa-plus"></span></button>
+@endif
 @endsection()
 
 @section('card-content')
@@ -31,12 +33,13 @@ Ver Especialidades Aeronautica de Certificacion EAC
 			</thead>
 			<tbody>
 				@foreach ($especialidades as $especialidad)
+				@if ($permiso->consultar == 1)
 				<tr>
 					<td>{{$especialidad->Especialidad}}</td>
 					<td>{{$especialidad->Codigo}}</td>
 
 					<td>
-						
+					@if ($permiso->eliminar == 1)
 						<div class="col-sm-6">
 
 							{!! Form::open(['route' => ['eac.destroy', $especialidad->IdEspecialidadCertificacion], 'method' => 'DELETE']) !!}									
@@ -45,17 +48,18 @@ Ver Especialidades Aeronautica de Certificacion EAC
 
 							{!! Form::close() !!}
 						</div>
-						
-
+					@endif						
+					@if ($permiso->actualizar == 1)
 						<div class="col-sm-6">
 
 							<a href="{{route('eac.edit', $especialidad->IdEspecialidadCertificacion) }}" class="btn btn-primary btn-block editbutton" ><div class="gui-icon"><i class="fa fa-pencil"></i></div></a>
 
 						</div>
-						
+					@endif
 					</td>
 					{{-- <td>{{$ata->Activo}}</td> --}}
 				</tr>
+				@endif
 				@endforeach
 			</tbody>
 		</table>

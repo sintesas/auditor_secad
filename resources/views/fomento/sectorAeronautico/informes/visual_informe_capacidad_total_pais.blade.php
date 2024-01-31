@@ -91,6 +91,7 @@
 
                                         <th class="th-x" > Teléfono </th>
                                   </tr>
+                                  @if ($permiso->consultar == 1)
                                    @if(count($cantidadesTotalPais) != 1)
                                    <?php $ofertaOld = 0;?>
                                    @foreach($cantidadesTotalPais as $cantidadesTotalPaisR)                                 
@@ -119,6 +120,7 @@
                                    <?php $ofertaOld = $cantidadesTotalPaisR->IdOfertaComercial;?> 
                                    @endforeach
                                    @endif
+                                   @endif
                                 </table>
                             </div>
                         </div><!--end .row -->
@@ -133,9 +135,9 @@
                 </section>
             </div><!--end #content-->
             <!-- END CONTENT -->
-
+            @if ($permiso->consultar == 1)
              <a href="{{route('informecapacidadtotalpais.create') }}" style="width: 150px; font-style: Roboto;" class="btn btn-primary btn-block editbutton pull-left"><span class="fa fa-download">    Descargar PDF</span></a>
-		
+             @endif
         </div>
     </div>
 

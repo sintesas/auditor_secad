@@ -30,6 +30,7 @@ Informacion Produccion
 			</thead>
 			<tbody>
 				@foreach ($empresas as $empresa)
+				@if ($permiso->consultar == 1)
 				<tr>
 					<td>{{$empresa->NombreEmpresa}}</td>
 					<td>{{$empresa->Email}}</td>
@@ -42,6 +43,7 @@ Informacion Produccion
 					</td>
 					{{-- <td>{{$ata->Activo}}</td> --}}
 				</tr>
+				@endif
 				@endforeach
 			</tbody>
 		</table>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\VW_CantidadAcciones;
+use App\Models\Permiso;
 
 class InformeCantidadAanotacionesController extends Controller
 {
@@ -15,7 +16,9 @@ class InformeCantidadAanotacionesController extends Controller
      */
     public function index()
     {
-        return view ('auditoria.tablasDinamicas.TDINCantidadAnotaciones');
+        $p = new Permiso;
+        $permiso = $p->getPermisos('RE');
+        return view ('auditoria.tablasDinamicas.TDINCantidadAnotaciones')->with('permiso', $permiso);
     }
 
     /**

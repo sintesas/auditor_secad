@@ -15,7 +15,7 @@
 
 		@section('card-content')
 
-
+		
 			<div class="col-lg-12">
 			<div class="table-responsive">
 				<table id="datatable1" class="table table-striped table-hover">
@@ -26,6 +26,7 @@
 							<th style="width: 120px;"><b>Ver</b></th>
 						</tr>
 					</thead>
+					@if ($permiso->consultar == 1)
 					<tbody>
 						@foreach ($programas as $programa)
 						<tr>
@@ -40,6 +41,7 @@
 						</tr>
 						@endforeach
 					</tbody>
+					@endif
 				</table>
 
 				<div class="text-center">

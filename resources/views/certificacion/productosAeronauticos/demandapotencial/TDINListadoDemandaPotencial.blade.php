@@ -26,6 +26,7 @@
 			<div class="total-card">
 				<div class="row encabezadoPlanInspeccion">
 				<!-- titulo Formulario -->
+				
 			<div class="card-body floating-label">
 				<div class="total-card">
 					<div class="row encabezadoPlanInspeccion">
@@ -38,6 +39,7 @@
 						</div>                              
 					</div>
 				</div>
+				@if ($permiso->consultar == 1)
 			<div id="output"></div>
 			<div class="row">
 				<div class="col-sm-12">
@@ -162,6 +164,7 @@
 				</div>
 			</div>
 			</div>
+			@endif
 <!-- 			<div class="col-lg-12">
 	<button onclick="exportTableToExcel('datatable1')">Enviar a Excel</button>
 </div>

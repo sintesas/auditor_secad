@@ -8,6 +8,8 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
 use App\Models\Auditoria;
+use App\Models\Permiso;
+
 
 class InformeInspeccionIcfr08Controller extends Controller
 {
@@ -20,18 +22,20 @@ class InformeInspeccionIcfr08Controller extends Controller
     {
         $idPersonal = Auth::user()->IdPersonal;
 
-        if (Auth::user()->hasRole('administrador')) {
+       // if (Auth::user()->hasRole('administrador')) {
             
-        }else{
+       // }else{
             
-        }
+       // }
 
         $idPersonal = Auth::user()->IdPersonal;
         $idEmpresa = Auth::user()->IdEmpresa;
 
         $audiorias = Auditoria::all();
+        $p = new Permiso;
+        $permiso = $p->getPermisos('RE');
         return view ('auditoria.informes.ver_informe_inspeccion_icfr08')
-                    ->with('audiorias', $audiorias);
+                    ->with('audiorias', $audiorias)->with('permiso', $permiso);
 
         // if (Auth::user()->hasRole('administrador')) {
         //     $audiorias = Auditoria::all();
