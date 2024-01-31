@@ -10,7 +10,9 @@
 
 	@section('card-content')
 		@section('card-title')
+
 		{{ Breadcrumbs::render('Observaciones212') }}
+
 		<button type="button" onclick="document.getElementById('id1').style.display='block'" style="margin-left:800px;" class="btn btn-info ink-reaction btn-primary addbutton" id="myBtn"><span class="fa fa-plus"></span></button>
 		@endsection()
 
@@ -41,7 +43,11 @@
 										{!!Form::submit('x', ['class' => 'btn btn-danger btn-default', 'onsubmit' => 'return ConfirmDelete()']) !!}
 									{!! Form::close() !!}
 								</div>
+
 							</td>
+
+							</td>						
+
 							{{-- <td>{{$ata->Activo}}</td> --}}
 						</tr>
 						@endforeach

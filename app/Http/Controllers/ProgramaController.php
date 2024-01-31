@@ -39,11 +39,12 @@ use App\Models\Banco;
 // ensayos
 use App\Models\Ensayo;
 use App\Models\TipoEnsayo;
-use App\Models\Permiso;
+
 class ProgramaController extends Controller
 {
   public function index()
   {
+
 
       $idPersonal = Auth::user()->IdPersonal;
       // $idPersonal = Auth::user()->IdPersonal;
@@ -72,8 +73,8 @@ class ProgramaController extends Controller
   }
 
 
-
-
+    
+  
     public function deleteEspecialidad($idespecialidad){
 
       $record = \DB::table('AU_Reg_ProgramasEspecialidades')->where('IdEspecialidadPrograma', $idespecialidad)->delete();
@@ -297,6 +298,10 @@ class ProgramaController extends Controller
 
         $areas = ['ACPA'=>'ACPA - Área Certificación Productos Aeronáuticos',
                   'AREV'=>'AREV - Área Reconocimiento y Evaluación'];
+                  
+        $estado_cert = \DB::select("select * from vw_cp_estado_certificacion");
+        $estadosc = collect($estado_cert);
+        $estadosc->prepend('None');
 
         $estado_cert = \DB::select("select * from vw_cp_estado_certificacion");
         $estadosc = collect($estado_cert);
@@ -327,9 +332,6 @@ class ProgramaController extends Controller
             ->with('estadosc', $estadosc);
     }
 
-
-
-
     public function update(Request $request, $idPrograma){
       $programa = Programa::find($idPrograma);
        $programa->IdTipoPrograma = $request->IdTipoPrograma;
@@ -350,6 +352,7 @@ class ProgramaController extends Controller
        $programa->IdAReferenciaPrograma = $request->IdAReferenciaPrograma;
        $programa->AnioCertificacion = $request->AnioCertificacion;
        $programa->IdEstadoCertificacion = $request->IdEstadoCertificacion;
+
        // $programa->IdBaseCertificacion = $request->IdBaseCertificacion;
        if($request->Finalizado)
        {
@@ -410,4 +413,5 @@ class ProgramaController extends Controller
         
         return redirect()->route('programa.index')->with($notification);
     }
-}
+
+  }

@@ -13,8 +13,8 @@
 {{ Breadcrumbs::render('verseguimiento', $programa->IdPrograma, $actividad->IdActividad.'&'.$programa->IdPrograma) }}
 
 @if ($permiso->crear == 1)
+
 <button type="button" onclick="window.location='{{ route("seguimiento.show", "$programa->IdPrograma" . "&" ."$actividad->IdActividad") }}'" class="btn btn-info ink-reaction btn-primary addbutton" id="myBtn"><span class="fa fa-plus"></span></button>
-@endif
 @endsection()
 
 @section('card-content')
@@ -32,7 +32,8 @@
 					<th><b>Especialistas</b></th>
 				
 					<th style="width: 120px;"><b>Acciones</b></th>
-		
+
+
 				</tr>
 			</thead>
 			<tbody>
@@ -49,8 +50,6 @@
 
 						</div>
 					</td>
-			
-					
 					<td>
 					@if ($permiso->eliminar == 1)
 						<div class="col-sm-6">

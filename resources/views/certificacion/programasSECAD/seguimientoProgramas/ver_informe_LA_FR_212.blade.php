@@ -36,7 +36,11 @@
 						<tr>
 							<th><b>Consecutivo</b></th>
 							<th><b>Proyecto</b></th>
+							{{-- @role('jefe-area-certificacion|administrador') --}}
 							<th><b>Observaciones</b></th>
+
+							{{-- @endrole --}}
+
 							<th style="width: 120px;" colspan = "1" class="text-center"><b>Ver Informe</b></th>
 						</tr>
 					</thead>
@@ -46,6 +50,7 @@
 						<tr>
 							<td>{{$programas->Consecutivo}}</td>
 							<td>{{$programas->Proyecto}}</td>
+							{{-- @role('jefe-area-certificacion|administrador') --}}
 							<td>
 								<div class="col-sm-6">
 
@@ -53,6 +58,7 @@
 
 								</div>
 							</td>
+							{{-- @endrole --}}
 							<td>
 								{{-- <div class="col-sm-6">
 
@@ -70,6 +76,9 @@
 
 								<div class="col-sm-6">
 									<button type="button" class="btn btn-primary btn-block editbutton" onclick="informe({{$programas->IdPrograma}})"><div class="gui-icon"><i class="fa fa-search"></i></div></button>
+
+								</div>
+
 							</td>
 							{{-- <td>{{$ata->Activo}}</td> --}}
 						</tr>
@@ -125,8 +134,20 @@
 		$('#example').DataTable({
 			"order": [[ 0, "desc" ]]
 		});
-		
 	});
+</script>
+<script>
+	function informe(id) {
+		var url = '{{ route("lafr212.informe.preview", ":id") }}';
+      	url = url.replace(':id', id) + '#zoom=100&toolbar=0';
+		document.getElementById('iframe').src = url;
+
+		var url_descargar = '{{ route("lafr212.informe", ":id") }}'
+		url_descargar = url_descargar.replace(':id', id);
+		document.getElementById('larfr212Descargar').href = url_descargar;
+
+		document.getElementById('lafr212Modal').style.display = 'block';
+	};
 </script>
 
 <script>

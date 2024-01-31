@@ -141,12 +141,10 @@ class UsuarioController extends Controller
             $user->nombre_completo = strtoupper($request->get('nombre_completo'));
             $user->email = strtolower($request->get('email'));
             $user->activo = ($request->get('activo') == true) ? 1 : 0;
-            $user->nombre_completo = strtoupper($request->get('nombre_completo'));
-            $user->email = strtolower($request->get('email'));
-            $user->activo = ($request->get('activo') == true) ? 1 : 0;
             $user->usuario_modificador = \Session::get('username');
             $user->fecha_modificacion = \DB::raw("GETDATE()");
             $user->save();
+
             $notification = array(
                 'message' => 'El usuario se actualizó correctamente', 
                 'alert-type' => 'success'

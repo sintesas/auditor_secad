@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB; // Agrega esta línea
+use Illuminate\Support\Facades\DB; 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
@@ -22,7 +22,7 @@ class UsuarioRolController extends Controller
     public function index()
     {
         $usuarios = Usuario::all();
-        return view('admin.usuarios', compact('usuarios')); // Envia la variable 'permiso'
+        return view('admin.usuarios', compact('usuarios')); 
     }
 
     /**
@@ -119,6 +119,7 @@ class UsuarioRolController extends Controller
             return response()->json(array('status' => false, 'mensaje' => 'No se pudo crear correctamente.'));
         }
     }
+
     
 
     public function eliminarAsignar($usuario_rol_id) {
@@ -140,5 +141,9 @@ class UsuarioRolController extends Controller
             return response()->json(array('tipo' => -1, 'mensaje' => $e));
         }
     }
+
     
 }
+
+
+

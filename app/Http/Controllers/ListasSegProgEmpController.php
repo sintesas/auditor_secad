@@ -30,6 +30,7 @@ class ListasSegProgEmpController extends Controller
 
         $programas = Programa::getProgramasTipo();
 
+
         //return view ('certificacion.programasSECAD.seguimientoProgramas.seguimientoEmpresa.ver_lista_seguimiento_progamas_emp')
         //    ->with('programas', $programas);
 
@@ -37,6 +38,11 @@ class ListasSegProgEmpController extends Controller
                 ->with('programas', $programas)->with('permiso', $permiso);
 
      
+
+        
+        return view ('certificacion.programasSECAD.seguimientoProgramas.seguimientoEmpresa.ver_lista_seguimiento_progamas_emp')
+                ->with('programas', $programas)->with('permiso', $permiso);            
+
     }
 
     /**

@@ -98,7 +98,8 @@
             </div>
 
             <div id="uprivModal" class="modal" style="padding-top:90px;">
-                <div class="modal-content" style="width: 85% !important;">
+                <div class="modal-content" style="width: 85%;">
+
                     <div class="card-head style-primary">
                         <header>Privilegios</header>
                         <span style="margin-right: 20px;" onclick="document.getElementById('uprivModal').style.display='none'" class="close">x</span>
@@ -132,7 +133,7 @@
                                                 <tr>
                                                     <td><input type="checkbox" class="chkMenu"></td>
                                                     <td>{{ $usuario_id }}</td>
-                                                    <td>{{ $item->rol_id }}></td>
+                                                    <td>{{ $item->rol_id }}</td>
                                                     <td>{{ $item->rol_privilegio_id }}</td>
                                                     <td>{{ $item->menu_padre_id }}</td>
                                                     <td>{{ $item->menu_id }}</td>                                                    
@@ -235,16 +236,19 @@
     @section('addjs')
 
         <script src="{{ URL::asset('js/libs/DataTables/jquery.dataTables.js') }}"></script>
+        <script src="{{ URL::asset('js/libs/DataTables/extensions/FixedColumns/js/dataTables.fixedColumns.js') }}"></script>
         <script src="{{ URL::asset('vendor/sweetalert/sweetalert.all.js') }}"></script>
         <script>
             $(document).ready(function() {
                 $('#datatable1').DataTable();
 
                 $('#tb_upriv').DataTable({
-                    scrollY     : '300px',
+
+                    scrollY     : '250px',
                     paging      : true,
                     pageLength  : 10,
-                    autoWidth   : true,
+                    autoWidth   : false,
+
                     pageLength  : 10,
                     columns: [
                         { data: "" },
