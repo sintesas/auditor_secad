@@ -97,7 +97,7 @@
                 </div>
             </div>
 
-            <div id="uprivModal" class="modal" style="padding-top:100px;">
+            <div id="uprivModal" class="modal" style="padding-top:90px;">
                 <div class="modal-content" style="width: 85% !important;">
                     <div class="card-head style-primary">
                         <header>Privilegios</header>
