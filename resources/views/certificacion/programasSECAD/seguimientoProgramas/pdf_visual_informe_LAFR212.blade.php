@@ -466,35 +466,37 @@
     <table class="table2">
         <thead>
             <tr>
-                <th colspan="7" class="th1 center">4. SEGUIMIENTO PROGRAMA DE CERTIFICACIÓN AERONÁUTICA SECAD</th>
+                <th colspan="7" class="th1 center">4. SEGUIMIENTO PROGRAMA DE CERTIFICACIÓN AERONÁUTICA "SECAD"</th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <th class="th1-2 top" style="text-align: center;width:20px !important;height: 70px !important;">No.</th>
-                <th class="th1-2 top" style="text-align: center;width:150px !important">4.1. Actividad<br>(Según aplique al tipo de certificación solicitada)</th>
-                <th class="th1-2 top" style="text-align: center;width:110px !important">4.2. Responsable</th>
-                <td colspan="2" class="td2-2 center" style="position: relative;background: #fff !important;font-size: 9px !important;width: 160px !important;height: 50px !important;padding: 0 !important; margin: 0 !important;">
-                    <div class="espan"><b>4.3 Representante / Responsable</b></div>
-                    <div style="position: absolute;width:90px; height:94px !important;top: 24px; left: 0; border-right: 1px solid black;">
-                        <div style="width: 80px;float: left;padding: 5px !important;"><strong>Condición</strong><br>(Pendiente / Proceso / Cumplido)</div>
+                <th class="th1-1 top">No.</th>
+                <th class="th1-1 top">Actividad (Según aplique al tipo de certificación solicitada)</th>
+                <th class="th1-1 top">Responsable</th>
+                <td colspan="2" class="td2-2 center" style="position: relative;background: #fff !important;font-size: 9px !important;width: 160px !important;padding: 0 !important; margin: 0 !important;">
+                    <div class="espan"><b>4.1 Estado de Cumplimiento</b></div>
+                    <div style="position: absolute;width:90px;top: 24px; left: 0; border-right: 1px solid black;height: 93px;">
+                        <div style="width: 80px;float: left;padding: 20px 5px 5px !important;"><strong>Condición</strong> (Pendiente / Proceso / Cumplido)</div>
                     </div>
-                    <div style="position: absolute;width:80px;;top: 24px; left: 0;">
-                        <div style="width: 80px;float: left;padding: 5px !important;"><b>Porcentaje de Avance (%)<b></div>
+                    <div style="position: absolute;width:80px;top: 24px; left: 0;height: 92px;">
+                        <div style="width: 80px;float: left;margin-top: 30px; padding: 5px !important;"><b>Porcentaje de Avance (%)<b></div>
                     </div>
                 </td>                
-                <th class="th1-2 top" style="text-align: center">4.4. Fecha (DD/MM/AAAA)</th>
-                <th class="th1-2 top" style="width: 100px !important;">4.5. Observaciones</th>
+                <th class="th1-1 top" style="width: 60px !important;">4.2 Fecha<span style="font-size: 9px !important;">(DD/MM/AA)<span></th>
+                <th class="th1-1 top" style="width: 20px !important;">4.3 Observaciones</th>
             </tr>
             @forelse ($informeHistorialPrograma as $informeHistorialProgramaR)
             <tr>
-                <td class="td1-2 center">{{str_replace('.0', '', number_format($informeHistorialProgramaR->Orden, 1))}}</td>
-                <td class="td1-2">{{$informeHistorialProgramaR->Actividad}}</td>
-                <td class="td1-2">{{$informeHistorialProgramaR->Responsable}}</td>
-                <td class="td1-2 center" style="width: 80px !important;">{{$informeHistorialProgramaR->Situacion}}</td>
-                <td class="td1-2 center" style="width: 80px !important;">{{($informeHistorialProgramaR->Porcentaje)?$informeHistorialProgramaR->Porcentaje.'%':''}}</td>                
-                <td class="td1-2 center">{{$informeHistorialProgramaR->Fecha}}</td>
-                <td class="td1-2 center" style="width: 50px !important;">{{$informeHistorialProgramaR->Evidencias}} @if($informeHistorialProgramaR->Documentos != null)
+                <td class="td1-2 center"><strong>{{str_replace('.0', '', number_format($informeHistorialProgramaR->Orden, 1))}}</strong></td>
+                <td class="td1-2"><strong>{{$informeHistorialProgramaR->Actividad}}</strong></td>
+                <td class="td1-2"><strong>{{$informeHistorialProgramaR->Responsable}}</strong></td>
+                <td class="td1-3 center" style="width: 80px !important;"><strong>{{$informeHistorialProgramaR->Situacion}}</strong></td>
+                <td class="td1-3 center" style="width: 80px !important;">{{($informeHistorialProgramaR->Porcentaje)?$informeHistorialProgramaR->Porcentaje.'%':''}}</td>                
+                <td class="td1-2 center" style="width: 60px !important;">{{ date('d/m/Y', strtotime($informeHistorialProgramaR->Fecha)) }}</td>
+                <td class="td1-2 center" style="width: 20px !important;padding-left: 5px !important; padding-right: 5px !important;">
+                    <p>{{$informeHistorialProgramaR->Evidencias}}</p>
+                    @if($informeHistorialProgramaR->Documentos != null)
                     <a href="{{asset($informeHistorialProgramaR->Documentos)}}" target="_blank"><strong>Ver documento</strong></a>
                     @endif
                 </td>
@@ -561,9 +563,9 @@
                         <label><input type="checkbox"><span>Denegado</span><label>
                     </div>
                 </td>
-                <td class="center" style="font-size: 11px; padding: 5px !important;">{{$suplente->grado != "N/A" ? $suplente->grado->Abreviatura : $suplente->grado}}. {{ $suplente->Nombres }} {{ $suplente->Apellidos }}</td>
+                <td class="center" style="font-size: 11px; padding: 5px !important;">&nbsp;</td>
                 <td class="center" style="font-size: 9px; padding: 5px !important;">Jefe Área Certificación Productos Aeronáuticos (ACPAE) /<br />Jefe Área Reconocimiento y Evaluación (AREVA)</td>
-                <td colspan="2" class="center" style="font-size: 11px; padding: 5px !important;"></td>
+                <td colspan="2" class="center" style="font-size: 11px; padding: 5px !important;">&nbsp;</td>
                 <td class="center" style="font-size: 11px; padding: 5px !important;">{{ date('d-m-Y') }}</td>
             </tr>
         </tbody>
@@ -577,7 +579,7 @@
         </thead>
         <tbody>
             <tr>
-                <td style="font-size: 11px; padding: 0px 5px !important;">                    
+                <td style="font-size: 11px; padding: 0px 5px !important;height:100px;">
                     @if($obervaciones != null)
                     <p>{{$obervaciones->Observacion}}</p>
                     @else

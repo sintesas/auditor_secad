@@ -182,8 +182,6 @@ class DetalleProgramaController extends Controller
        $programa->FechaTermino = $request->input('FechaTermino');
        $programa->IdRespuestoModificacion = $request->input('IdRespuestoModificacion');
        $programa->IdAReferenciaPrograma = $request->input('IdAReferenciaPrograma');
-       $programa->AnioCertificacion = $request->input('AnioCertificacion');
-       $programa->IdEstadoCertificacion = $request->input('IdEstadoCertificacion');
        // $programa->IdBaseCertificacion = $request->input('IdBaseCertificacion');
        $programa->Finalizado = $request->input('Finalizado');
        $programa->FechaFin = $request->input('FechaFin');
