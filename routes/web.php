@@ -666,7 +666,9 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('perfil', PerfilController::class);
     Route::get('asignarusuarioEmpresa/funcionariosEmpresa/{id}', [AsignarUsuarioEmpresaController::class,'getFuncionariosEmpresas']);
     
-    
+
+    Route::post('/descargar-carpeta-directa/{consecutivo}', [InformeLAFR212Controller::class, 'copiarCarpetaEscritorio'])->name('descargar-carpeta-directa');
+    Route::get('/descargar-carpeta-zip/{consecutivo}', [InformeLAFR212Controller::class, 'descargarCarpetaZip'])->name('descargar-carpeta-zip');
     /*	Cursos Requeridos */
     
     Route::resource('contenidoTematico', ContenidoTematicoController::class);

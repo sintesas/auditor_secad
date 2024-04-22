@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\Rol;
+use App\Models\Permiso;
 
 class RolController extends Controller
 {
@@ -18,8 +19,10 @@ class RolController extends Controller
      */
     public function index() {
         $roles = Rol::all();
+        $p = new Permiso;
+        $permiso = $p->getPermisos('AD');
 
-        return view('admin.roles', compact('roles'));
+        return view('admin.roles', compact('roles'))->with('permiso', $permiso);
     }
 
     /**

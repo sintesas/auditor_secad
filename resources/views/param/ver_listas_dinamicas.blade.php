@@ -41,7 +41,7 @@
                                     @if ($item->activo == 1)
                                     <div class="gui-td-icon"> <i class="fa fa-check-circle" style="color: green;"></i></div>
                                     @else
-                                    <div class="gui-td-icon"> <i class="fa fa-check-circle" style="color: red;"></i></div>
+                                    <div class="gui-td-icon"> <i class="fa fa-times-circle" style="color: red;"></i></div>
                                     @endif
                                 </td>
                                 <td>

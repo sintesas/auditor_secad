@@ -99,7 +99,7 @@ class DetalleProgramaController extends Controller
         $areas = ['ACPA'=>'ACPA - Área Certificación Productos Aeronáuticos',
                   'AREV'=>'AREV - Área Reconocimiento y Evaluación'];
 
-        $estado_cert = \DB::select("select * from vw_cp_estado_certificacion");
+        $estado_cert = \DB::select("select * from vw_cp_estado_certificacion where ActivoCertificacion = 1");
         $estadosc = collect($estado_cert);
         $estadosc->prepend('None');
  
@@ -315,8 +315,11 @@ class DetalleProgramaController extends Controller
             \File::makeDirectory( $proPath53, 0755, true);
 
         }        
-       
-       return redirect()->route('programa.edit', $programa->IdPrograma);
+        $notification = array(
+            'message' => 'Programa Creado Correctamente',
+            'alert-type' => 'success'
+        );
+       return redirect()->route('programa.index')->with($notification);
     }
 
     /**

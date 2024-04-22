@@ -188,7 +188,7 @@
                     <div class="form-group" style="padding: 0 30px;">
                         <div class="row">
                             <div class="col-sm-6">
-                                <button type="button" class="btn btn-info btn-block" id="btn-upriv">Crear</button>
+                                <button type="button" class="btn btn-info btn-block" id="btn-upriv">Asignar</button>
                             </div>
                             <div class="col-sm-6">
                                 <button type="submit" onclick="document.getElementById('uprivModal').style.display='none'" class="btn btn-danger btn-block">Cancelar</button>

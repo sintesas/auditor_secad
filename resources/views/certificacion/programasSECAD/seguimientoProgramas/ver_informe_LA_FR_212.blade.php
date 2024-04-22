@@ -42,6 +42,7 @@
 							{{-- @endrole --}}
 
 							<th style="width: 120px;" colspan = "1" class="text-center"><b>Ver Informe</b></th>
+							<th style="width: 100px;" colspan = "1" class="text-center"><b>Descargar Evidencias</b></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -78,8 +79,21 @@
 									<button type="button" class="btn btn-primary btn-block editbutton" onclick="informe({{$programas->IdPrograma}})"><div class="gui-icon"><i class="fa fa-search"></i></div></button>
 
 								</div>
+								
 
 							</td>
+							<td style="padding-left: 30px;">
+    <div class="col-sm-6">
+        <form id="copyFolderForm" action="{{ route('descargar-carpeta-directa', ['consecutivo' => $programas->Consecutivo]) }}" method="POST">
+            @csrf
+            <button type="button" class="btn btn-primary btn-block editbutton" onclick="descargarCarpeta('{{ $programas->Consecutivo }}')">
+                <div class="gui-icon"><i class="fa fa-download"></i></div>
+            </button>
+        </form>
+    </div>
+</td>
+
+
 							{{-- <td>{{$ata->Activo}}</td> --}}
 						</tr>
 						@endif
@@ -128,7 +142,37 @@
 @section('addjs')
 
 <script src="{{URL::asset('js/libs/DataTables/jquery.dataTables.js')}}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
+<script>
+     function descargarCarpeta(consecutivo) {
+        // Puedes usar Ajax para manejar la respuesta del controlador
+        $.ajax({
+            url: `/descargar-carpeta-zip/${consecutivo}`,
+            type: 'GET',
+            success: function(response) {
+                // Verificar si hay un error en la respuesta
+                if (response.status == false) {
+                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'INFO',
+                                        html: response.mensaje,
+                                        confirmButtonText: 'Aceptar',
+                                        confirmButtonColor: "#3085d6"
+                                    });
+                } else {
+                    // Lógica para manejar la respuesta exitosa
+                    // Por ejemplo, podrías redirigir o realizar otras acciones
+					window.location.href = `/descargar-carpeta-zip/${consecutivo}`;
+                }
+            },
+            error: function(error) {
+                console.error('Error en la solicitud Ajax:', error);
+            }
+        });
+    }
+	
+</script>
 <script>
 	$(document).ready(function(){
 		$('#example').DataTable({

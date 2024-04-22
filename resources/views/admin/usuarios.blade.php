@@ -12,9 +12,10 @@
 
         @section('card-title')
 			{{Breadcrumbs::render('usuario')}}
-
+            @if ($permiso->crear == 1)
             <button type="button" onclick="window.location='{{ route("usuario.create") }}'" class="btn btn-info ink-reaction btn-primary addbutton" id="myBtn"><span class="fa fa-plus"></span></button>
-		@endsection()
+            @endif
+            @endsection()
 
         @section('card-content')
 
@@ -30,6 +31,7 @@
                         </thead>
                         <tbody>
                             @foreach ($usuarios as $item)
+                            @if ($permiso->consultar == 1)
                             <tr>
                                 <td>{{ $item->usuario }}</td>
                                 <td>{{ $item->nombre_completo }}</td>
@@ -42,14 +44,17 @@
                                     @endif
                                 </td>
                                 <td>
+                                @if ($permiso->actualizar == 1)
                                     <div class="col-sm-6">
                                         <a href="{{ route('usuario.edit', $item->usuario_id) }}" class="btn btn-primary btn-block editbutton" ><div class="gui-icon"><i class="fa fa-pencil"></i></div></a>
                                     </div>
+                                @endif
                                     <div class="col-sm-6">
                                         <a href="{{ route('asignar.rol', $item->usuario_id) }}" class="btn btn-primary btn-block editbutton" ><div class="gui-icon"><i class="fa fa-shield"></i></div></a>
                                     </div>
                                 </td>                                    
                             </tr>
+                            @endif
                             @endforeach
                         </tbody>
                     </table>

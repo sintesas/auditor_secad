@@ -18,12 +18,27 @@ class ListaSeguimientoProgController extends Controller
      */
     public function index()
     {
+        
+    $nombreCompleto = auth()->user()->nombre_completo;
+
+
+    
+    $idPersonal = \DB::table('AUFACVW_PersonalHH')->where('NombreCompleto', $nombreCompleto)->value('IdPersonal');
+    $todosprogramas =  \DB::table('AUFACVW_PersonalHH')->where('IdPersonal', $idPersonal)->value('TodosProgramas');
+    if ($todosprogramas == 1) {
         $programas = Programa::getProgramasTipo();
         $p = new Permiso;
         $permiso = $p->getPermisos('CP');
-
         return view ('certificacion.programasSECAD.seguimientoProgramas.ver_lista_seguimiento_progamas')
-                ->with('programas', $programas)->with('permiso', $permiso);
+        ->with('programas', $programas)->with('permiso', $permiso);
+  } else{
+      $p = new Permiso;
+      $permiso = $p->getPermisos('CP');
+      $programas = Programa::getByUser($idPersonal);        
+      return view ('certificacion.programasSECAD.seguimientoProgramas.ver_lista_seguimiento_progamas')
+      ->with('programas', $programas)->with('permiso', $permiso);
+  }
+  
     }
 
     /**

@@ -134,6 +134,12 @@
                                 <label for="Categoria">Tipo Personal</label>
                             </div>
                         </div> 
+                        <div class="col-sm-6">
+                                <div class="form-group">
+                                    <input type="checkbox" id="TodosProgramas" name="TodosProgramas" @if($personal->TodosProgramas == 1) checked @endif>
+                                    <label for="TodosProgramas">Ve todos los programas</label>                            
+                                </div>
+                            </div>
                     </div> 
                 </div><!--end .card-body -->
             </div>

@@ -39,7 +39,7 @@
                 </div>
                 <div style="height:64px; padding-left: 18%; float: left;">
                     <img style="height:64px; padding-right: 15px;" src="{{ asset('img/logo_fac.png') }} ">
-                    <span style="font-family: Eras Demi ITC; font-size: 24px; font-weight:400; color: #fff;">FUERZA AÉREA COLOMBIANA</span>
+                    <span style="font-family: Eras Demi ITC; font-size: 24px; font-weight:400; color: #fff;">FUERZA AEROESPACIAL COLOMBIANA</span>
                     <img style="height:64px; padding-left: 15px;" src="{{ asset('img/logo_secad.png') }}">
                 </div>
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">

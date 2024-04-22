@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\Usuario;
+use App\Models\Permiso;
 
 class UsuarioController extends Controller
 {
@@ -18,8 +19,10 @@ class UsuarioController extends Controller
      */
     public function index() {
         $usuarios = Usuario::all();
+        $p = new Permiso;
+        $permiso = $p->getPermisos('AD');
         
-        return view('admin.usuarios', compact('usuarios'));
+        return view('admin.usuarios', compact('usuarios'))->with('permiso', $permiso);
     }
 
     /**

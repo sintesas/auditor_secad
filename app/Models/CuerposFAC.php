@@ -17,11 +17,12 @@ class CuerposFAC extends Model
 	}
 
 	public static function getCuerpos(){
-		return CuerposFAC::orderBy('CuerpoFAC', 'NombreCuerpo')
-		->select('IdCuerpo', 
-		\DB::raw("CONCAT ( CuerpoFAC, ' | ', NombreCuerpo) as NombreCuerpo"))
-		->get();
+		return CuerposFAC::orderBy('CuerpoFAC', 'asc')
+			->orderBy('NombreCuerpo', 'asc')
+			->select('IdCuerpo', \DB::raw("CONCAT ( CuerpoFAC, ' | ', NombreCuerpo) as NombreCuerpo"))
+			->get();
 	}
+	
 
 	public static function getCuerposByGrado($Idgrado){
 

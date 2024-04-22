@@ -17,8 +17,8 @@
 				<img src="{{ asset('img/logo_fac.png') }}">
 			</div>
 			<div class="col-sm-4">				
-				<h5 class="tittleHeadFAC">FUERZA AÉREA COLOMBIANA</h5>
-				<h5 class="subTittleHeadFAC">Jefatura de Operaciones Logisticas / SECAD</h5>				
+				<h5 class="tittleHeadFAC">FUERZA AEROESPACIAL COLOMBIANA</h5>
+				<h5 class="subTittleHeadFAC">Oficina de Certificación Aeronáutica de la Defensa - SECAD</h5>				
 			</div>
 			<div class="col-sm-4 div-img-left">
 				<img src="{{ asset('img/logo_secad.png') }}">
@@ -34,13 +34,13 @@
 						</span>
 					</a>
 					<ul class="dropdown-menu animation-dock">
-						<li class="dropdown-header">Configuración</li>
-						<li><a href="javascript:void(0)">Mi Perfil</a></li>
-						<li class="divider"></li>
+						<!--<li class="dropdown-header">Configuración</li>-->
+						<!--<li><a href="javascript:void(0)">Mi Perfil</a></li>
+						<li class="divider"></li>-->
 						<div class="panel-footer">
 							<form action="{{ route('logout') }}" method="POST">
 								{{csrf_field()}}
-								<button class="btn btn-danger btn-xs btn-block">Cerrar sessión</button>
+								<button class="btn btn-danger btn-xs btn-block">Cerrar sesión</button>
 							</form>
 						</div>
 					</ul>

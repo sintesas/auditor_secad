@@ -11,7 +11,14 @@ use App\Models\InformeLAFR212;
 use App\Models\ActividadesInformeLAFR212;
 use App\Models\ObservacionesLAFR212;
 use App\Models\Tools;
+use App\Models\Permiso;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Storage;
+use ZipArchive;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Log;
+use RecursiveIteratorIterator;
+use RecursiveDirectoryIterator;
 
 class InformeLAFR212Controller extends Controller
 {
@@ -23,28 +30,25 @@ class InformeLAFR212Controller extends Controller
     public function index()
     {
 
-        // $idPersonal = \Auth::user()->IdPersonal;
-        // $idEmpresa = \Auth::user()->IdEmpresa;        
+        $nombreCompleto = auth()->user()->nombre_completo;
 
-        // if (\Auth::user()->hasRole('administrador')) {
-        //     $programas = Programa::all();
-        //     return view ('certificacion.programasSECAD.seguimientoProgramas.ver_informe_LA_FR_212')->with('programa', $programas);          
-        // }else{
 
-        //     if (\Auth::user()->hasRole('empresario')) {
-        //          $programas = Programa::getProgramasTipoByEmpresa($idEmpresa);
-        //          return view ('certificacion.programasSECAD.seguimientoProgramas.ver_informe_LA_FR_212')->with('programa', $programas);
-        //     }
-        //     else
-        //     {
-        //         $programas= Programa::getByUser($idPersonal);
-
-        //         return view ('certificacion.programasSECAD.seguimientoProgramas.ver_informe_LA_FR_212')->with('programa', $programas);
-        //     }
-        // }
-
+    
+      $idPersonal = \DB::table('AUFACVW_PersonalHH')->where('NombreCompleto', $nombreCompleto)->value('IdPersonal');
+      $todosprogramas =  \DB::table('AUFACVW_PersonalHH')->where('IdPersonal', $idPersonal)->value('TodosProgramas');
+      if ($todosprogramas == 1) {
+        $p = new Permiso;
+        $permiso = $p->getPermisos('CP');
         $programas = Programa::all();
-        return view ('certificacion.programasSECAD.seguimientoProgramas.ver_informe_LA_FR_212')->with('programa', $programas);        
+        return view ('certificacion.programasSECAD.seguimientoProgramas.ver_informe_LA_FR_212')->with('programa', $programas)->with('permiso', $permiso);
+    } else{
+        $p = new Permiso;
+        $permiso = $p->getPermisos('CP');
+        $programas = Programa::getByUser($idPersonal);        
+        return view ('certificacion.programasSECAD.seguimientoProgramas.ver_informe_LA_FR_212')->with('programa', $programas)->with('permiso', $permiso);
+    }
+    
+
     }
 
     /**
@@ -569,4 +573,64 @@ class InformeLAFR212Controller extends Controller
     {
         //
     }
+
+    public function descargarCarpetaZip(Request $request, $consecutivo)
+{
+    try {
+        // Ruta de la carpeta principal
+        $carpetaPrincipal = base_path('public/secad/Programas');
+        
+        // Ruta de la carpeta específica con el consecutivo
+        $rutaCarpeta = $carpetaPrincipal . DIRECTORY_SEPARATOR . $consecutivo;
+
+        // Valida si la carpeta existe
+        if (!is_dir($rutaCarpeta)) {
+            // Devuelve un aviso en lugar de lanzar una excepción
+            return response()->json(array('status' => false, 'mensaje' => 'No hay documentos para descargar.'));
+           
+        }
+
+        // Define el nombre del archivo ZIP
+        $zipFileName = "{$consecutivo}.zip";
+
+        // Comprime la carpeta en un archivo ZIP
+        $zipPath = storage_path("app/{$zipFileName}");
+
+        $zip = new ZipArchive();
+        $zip->open($zipPath, ZipArchive::CREATE | ZipArchive::OVERWRITE);
+
+        $this->agregarCarpetaAZip($zip, $rutaCarpeta, $consecutivo);
+
+        $zip->close();
+
+        // Descarga el archivo ZIP con el nombre deseado
+        return response()->download($zipPath, $zipFileName)->deleteFileAfterSend(true);
+        return response()->json(['success' => true]);
+    } catch (\Exception $e) {
+        return response()->json(['success' => false, 'error' => $e->getMessage()]);
+    }
+}
+    private function agregarCarpetaAZip(ZipArchive $zip, $carpeta, $nombreCarpeta)
+{
+    $archivos = new RecursiveIteratorIterator(
+        new RecursiveDirectoryIterator($carpeta),
+        RecursiveIteratorIterator::SELF_FIRST
+    );
+
+    foreach ($archivos as $archivo) {
+        $archivoNombre = $archivo->getBasename();
+        $archivoRuta = $archivo->getRealPath();
+        $archivoRutaRelativa = substr($archivoRuta, strlen($carpeta) + 1);
+
+        if ($archivo->isDir()) {
+            // Agrega el directorio al ZIP con la ruta relativa
+            $zip->addEmptyDir("{$nombreCarpeta}/{$archivoRutaRelativa}");
+        } else {
+            // Agrega el archivo al ZIP con la ruta relativa
+            $zip->addFile($archivoRuta, "{$nombreCarpeta}/{$archivoRutaRelativa}");
+        }
+    }
+}
+
+    
 }

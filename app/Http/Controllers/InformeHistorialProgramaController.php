@@ -20,34 +20,26 @@ class InformeHistorialProgramaController extends Controller
      */
     public function index()
     {
-        // $programa = Programa::all();
-        // return view ('certificacion.programasSECAD.informes.ver_informe_historial_programa')->with('programa', $programa);
+        $nombreCompleto = auth()->user()->nombre_completo;
 
-        // $idPersonal = Auth::user()->IdPersonal;
-        // $idEmpresa = Auth::user()->IdEmpresa;
-        
-        $programa = Programa::all();
-        
+
+    
+      $idPersonal = \DB::table('AUFACVW_PersonalHH')->where('NombreCompleto', $nombreCompleto)->value('IdPersonal');
+      $todosprogramas =  \DB::table('AUFACVW_PersonalHH')->where('IdPersonal', $idPersonal)->value('TodosProgramas');
+      if ($todosprogramas == 1) {
         $p = new Permiso;
         $permiso = $p->getPermisos('CP');
-        return view ('certificacion.programasSECAD.informes.ver_informe_historial_programa')->with('programa', $programa)->with('permiso', $permiso); 
+        $programas = Programa::all();
+        return view ('certificacion.programasSECAD.informes.ver_informe_historial_programa')->with('programa', $programas)->with('permiso', $permiso); 
+    } else{
+        $p = new Permiso;
+        $permiso = $p->getPermisos('CP');
+        $programas = Programa::getByUser($idPersonal);        
+        return view ('certificacion.programasSECAD.informes.ver_informe_historial_programa')->with('programa', $programas)->with('permiso', $permiso); 
+    }
+    
 
-        // if (Auth::user()->hasRole('administrador')) {
-        //     $programa = Programa::all();
-        //     return view ('certificacion.programasSECAD.informes.ver_informe_historial_programa')->with('programa', $programa);          
-        // }else{
-
-        //     if (Auth::user()->hasRole('empresario')) {
-        //          $programa = Programa::getProgramasTipoByEmpresa($idEmpresa);
-        //          return view ('certificacion.programasSECAD.informes.ver_informe_historial_programa')->with('programa', $programa);
-        //     }
-        //     else
-        //     {
-        //         $programa= Programa::getByUser($idPersonal);
-
-        //         return view ('certificacion.programasSECAD.informes.ver_informe_historial_programa')->with('programa', $programa);
-        //     }
-        // }
+      
     }
 
     /**

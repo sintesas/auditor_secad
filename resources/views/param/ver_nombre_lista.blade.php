@@ -14,9 +14,8 @@
 			{{Breadcrumbs::render('nombre_lista')}}
 
             @if ($permiso->crear == 1)
-            <button type="button" onclick="window.location='{{ route("nombrelista.create") }}'" class="btn btn-info ink-reaction btn-primary addbutton" id="myBtn"><span class="fa fa-plus"></span></button>
-            @endif
-            
+           {{-- <button type="button" onclick="window.location='{{ route("nombrelista.create") }}'" class="btn btn-info ink-reaction btn-primary addbutton" id="myBtn"><span class="fa fa-plus"></span></button> --}}
+            @endif 
 		@endsection()
 
         @section('card-content')
@@ -44,9 +43,9 @@
                                 </td>
                                 <td>
                                     @if ($permiso->actualizar == 1)
-                                    <div class="col-sm-6">
+                                   {{--<div class="col-sm-6">
                                         <a href="{{ route('nombrelista.edit', $item->nombre_lista_id) }}" class="btn btn-primary btn-block editbutton" ><div class="gui-icon"><i class="fa fa-pencil"></i></div></a>
-                                    </div>
+                                    </div> --}}
                                     @endif
                                     <div class="col-sm-6">
                                         <a href="{{ route('listasvalores.indice', $item->nombre_lista_id) }}" class="btn btn-primary btn-block editbutton" ><div class="gui-icon"><i class="fa fa-list"></i></div></a>

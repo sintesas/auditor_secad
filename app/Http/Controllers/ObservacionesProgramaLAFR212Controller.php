@@ -24,31 +24,31 @@ class ObservacionesProgramaLAFR212Controller extends Controller
      */
     public function index()
     {
-        // $idPersonal = Auth::user()->IdPersonal;
-        // $idEmpresa = Auth::user()->IdEmpresa;
-
-        $programas = Programa::all();
-        $p = new Permiso;
-        $permiso = $p->getPermisos('CP');
-        return view('certificacion.programasSECAD.seguimientoProgramas.ver_observacionesLAFR212Progamas')->with('programa', $programas)->with('permiso', $permiso);
         
-        // if (Auth::user()->hasRole('administrador')) {
-        //     $programas = Programa::all();
-        //     return view ('certificacion.programasSECAD.seguimientoProgramas.ver_observacionesLAFR212Progamas')->with('programa', $programas);          
-        // }
-        // else{
 
-        //     if (Auth::user()->hasRole('empresario')) {
-        //          $programas = Programa::getProgramasTipoByEmpresa($idEmpresa);
-        //          return view ('certificacion.programasSECAD.seguimientoProgramas.ver_observacionesLAFR212Progamas')->with('programa', $programas);
-        //     }
-        //     else
-        //     {
-        //         $programas= Programa::getByUser($idPersonal);
+        $nombreCompleto = auth()->user()->nombre_completo;
 
-        //         return view ('certificacion.programasSECAD.seguimientoProgramas.ver_observacionesLAFR212Progamas')->with('programa', $programas);
-        //     }                      
-        // }
+
+    
+        $idPersonal = \DB::table('AUFACVW_PersonalHH')->where('NombreCompleto', $nombreCompleto)->value('IdPersonal');
+        $todosprogramas =  \DB::table('AUFACVW_PersonalHH')->where('IdPersonal', $idPersonal)->value('TodosProgramas');
+        if ($todosprogramas == 1) {
+          $p = new Permiso;
+          $permiso = $p->getPermisos('CP');
+          $programas = Programa::all();
+          return view('certificacion.programasSECAD.seguimientoProgramas.ver_observacionesLAFR212Progamas')->with('programa', $programas)->with('permiso', $permiso);
+      } else{
+          $p = new Permiso;
+          $permiso = $p->getPermisos('CP');
+          $programas = Programa::getByUser($idPersonal);        
+          return view('certificacion.programasSECAD.seguimientoProgramas.ver_observacionesLAFR212Progamas')->with('programa', $programas)->with('permiso', $permiso);
+      }
+    
+      
+       
+
+        
+        
     }
 
     /**

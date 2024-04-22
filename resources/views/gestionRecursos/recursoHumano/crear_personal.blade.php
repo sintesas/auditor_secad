@@ -133,7 +133,13 @@
                                                     ], null, ['class' => 'form-control', 'id' => 'Categoria'])}}
                                 <label for="Categoria">Tipo Personal</label>
                             </div>
-                        </div> 
+                        </div>  
+                        <div class="col-sm-3">
+                                <div class="form-group">
+                                    <input type="checkbox" id="todosprogramas" name="todosprogramas" checked>
+                                    <label for="todosprogramas">Ve todos los programas</label>                            
+                                </div>
+                        </div>
                     </div> 
                 </div><!--end .card-body -->
             </div>

@@ -281,6 +281,7 @@ class PersonalController extends Controller
         }
         //dd($pesona);
         $pesona->Active = 1;
+        $pesona->todosprogramas = ($request->get('todosprogramas') == true) ? 1 : 0;
         $pesona->save();
         $notification = array(
             'message' => 'La persona se agregó correctamente', 
@@ -519,6 +520,7 @@ class PersonalController extends Controller
 
         //dd($pesona);
         $pesona->Active = 1;
+        $pesona->TodosProgramas = ($request->get('TodosProgramas') == true) ? 1 : 0;
         $pesona->save();
         return redirect()->route('personal.index');
     }
