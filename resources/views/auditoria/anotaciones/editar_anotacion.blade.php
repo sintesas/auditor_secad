@@ -217,7 +217,7 @@ Editar Anotación
 				</div>
 			</div>
 
-			@if ($rol === 'limitador' || $rol === 'limitador-all' || Auth::user()->hasRole('administrador'))
+			
 				<div class="row">
 					<div class="col-sm-12">
 					<label for="IdDependenciaResponsableHallazgo" style="font-size:17px; color:#3f4c5a; margin:0px; padding:0px">Responsables del hallazgo </label>
@@ -235,7 +235,7 @@ Editar Anotación
 						</div>
 					</div>
 				</div>
-			@endif
+
 			<br>
 			<div class="row">
 				<div class="col-sm-12">

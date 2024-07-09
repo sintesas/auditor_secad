@@ -13,5 +13,6 @@ class VerifyCsrfToken extends Middleware
      */
     protected $except = [
         'usuariorol/asignar/crear',
+        'saml2/asecad/acs'
     ];
 }

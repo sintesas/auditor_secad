@@ -137,6 +137,8 @@ class InformeInspeccionController extends Controller
         // }
 
          //Set Dropdown TipoInforme
+
+        $informeInspeccion = InformeInspeccion::find($IdCrearInforme);
         $TipoInformes = TipoInforme::all(['IdTipoInforme', 'NombreTipo']);
         $TipoInformes->prepend('None');         
         return view ('auditoria.editar_informe_inspeccion')

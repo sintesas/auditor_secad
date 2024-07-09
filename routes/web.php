@@ -196,6 +196,9 @@ use App\Http\Controllers\VistaProgramasCompController;
 
 Route::get('/', [LoginController::class, 'index']);
 
+//Route::post('/', [LoginController::class, 'login'])->name('login');
+//Route::any('/logout', [LoginController::class, 'logout'])->name('logout');
+
 Route::post('/login', [LoginController::class, 'login'])->name('login');
 Route::any('/logout', [LoginController::class, 'logout'])->name('logout');
 

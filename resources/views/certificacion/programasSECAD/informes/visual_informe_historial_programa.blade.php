@@ -109,7 +109,7 @@ Informe Historial Programa
                                         <td class="lighterFont">{{$seguimiento->Situacion}}</td>
                                         <td class="lighterFont">{{$seguimiento->Fecha}}</td>
                                         <td class="lighterFont">{{$seguimiento->Evidencias}}</td>
-                                        <td class="lighterFont"><a href="{{asset($seguimiento->Documentos)}}" target="_blank">Descargar</a></td>
+                                        <td class="lighterFont"><a href="{{asset($seguimiento->Documentos)}}" download>Descargar</a></td>
                                         <td class="lighterFont">{{$seguimiento->Horas}}</td>
                                         <td class="lighterFont"></td>
                                     </tr>
@@ -138,7 +138,7 @@ Informe Historial Programa
                 </div>
                 <!-- FIN Div-->
             </div><!--end .row -->                                            
-            <a href="{{route('informehistorialprograma.edit', $programa->IdTipoPrograma) }}" style="width: 150px; font-style: Roboto; margin-top: 30px;" class="btn btn-primary btn-block editbutton pull-left"><span class="fa fa-download">    Descargar PDF</span></a>
+            <a href="{{route('informehistorialprograma.edit', $programa->IdPrograma) }}" style="width: 150px; font-style: Roboto; margin-top: 30px;" class="btn btn-primary btn-block editbutton pull-left"><span class="fa fa-download">    Descargar PDF</span></a>
         </div><!--end .section-body -->  
     </section>
 </div><!--end #content-->

@@ -82,16 +82,18 @@ class AnotacionesController extends Controller
         $idPersonal = Auth::user()->IdPersonal;
         $name = Auth::user()->name;
 
-        if (Auth::user()->hasRole('administrador')) {
+        $auditorias = Auditoria::all(['IdAuditoria', 'Codigo']);
+        $auditorias->prepend('None');
+        //if (Auth::user()->hasRole('administrador')) {
            //Set Dropdown Auditoria
-            $auditorias = Auditoria::all(['IdAuditoria', 'Codigo']);
-            $auditorias->prepend('None');
-        }else{
+           // $auditorias = Auditoria::all(['IdAuditoria', 'Codigo']);
+            //$auditorias->prepend('None');
+        //}else{
             //Set Dropdown Auditoria
             //$auditorias = Auditoria::getByUserAuditorias($idPersonal, $name);
-            $auditorias = Auditoria::getByUser($idPersonal);
-            $auditorias->prepend('None');
-        }
+            //$auditorias = Auditoria::getByUser($idPersonal);
+            //$auditorias->prepend('None');
+        //}
 
         $clasesAnotaciones = ClasesConnotaciones::all();
         $clasesAnotaciones->prepend('none');
@@ -260,15 +262,18 @@ class AnotacionesController extends Controller
         $idPersonal = Auth::user()->IdPersonal;
         $name = Auth::user()->name;
 
-        if (Auth::user()->hasRole('administrador') || $rol == true) {
+        $auditorias = Auditoria::all(['IdAuditoria', 'Codigo']);
+            $auditorias->prepend('None');
+
+       // if (Auth::user()->hasRole('administrador') || $rol == true) {
            //Set Dropdown Auditoria
-            $auditorias = Auditoria::all(['IdAuditoria', 'Codigo']);
-            $auditorias->prepend('None');
-        }else{
+           // $auditorias = Auditoria::all(['IdAuditoria', 'Codigo']);
+            //$auditorias->prepend('None');
+        //}else{
             //Set Dropdown Auditoria
-            $auditorias = Auditoria::getByUserAuditorias($idPersonal, $name);
-            $auditorias->prepend('None');
-        }
+          //  $auditorias = Auditoria::getByUserAuditorias($idPersonal, $name);
+            //$auditorias->prepend('None');
+        //}
 
         $clasesAnotaciones = ClasesConnotaciones::all();
         $clasesAnotaciones->prepend('none');

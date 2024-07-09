@@ -24,14 +24,14 @@
 
 		@section('card-content')
 
-		@if ($gl_perfil[12] != true && $gl_perfil[13] != true && $gl_perfil[1] != true)
+		
 			<style media="screen">
 				.remove_item	{
 					display: none !important;
 				}
 			</style>
 
-		@endif
+
 			<div class="card-body floating-label">
 
 				<div class="row">
