@@ -27,7 +27,7 @@
                  <div class="card">
                     <div class="card-head card-head-sm style-primary">
                         <header>
-                            Efecturar Seguimiento a un Programa
+                            Efectuar Seguimiento a un Programa
                         </header>
                     </div><!--end .card-head -->
                     <div class="card-body">

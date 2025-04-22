@@ -20,6 +20,12 @@ class Personal extends Model
         ->select(  	"dbo.AU_Reg_Personal.IdPersonal",
                    	\DB::raw("CONCAT ( dbo.AU_Mst_Grado.Abreviatura, ' | ',dbo.AU_Reg_Personal.Nombres, ' ',dbo.AU_Reg_Personal.Apellidos) as Nombres"))->get();
 	}
+  public static function getPersonal(){
+    return Personal::orderBy('Nombres', 'asc')
+       ->leftjoin('dbo.AU_Mst_Grado', 'dbo.AU_Mst_Grado.IdGrado', '=', 'dbo.AU_Reg_Personal.IdGrado')
+       ->select(  	"dbo.AU_Reg_Personal.IdPersonal",
+                    \DB::raw("CONCAT ( dbo.AU_Reg_Personal.Nombres, ' ',dbo.AU_Reg_Personal.Apellidos) as Nombres"))->get();
+ }
 
 	public static function getlistPersonalWithRango(){
 		 return Personal::orderBy('Nombres', 'asc')

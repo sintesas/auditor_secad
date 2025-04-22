@@ -167,7 +167,7 @@
 															<div class="row">
 																<div class="col-sm-12">
 																	<div class="form-group">
-																		<input type="text" class="form-control" id="PrecioCompra" name="PrecioCompra" value="{{old('PrecioCompra', $producto->PrecioCompra)}}">
+																		<input type="number" class="form-control" id="PrecioCompra" name="PrecioCompra" value="{{old('PrecioCompra', $producto->PrecioCompra)}}">
 																		<label for="PrecioCompra"> Precio de Compra</label>
 																	</div>
 																</div>
@@ -181,6 +181,8 @@
 																		<a href="{{URL::asset('secad/Productos/' . $producto->Nombre.'-'.$producto->ParteNumero.'/'.$producto->DocTecnica)}}" target="_blank"><img id="image_upload_preview" src="{{URL::asset('/img/doc.png')}}" alt="profile Pic" ></a>
 																	</div>
 																	@endif
+																	<p><strong>Archivo Actual:</strong> {{ $producto->DocTecnica }}</p>
+
 																</div>
 															</div>
 															<div class="row">

@@ -50,16 +50,16 @@ Tipos Programa
 						</div>
 					</td>
 					<td>
-					@if ($permiso->eliminar == 1)
+					{{--@if ($permiso->eliminar == 1)
 						<div class="col-sm-6">
 							{!! Form::open(['route' => ['tipoprograma.destroy', $tipoprograma->IdTipoPrograma], 'method' => 'DELETE']) !!}
 							{!!Form::submit('x', ['class' => 'btn btn-danger deleteButton']) !!}
 							{!! Form::close() !!}
 						</div>
-						@endif
+						@endif--}}
 						@if ($permiso->actualizar == 1)
 						<div class="col-sm-6">
-							<button class="btn btn-primary btn-default edit-modal" data-id="{{$tipoprograma->IdTipoPrograma}}" data-tipo="{{$tipoprograma->Tipo}}" data-hh="{{$tipoprograma->HH}}" >
+							<button class="btn btn-primary btn-default edit-modal" data-id="{{$tipoprograma->IdTipoPrograma}}" data-tipo="{{$tipoprograma->Tipo}}" data-hh="{{$tipoprograma->HH}}" data-activo="{{$tipoprograma->Activo}}">
                     			<span class="glyphicon glyphicon-edit"></span>
                 			</button>
 						</div>
@@ -86,18 +86,24 @@ Tipos Programa
 				{!! Form::open(array('route' => 'tipoprograma.store')) !!}
 				{{ csrf_field()}}
 				<div class="row">
-					<div class="col-sm-6">
+					<div class="col-sm-5">
 						<div class="form-group">
 							{{ Form::text('Tipo', null, array('class' => 'form-control', 'required' => '' )) }}
 							{{ Form::label('Tipo', 'Tipo')}}
 						</div>
 					</div>
-					<div class="col-sm-6">
+					<div class="col-sm-5">
 						<div class="form-group">										
 							{{ Form::text('HH', null, array('class' => 'form-control','required' => '' )) }}
 							{{ Form::label('H/H', 'HH')}}
 						</div>
-					</div>		
+					</div>	
+					<div class="col-sm-2">
+                                <div class="form-group">
+                                    <input type="checkbox" id="activo" name="activo" checked>
+                                    <label for="activo">Activo</label>                            
+                                </div>
+                    </div>	
 				</div>
 				<div class="form-group">
 					<div class="row">
@@ -145,18 +151,25 @@ Tipos Programa
 							<input type="hidden" id="IdTipoPrograma" name="IdTipoPrograma">	
 
 							<div class="row">
-								<div class="col-sm-6">
+								<div class="col-sm-5">
 									<div class="form-group">
 										<input type="text" class="form-control" id="Tipo" name="Tipo" required>
 										<label for="Tipo">Tipo</label>
 									</div>
 								</div>
-								<div class="col-sm-6">
+								<div class="col-sm-5">
 									<div class="form-group">
 										<input type="text" class="form-control" id="HH" name="HH" required>
 										<label for="HH">HH</label>
 									</div>
 								</div>	
+								<div class="col-sm-2">
+                                <div class="form-group">
+    <input type="checkbox" id="Activo" name="Activo">
+    <label for="Activo">Activo</label>                            
+</div>
+
+                            </div>
 							</div>	
 
 						</div>  
@@ -165,11 +178,11 @@ Tipos Programa
 				</form>
 
 				<div class="modalfooter">
-					<div class="col-sm-6">
-						<button type="button" class="btn actionBtn" data-dismiss="modal">
-							<span id="footer_action_button" class="glyphicon"></span>
-						</button>
-					</div>
+				<div class="col-sm-6">
+        <button type="button" class="btn actionBtn edit" data-dismiss="modal">
+            <span id="footer_action_button" class="glyphicon glyphicon-check"></span> Actualizar
+        </button>
+    </div>
 					<div class="col-sm-6">
 						<button type="button" class="btn cancelBtn" data-dismiss="modal">
 							<span class="glyphicon glyphicon-remove"></span>
@@ -208,56 +221,62 @@ Imprimir Tabla
 				$("#datatable1").load("{{route('tipoprograma.index')}} #datatable1");
 		}
 
-		$(document).on('click', '.edit-modal', function(){
-        $('#footer_action_button').text("Actualizar");
-        $('#footer_action_button').addClass('glyphicon-check');
-        $('#footer_action_button').removeClass('glyphicon-trash');
-        $('.actionBtn').addClass('btn-info');
-        $('.actionBtn').addClass('btn-block');    
-        $('.actionBtn').removeClass('btn-danger');
-        $('.actionBtn').addClass('edit');
-        $('.cancelBtn').addClass('btn-danger');
-        $('.cancelBtn').addClass('btn-block');    
-        $('.modal-title').text('Edit');
-        $('.deleteContent').hide();
-        $('.form-horizontal').show();
+		$(document).on('click', '.edit-modal', function() {
+    $('#footer_action_button').text("Actualizar");
+    $('#footer_action_button').addClass('glyphicon-check');
+    $('#footer_action_button').removeClass('glyphicon-trash');
+    $('.actionBtn').addClass('btn-info');
+    $('.actionBtn').addClass('btn-block');    
+    $('.actionBtn').removeClass('btn-danger');
+    $('.cancelBtn').addClass('btn-danger');
+    $('.cancelBtn').addClass('btn-block');    
+    $('.modal-title').text('Edit');
+    $('.deleteContent').hide();
+    $('.form-horizontal').show();
+
+    // Establecer los valores del modal
+    $('#IdTipoPrograma').val($(this).data('id'));
+    $('#Tipo').val($(this).data('tipo'));
+    $('#HH').val($(this).data('hh'));
+
+    // Establecer el estado del checkbox 'Activo'
+    $('#Activo').prop('checked', $(this).data('activo') == 1); // Si es 1, marcarlo
+
+    // Mostrar el modal
+    $('#myModal').modal('show');
+});
 
 
-        $('#IdTipoPrograma').val($(this).data('id'));
-        $('#Tipo').val($(this).data('tipo'));
-        $('#HH').val($(this).data('hh'));
-        $('#myModal').modal('show');
-         
 
-    });
-
-
-	$('.modalfooter').on('click', '.edit', function(){
-
-        $.ajaxSetup({
-          headers: {
+$('.modalfooter').on('click', '.edit', function() {
+    $.ajaxSetup({
+        headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-          }
-        });
-
-    	$.ajax({
-
-    		type: 'post',
-    		url: '/edittipoprograma',
-    		data: {
-    			
-			'id': $("#IdTipoPrograma").val(),
-			'tipo': $("#Tipo").val(),
-			'hh': $("#HH").val(),
-    		},
-    		success: function(data){
-                toastr.success("Información Actualizada");
-				RefreshTable();
-    	}
-
+        }
     });
 
-	});
+    $.ajax({
+        type: 'post',
+        url: '/edittipoprograma',
+        data: {
+            'id': $("#IdTipoPrograma").val(),
+            'tipo': $("#Tipo").val(),
+            'hh': $("#HH").val(),
+            'activo': $("#Activo").is(":checked") ? 1 : 0,
+        },
+        success: function(data) {
+            if (data.success) {
+                toastr.success(data.message);
+                // Redirige a la ruta deseada
+                window.location.href = "{{ route('tipoprograma.index') }}";
+            }
+        },
+        error: function(xhr) {
+            toastr.error("Error al actualizar la información");
+        }
+    });
+});
+
 
 	});
 

@@ -342,6 +342,102 @@ Breadcrumbs::for('editar_programa', function(BreadcrumbTrail $trail){
  	$trail->push('Editar Programa', 'IdPrograma');
  });
 
+ Breadcrumbs::for('auditoriaprograma', function(BreadcrumbTrail $trail){
+	$trail->parent('dashboard');
+	$trail->push('Auditorias Programas', route('auditoriaprograma.index'));
+});
+
+Breadcrumbs::for('auditoriaprogplanauditoria', function(BreadcrumbTrail $trail){
+	$trail->parent('auditoriaprograma');
+	$trail->push('Gestión Auditorias', route('auditoriaprograma.index'));
+});
+
+Breadcrumbs::for('visualplanauditoria', function(BreadcrumbTrail $trail, $IdProg){
+	$trail->parent('auditoriaprograma');
+	$trail->push('Gestión Auditorias', route('auditoriaprogplanauditoria.show', $IdProg));
+});
+
+Breadcrumbs::for('crearplanauditoria', function(BreadcrumbTrail $trail, $IdProg){
+	$trail->parent('visualplanauditoria', $IdProg);
+	$trail->push('Crear Plan Auditoria', route('crearplanauditoria.index'));
+});
+
+Breadcrumbs::for('editarplanauditoria', function(BreadcrumbTrail $trail, $IdProg){
+	$trail->parent('visualplanauditoria', $IdProg);
+	$trail->push('Editar Plan Auditoria', route('auditoriaprograma.index'));
+});
+
+Breadcrumbs::for('verplanauditoria', function(BreadcrumbTrail $trail, $IdProg){
+	$trail->parent('visualplanauditoria', $IdProg);
+	$trail->push('Detalle Plan Auditoria', route('auditoriaprograma.index'));
+});
+
+Breadcrumbs::for('crearplaninformeauditoria', function(BreadcrumbTrail $trail, $IdProg){
+	$trail->parent('visualplanauditoria', $IdProg);
+	$trail->push('Crear Informe Auditoría', route('auditoriaprograma.index'));
+});
+
+Breadcrumbs::for('editarplaninformeauditoria', function(BreadcrumbTrail $trail, $IdProg){
+	$trail->parent('visualplanauditoria', $IdProg);
+	$trail->push('Editar Informe Auditoría', route('auditoriaprograma.index'));
+});
+
+Breadcrumbs::for('verplaninformeauditoria', function(BreadcrumbTrail $trail, $IdProg){
+	$trail->parent('visualplanauditoria', $IdProg);
+	$trail->push('Detalle Informe Auditoría', route('auditoriaprograma.index'));
+});
+
+Breadcrumbs::for('crearplanaccionhallazgos', function(BreadcrumbTrail $trail, $IdProg){
+	$trail->parent('visualplanauditoria', $IdProg);
+	$trail->push('Crear Plan Acción Hallazgos', route('auditoriaprograma.index'));
+});
+
+Breadcrumbs::for('editarplanaccionhallazgos', function(BreadcrumbTrail $trail, $IdProg){
+	$trail->parent('visualplanauditoria', $IdProg);
+	$trail->push('Editar Plan Acción Hallazgos', route('auditoriaprograma.index'));
+});
+
+Breadcrumbs::for('verplanaccionhallazgos', function(BreadcrumbTrail $trail, $IdProg){
+	$trail->parent('visualplanauditoria', $IdProg);
+	$trail->push('Detalle Plan Acción Hallazgos', route('auditoriaprograma.index'));
+});
+
+Breadcrumbs::for('crearplanauditoriaseguimiento', function(BreadcrumbTrail $trail, $IdProg){
+	$trail->parent('visualplanauditoria', $IdProg);
+	$trail->push('Crear Seguimiento', route('auditoriaprograma.index'));
+});
+
+Breadcrumbs::for('editarplanauditoriaseguimiento', function(BreadcrumbTrail $trail, $IdProg){
+	$trail->parent('visualplanauditoria', $IdProg);
+	$trail->push('Editar Seguimiento', route('auditoriaprograma.index'));
+});
+
+Breadcrumbs::for('verplanauditoriaseguimiento', function(BreadcrumbTrail $trail, $IdProg){
+	$trail->parent('visualplanauditoria', $IdProg);
+	$trail->push('Detalle Seguimiento', route('auditoriaprograma.index'));
+});
+
+Breadcrumbs::for('aprobacionhoras', function(BreadcrumbTrail $trail){
+	$trail->parent('dashboard');
+	$trail->push('Aprobación Horas', route('aprobacionhoras.index'));
+});
+
+Breadcrumbs::for('aprobacionhorasespecialistas', function(BreadcrumbTrail $trail, $IdProg){
+	$trail->parent('aprobacionhoras');
+	$trail->push('Aprobación Horas Especialistas', route('aprobacionhoras.show', $IdProg));
+});
+
+Breadcrumbs::for('aprobarespecialistas', function(BreadcrumbTrail $trail, $IdProg){
+	$trail->parent('aprobacionhorasespecialistas', $IdProg);
+	$trail->push('Aprobar Horas Especialista', route('aprobacionhoras.index'));
+
+});
+
+Breadcrumbs::for('reportehoraspersonal', function(BreadcrumbTrail $trail){
+	$trail->parent('dashboard');
+	$trail->push('Reporte Horas Personal', route('reportehoraspersonal.index'));
+});
+
  //Riesgos programa producto
  Breadcrumbs::for('riesgo_crear', function(BreadcrumbTrail $trail){
   	$trail->parent('dashboard');
@@ -376,6 +472,10 @@ Breadcrumbs::for('crearseguimiento', function(BreadcrumbTrail $trail, $IdProg, $
  	$trail->push('Crear Seguimiento', route('seguimiento.index'));
  });
 
+ Breadcrumbs::for('editarseguimiento', function(BreadcrumbTrail $trail, $IdProg, $Ids){
+	$trail->parent('verseguimiento', $IdProg, $Ids);
+	$trail->push('Editar Seguimiento', route('seguimiento.index'));
+});
 
 Breadcrumbs::for('especialistassegui', function(BreadcrumbTrail $trail, $IdProg, $Ids){
  	$trail->parent('verseguimiento', $IdProg, $Ids);

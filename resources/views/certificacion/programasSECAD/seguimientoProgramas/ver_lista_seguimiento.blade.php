@@ -63,11 +63,11 @@
 						</div>
 					@endif
 
-						{{-- <div class="col-sm-6">
+						 <div class="col-sm-6">
 
 							<a href="{{route('seguimiento.edit', $seguimiento->IdListaSeguimiento) }}" class="btn btn-primary btn-block editbutton" ><div class="gui-icon"><i class="fa fa-pencil"></i></div></a>
 
-						</div> --}}
+						</div> 
 
 					</td>
 

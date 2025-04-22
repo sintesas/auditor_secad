@@ -558,4 +558,11 @@ class PersonalController extends Controller
             return response()->json($cuerpos);
         }
     }
+
+    public function verificarCedula(Request $request)
+{
+    $existe = Personal::where('Cedula', $request->cedula)->exists();
+
+    return response()->json(['existe' => $existe]);
+}
 }

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+
 
 use App\Models\DemandaPotencial;
 use App\Models\PlanCertificacionAnual;
@@ -13,6 +15,7 @@ use App\Models\Unidad;
 use App\Models\Tools;
 use App\Models\NotasProductoAeronautico;
 use App\Models\Permiso;
+
 
 class ProductosController extends Controller
 {
@@ -93,6 +96,16 @@ class ProductosController extends Controller
      */
     public function store(Request $request)
     {
+
+      $request->validate([
+        'IdUnidad' => 'required'
+    ], [
+        'IdUnidad.required' => 'El campo Unidad es obligatorio.'
+    ]);
+    
+
+    
+
         $producto = new DemandaPotencial;
 
         $producto->Nombre = $request->input('Nombre');

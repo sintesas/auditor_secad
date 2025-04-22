@@ -472,140 +472,171 @@
 			</div>
         </div>
 		{!! Form::close() !!}
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.27/dist/sweetalert2.min.css">
+
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.27/dist/sweetalert2.all.min.js"></script>
+
         <script type="text/javascript">
             $('select').select2();
         </script>
 
-		<script type="text/javascript">
-            $('#IdCarreraProfesion').change(function(event) {
-                console.log(event.target.value);
-            });
+<script type="text/javascript">
+    $('#IdCarreraProfesion').change(function(event) {
+        console.log(event.target.value);
+    });
 
+    $('#infoMilitar').hide();
+    $('#infoCivil').hide();
+    $('#Categoria').change(function(event) {
+        console.log(event.target.value);
+        var tipoPersonal = event.target.value;
 
+        if(tipoPersonal == 'Militar'){
+            $('#infoMilitar').show();
+            $('#infoCivil').hide();
+
+            $("#infoMilitar input").prop('required',true);
+            $("#infoMilitar select").prop('required',true);
+            $('.select2-container input').prop('required',false);
+            $('#IdEspecialidad2').prop('required',false);
+            $('#IdEscuadron').prop('required',false);
+
+            $("#infoCivil input").prop('required',false);
+            $("#infoCivil select").prop('required',false);
+        }
+        else
+        {
+            $('#infoMilitar').hide();
+            $('#infoCivil').show();
+
+            $("#infoMilitar input").prop('required',false);
+            $("#infoMilitar select").prop('required',false);
+
+            $("#infoCivil input").prop('required',true);
+            $("#infoCivil select").prop('required',true);
+            $('.select2-container input').prop('required',false);
+        }
+
+        if(tipoPersonal == ''){
             $('#infoMilitar').hide();
             $('#infoCivil').hide();
-			$('#Categoria').change(function(event) {
 
-                console.log(event.target.value);
-                var tipoPersonal = event.target.value;
+            $("#infoMilitar input").prop('required',false);
+            $("#infoMilitar select").prop('required',false);
 
-                if(tipoPersonal == 'Militar'){
-                    $('#infoMilitar').show();
-                    $('#infoCivil').hide();
+            $("#infoCivil input").prop('required',false);
+            $("#infoCivil select").prop('required',false);
 
-                    $("#infoMilitar input").prop('required',true);
-                    $("#infoMilitar select").prop('required',true);
-                    $('.select2-container input').prop('required',false);
-                    $('#IdEspecialidad2').prop('required',false);
-                    $('#IdEscuadron').prop('required',false);
+            $('.select2-container input').prop('required',false);
+        }
+    });
 
-                    $("#infoCivil input").prop('required',false);
-                    $("#infoCivil select").prop('required',false);
-                }
-                else
-                {
-                    $('#infoMilitar').hide();
-                    $('#infoCivil').show();
+    /*GET Cuerpos By Grado*/
+    $('#IdGrado').change(function(event) {
+        console.log(event.target.value);
 
-                    $("#infoMilitar input").prop('required',false);
-                    $("#infoMilitar select").prop('required',false);
+        $.get("Cuerpos/" + event.target.value + "", function(response, state){
 
-                    $("#infoCivil input").prop('required',true);
-                    $("#infoCivil select").prop('required',true);
-                    $('.select2-container input').prop('required',false);
-                }
+            $('#IdCuerpo').empty();
+            $('#IdCuerpo').append('<option value="" selected="selected"></option>');
 
-                if(tipoPersonal == ''){
-                    $('#infoMilitar').hide();
-                    $('#infoCivil').hide();
+            for(i=0; i<response.length; i++){
+                $('#IdCuerpo').append('<option value="' + response[i].IdCuerpo + '">' +  response[i].NombreCuerpo + '</option>');
+            }
+        });
+    });
 
-                    $("#infoMilitar input").prop('required',false);
-                    $("#infoMilitar select").prop('required',false);
+    // Previw Img
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
 
-                    $("#infoCivil input").prop('required',false);
-                    $("#infoCivil select").prop('required',false);
-
-                    $('.select2-container input').prop('required',false);
-                }
-			});
-
-            /*GET Cuerpos By Grado*/
-            $('#IdGrado').change(function(event) {
-                console.log(event.target.value);
-
-                $.get("Cuerpos/" + event.target.value + "", function(response, state){
-
-                    $('#IdCuerpo').empty();
-                    $('#IdCuerpo').append('<option value="" selected="selected"></option>');
-
-                    for(i=0; i<response.length; i++){
-                        $('#IdCuerpo').append('<option value="' + response[i].IdCuerpo + '">' +  response[i].NombreCuerpo + '</option>');
-                    }
-                });
-            });
-
-
-			// Previw Img
-            function readURL(input) {
-                if (input.files && input.files[0]) {
-                    var reader = new FileReader();
-
-                    reader.onload = function (e) {
-                        $('#image_upload_preview').attr('src', e.target.result);
-                    }
-
-                    reader.readAsDataURL(input.files[0]);
-                }
+            reader.onload = function (e) {
+                $('#image_upload_preview').attr('src', e.target.result);
             }
 
-            $("#inputFile").change(function () {
-                readURL(this);
-            });
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
 
-            $("#Edad").focusin(function(){
-                var fecha = $('#FechaNacim').val();
-                var edad = calcularEdad(fecha);
-                $('#Edad').val(edad);
-            });
+    $("#inputFile").change(function () {
+        readURL(this);
+    });
 
-            // GET EDAD
-            function calcularEdad(fecha) {
-                var hoy = new Date();
-                var cumpleanos = new Date(fecha);
-                var edad = hoy.getFullYear() - cumpleanos.getFullYear();
-                var m = hoy.getMonth() - cumpleanos.getMonth();
+    $("#Edad").focusin(function(){
+        var fecha = $('#FechaNacim').val();
+        var edad = calcularEdad(fecha);
+        $('#Edad').val(edad);
+    });
 
-                if (m < 0 || (m === 0 && hoy.getDate() < cumpleanos.getDate())) {
-                    edad--;
+    // GET EDAD
+    function calcularEdad(fecha) {
+        var hoy = new Date();
+        var cumpleanos = new Date(fecha);
+        var edad = hoy.getFullYear() - cumpleanos.getFullYear();
+        var m = hoy.getMonth() - cumpleanos.getMonth();
+
+        if (m < 0 || (m === 0 && hoy.getDate() < cumpleanos.getDate())) {
+            edad--;
+        }
+
+        return edad;
+    }
+
+    $('#IdEspecialidad2').change(function(event) {
+        var espP = $('#IdEspecialidad1').val();
+        var espS = event.target.value;
+        if(espP == espS)
+        {
+            toastr.warning('Seleccione otra Especialidad Secundaria');
+            $('#IdEspecialidad2').val($("#IdEspecialidad2 option:first").val());
+        }
+    });
+
+    $('#IdEspecialidad1').change(function(event) {
+        var espS = $('#IdEspecialidad2').val();
+        var espP = event.target.value;
+        if(espP == espS)
+        {
+            toastr.warning('Seleccione otra Especialidad Primaria');
+            $('#IdEspecialidad1').val($("#IdEspecialidad1 option:first").val());
+        }
+    });
+
+    $('#Cedula').on('blur', function() {
+        var cedula = $(this).val(); 
+
+        if (cedula != '') {
+            $.ajax({
+                url: '{{ route("verificar.cedula") }}',  
+                type: 'GET',
+                data: { cedula: cedula },
+                success: function(response) {
+                    if (response.existe) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: '¡Cédula Existente!',
+                            text: 'Este número de identificación ya está registrado. Por favor, ingrese otro número.',
+                            confirmButtonText: 'Cerrar',
+                        });
+                        // Limpiar el campo de cédula para que el usuario pueda ingresarla de nuevo
+                        $('#Cedula').val('');
+                    }
+                },
+                error: function() {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error al verificar',
+                        text: 'Hubo un error al verificar la cédula. Por favor, intente nuevamente.',
+                        confirmButtonText: 'Cerrar',
+                    });
                 }
-
-                return edad;
-            }
-
-            $('#IdEspecialidad2').change(function(event) {
-                var espP = $('#IdEspecialidad1').val();
-                var espS = event.target.value;
-                if(espP == espS)
-                {
-                    toastr.warning('Seleccione otra Especialidad Secundaria');
-                    $('#IdEspecialidad2').val($("#IdEspecialidad2 option:first").val());
-                }
             });
+        }
+    });
 
-            $('#IdEspecialidad1').change(function(event) {
-                var espS = $('#IdEspecialidad2').val();
-                var espP = event.target.value;
-                if(espP == espS)
-                {
-                    toastr.warning('Seleccione otra Especialidad Primaria');
-                    $('#IdEspecialidad1').val($("#IdEspecialidad1 option:first").val());
-                }
-            });
+</script>
 
-
-            
-			
-		</script>
 		@endsection()
 
 	@endsection()

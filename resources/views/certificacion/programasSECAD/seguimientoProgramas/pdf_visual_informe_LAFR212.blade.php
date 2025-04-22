@@ -212,8 +212,10 @@
             font-size: 9px;
             padding: 5px;
             width: 170px;
-            border-bottom: 2px solid black;
+            border-bottom: 1px solid black;
             border-right: 1px solid black;
+            width: 171.5px;
+            height:13px;
         }
         div.table {
             border: 1px solid black;
@@ -234,6 +236,35 @@
             padding: 5px;
             background: #c0c0c0;
         }
+        .table5 {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table5 {
+    border-top: 0px solid black;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+}
+
+.table5 tr:first-child th {
+    border-top: 0px solid black;
+}
+
+.table5 th {
+    page-break-before: always;
+}
+.table5 th {
+            background: #c0c0c0;
+            text-align: left;
+        }
+.table5 td {
+            border: 1px solid black;
+            padding: 0px;
+            margin: 0px;
+}
+
     </style>
 </head>
 <body>
@@ -244,7 +275,7 @@
                 <tr>
                     <td style="width: 15%;"><div class="logo" style="padding: 5px 0px;"><img src="img/logo_fac.png"></div></td>
                     <td style="width: 55%;">
-                        <div class="d1" style="padding: 5px 0px">FUERZA AEREOESPECIAL COLOMBIANA</div>
+                        <div class="d1" style="padding: 5px 0px">FUERZA AEROESPACIAL COLOMBIANA</div>
                         <div class="d2" style="padding: 5px 0px">FORMATO SEGUIMIENTO CERTIFICACIÓN AERONÁUTICA Y/O RECONOCIMIENTO ORGANIZACIONES</div>
                     </td>
                     <td>
@@ -266,40 +297,41 @@
     <table class="table2">
         <thead>
             <tr>
-                <th class="th1 center">OFICINA CERTIFICACIÓN AERONÁUTICA DE LA DEFENSA - SECAD</th>
+                <th class="th1 center" style="text-align:center">SUBSECCIÓN CERTIFICACIÓN PRODUCTOS AERONÁUTICOS - SUCPA</th>
                 <th class="th1 center">1. NÚMERO DE CONTROL PROGRAMA DE CERTIFICACIÓN</th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td class="td1 center">{{$programa->Proyecto}}</td>
+                <td class="td1 center" style="background: #c0c0c0;">SEGUIMIENTO CERTIFICACIÓN AERONÁUTICA Y/O RECONOCIMIENTO ORGANIZACIONES</td>
                 <td class="td2 center">{{$informelafr212R->Consecutivo}}</td>
             </tr>
         </tbody>
     </table>
-    <table class="table2">
-        <thead>
-            <tr>
-                <th class="th1">2. DESCRIPCIÓN GENERAL PRODUCTO AERONÁUTICO</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>
-                    <table class="table3">
-                        <thead>
-                            <tr>
-                                <th class="th2" style="width: 2%;">2.1. Clasificación Producto Aeronáutico</th>
-                                <th class="th2" style="width: 5%;">2.2. Nombre Producto Aeronáutico</th>
-                                <th class="th2" style="width: 5%;">2.3. Modelo</th>
-                                <th class="th2" style="width: 10%;">2.4. Número de Parte (P/N)</th>
-                                <th class="th2" style="width: 10%;">2.5. Bases de Certificación</th>
-                                <th class="th2" style="width: 15%;">2.6. Solicitante / Titular</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
+    <table class="table5" style="width: 100%; border-collapse: collapse;">
+    <thead style="border-top: none; border-bottom: none;">
+        <tr style="border-top: none; border-bottom: none;">
+            <th class="th1" style="border-top: none; border-bottom: none; font-size: 13px; padding: 5px;">
+                2. DESCRIPCIÓN GENERAL PRODUCTO AERONÁUTICO O COMPONENTE
+            </th>
+        </tr>
+    </thead>
+</table>
+   
+                <table class="table5">
+                    <thead>
+                        <tr>
+                            <!--<th class="th2" style="width: 2%;">2.1. Clasificación Producto Aeronáutico</th>-->
+                            <th class="th2" style="width: 30%; text-align: center; border-top: none;">2.1. Nombre Producto Aeronáutico o Componente</th>
+                            <th class="th2" style="width: 7%; text-align: center; border-top: none;">2.2. Modelo</th>
+                            <th class="th2" style="width: 15%; text-align: center; border-top: none;">2.3. Número de Parte (P/N)</th>
+                            <th class="th2" style="width: 15%; text-align: center; border-top: none;">2.4. Bases de Certificación o Criterios de Evaluación</th>
+                            <th class="th2" style="width: 10%; text-align: center; border-top: none;">2.5. Solicitante / Titular</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <!--<td>
                                     <div class="checkboxes">
                                         <label><input type="checkbox" {{($informelafr212R->Clase=='Clase I')? 'checked':''}}><span>Producto Aeronáutico Clase I</span><label>
                                     </div>
@@ -309,68 +341,77 @@
                                     <div class="checkboxes">
                                         <label><input type="checkbox" {{($informelafr212R->Clase=='Clase III')? 'checked':''}}><span>Producto Aeronáutico Clase III</span><label>
                                     </div>
-                                </td>
-                                <td class="td3 center">{{$informelafr212R->Nombre}}</td>
-                                <td class="td3 center">{{$informelafr212R->Equipo}}</td>
-                                <td class="td3">
-                                    <div class="table">
-                                        <div class="tr">
-                                            <div class="td">Nombre:</div>
-                                            <div class="td">{{($informelafr212R->ParteNumero)?$informelafr212R->ParteNumero:'---'}}</div>
-                                        </div>
-                                        <div class="tr">
-                                            <div class="td">Original (OEM):</div>
-                                            <div class="td">{{($informelafr212R->NSN)?$informelafr212R->NSN:'---'}}</div>
-                                        </div>
-                                        <div class="tr">
-                                            <div class="td">Otro (¿Cuál?):</div>
-                                            <div class="td">---</div>
+                            </td>-->
+                            <td class="td3 center" style="border-top: none; border-bottom: none;">{{ $informelafr212R->Nombre }}</td>
+                            <td class="td3 center" style="border-top: none; border-bottom: none;">{{ $informelafr212R->Equipo }}</td>
+                            <td class="td3">
+                                <div class="table" style="display: table; width: 100%; border: none;">
+                                    <div class="tr" style="display: table-row; border: none;">
+                                        <div class="td" style="display: table-cell; border-top: none; border-left:none; padding: 5px;">Nombre:</div>
+                                        <div class="td" style="display: table-cell; border-top: none; border-right:none; padding: 5px;">
+                                            {{ ($informelafr212R->ParteNumero) ? $informelafr212R->ParteNumero : '---' }}
                                         </div>
                                     </div>
-                                </td>
-                                <td class="td3">
-                                    @foreach($programa->programas as $certificacion)
-                                        {{$certificacion->Referencia}} /
-                                    @endforeach
-                                </td>
-                                <td class="td3">{{$informelafr212R->NombreEmpresa}} / {{$informelafr212R->NombreCertificaInfo}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table2">
-        <thead>
-            <tr>
-                <th colspan="2" class="th1">3. ALCANCE SOLICITADO PARA CERTIFICACIÓN AERONÁUTICA</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td style="width: 25%;">
-                    <div class="table">
-                        <div class="tr">
-                            <div class="th" style="font-size: 11px;"><b>3.1. Marque con "X" si se trata de un Producto Aeronáutico o Reconocimiento de Organización Aeronáutica</b></div>
-                        </div>
-                        <div class="tr">
-                            <td>
-                                <br>
-                                <div class="checkboxes">
-                                    <label><input type="checkbox" {{($informelafr212R->Alcance=='Aprobación de Diseño Aeronáutico')? 'checked':''}}><span>Aprobación de Diseño Aeronáutico</span><label>
+                                    <div class="tr" style="display: table-row; border: none;">
+                                        <div class="td" style="display: table-cell; border-top: none; border-left:none; padding: 5px;">Original (OEM):</div>
+                                        <div class="td" style="display: table-cell; border-top: none; border-right:none; padding: 5px;">
+                                            {{ ($informelafr212R->NSN) ? $informelafr212R->NSN : '---' }}
+                                        </div>
+                                    </div>
+                                    <div class="tr" style="display: table-row; border: none;">
+                                        <div class="td" style="display: table-cell; border-top: none; border-left:none;border-bottom: none; padding: 5px;">Otro (¿Cuál?):</div>
+                                        <div class="td" style="display: table-cell; border-top: none; border-right:none;border-bottom: none; padding: 5px;">---</div>
+                                    </div>
                                 </div>
-                                <div class="checkboxes">
-                                    <label><input type="checkbox" {{($informelafr212R->Alcance=='Aprobación de Producción Aeronáutica')? 'checked':''}}><span>Aprobación de Producción Aeronáutica</span><label>
-                                </div>
-                                <div class="checkboxes">
-                                    <label><input type="checkbox" {{($informelafr212R->Alcance=='Reconocimiento Organización Aeronáutica')? 'checked':''}}><span>Reconocimiento Organización Aeronáutica</span><label>
-                                </div>                                
-                                <br>
                             </td>
-                        </div>
-                    </div>
-                    <div class="table">
+                            <td class="td3" style="border-top: none; border-bottom: none;">
+                                @foreach($programa->programas as $certificacion)
+                                    {{ $certificacion->Referencia }} /
+                                @endforeach
+                            </td>
+                            <td class="td3" style="border-top: none; border-bottom: none;">
+                                {{ $informelafr212R->NombreEmpresa }} / {{ $informelafr212R->NombreCertificaInfo }}
+                            </td>
+                        </tr>
+                    </tbody>
+</table>
+
+<table class="table5" style="border-collapse: collapse; width: 100%; border-right: none; border-bottom: none;">
+    <thead>
+        <tr>
+            <th colspan="2" class="th1" style="border-bottom: none;">
+                3. ALCANCE SOLICITADO PARA CERTIFICACIÓN AERONÁUTICA O RECONOCIMIENTO DE ORGANIZACIONES
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td style="width: 25%; vertical-align: top; border: none;">
+            <div class="table" style="border: none;">
+    <div class="tr" style="border: none;">
+        <div class="th" style="font-size: 11px; border-left: 0.1px solid black; border-right: none;">
+            <b>3.1. Marque con "X" si se trata de un Producto Aeronáutico o Reconocimiento de Organización Aeronáutica</b>
+        </div>
+    </div>
+    <div class="tr" style="border: none;">
+        <td style="padding: 5px; border: none;">
+            <br>
+            <div class="checkboxes">
+                <label><input type="checkbox" {{($informelafr212R->Alcance=='Aprobación de Diseño Aeronáutico')? 'checked':''}}>
+                    <span>Aprobación de Diseño Aeronáutico o Componente</span></label>
+            </div>
+            <div class="checkboxes">
+                <label><input type="checkbox" {{($informelafr212R->Alcance=='Aprobación de Producción Aeronáutica')? 'checked':''}}>
+                    <span>Aprobación de Producción Aeronáutica</span></label>
+            </div>
+            <div class="checkboxes">
+                <label><input type="checkbox" {{($informelafr212R->Alcance=='Reconocimiento Organización Aeronáutica')? 'checked':''}}>
+                    <span>Reconocimiento Organización Aeronáutica</span></label>
+            </div>
+            <br>
+        </td>
+    </div>
+    <!--<div class="table">
                         <div class="tr">
                             <div class="th" style="font-size: 11px;"><b>3.2. Área SECAD Responsable (Marque con "X")</b></div>
                         </div>
@@ -386,105 +427,130 @@
                                 <br>
                             </td>
                         </div>
-                    </div>
-                </td>
-                <td style="width: 75%;">
-                    <table class="table2">
-                        <thead>
-                            <th colspan="5" class="th1-1 center">3.3. Equipo de Certificación SECAD</th>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th class="th1-1 center" height="30">Cargo</th>
-                                <th class="th1-1 center" height="30">Grado</th>
-                                <th class="th1-1 center" height="30">Nombres y Apellidos</th>
-                                <th class="th1-1 center" height="30">Especialidad Aeronáutica de Certificación (EAC)</th>
-                                <th class="th1-1 center" height="30">Nivel de Competencia</th>
-                            </tr>
-                            <tr>
-                                <td class="td3-1 center" height="30">Responsable Programa Certificación</td>
-                                <td class="td3 center" height="30">{{$jefe->grado->Abreviatura}}</td>
-                                <td class="td3 center" height="30">{{$jefe->Nombres}} {{$jefe->Apellidos}}</td>
-                                <td class="td3 center" height="30">{{$jefe->EAC->Especialidad}}</td>
-                                <td class="td3 center" height="30">{{$jefe->NivelCompetencia->Denominacion}}</td>
-                            </tr>
-                            <tr>
-                                <td class="td3-1 center" height="30">Suplente</td>
-                                <td class="td3 center" height="30">{{$suplente->grado != "N/A" ? $suplente->grado->Abreviatura : $suplente->grado}}</td>
-                                <td class="td3 center" height="30">{{$suplente->Nombres}} {{$suplente->Apellidos}}</td>
-                                <td class="td3 center" height="30">{{$suplente->EAC != "N/A" ? $suplente->EAC->Especialidad : $suplente->EAC}}</td>
-                                <td class="td3 center" height="30">{{$suplente->NivelCompetencia->Denominacion}}</td>
-                            </tr>
-                            <tr>
-                                <td class="td3-1 center">Especialista No. 1</td>
-                                @if(count($especialistas)>0)
-                                <td class="td3 center" height="30">{{$especialistas[0]->grado != "N/A" ? $especialistas[0]->grado->Abreviatura : $especialistas[0]->grado}}</td>
-                                <td class="td3 center" height="30">{{$especialistas[0]->Nombres}} {{$especialistas[0]->Apellidos}}</td>
-                                <td class="td3 center" height="30">{{$especialistas[0]->EAC != "N/A" ? $especialistas[0]->EAC->Especialidad : $especialistas[0]->EAC}}</td>
-                                <td class="td3 center" height="30">{{$especialistas[0]->NivelCompetencia->Denominacion}}</td>
-                                @else
-                                <td height="30"></td>
-                                <td height="30"></td>
-                                <td height="30"></td>
-                                <td height="30"></td>
+        </div>-->
+</div>
+
+            </td>
+            <td style="width: 75%; vertical-align: top; border-top: none; border-bottom: none; border-left: none;border-right: none;">
+                <table class="table2" style="width: 100%; border-collapse: collapse;">
+                    <thead>
+                        <tr>
+                            <th colspan="5" class="th1-1 center" style="border-top: none;">3.3. Equipo de Certificación SUCPA</th>
+                        </tr>
+                        <tr>
+                            <th class="th1-1 center" height="30" style="text-align:center;">Cargo</th>
+                            <th class="th1-1 center" height="30" style="text-align:center;">Grado</th>
+                            <th class="th1-1 center" height="30" style="text-align:center;">Nombres y Apellidos</th>
+                            <th class="th1-1 center" height="30" style="text-align:center;">Especialidad Aeronáutica</th>
+                            <th class="th1-1 center" height="30" style="text-align:center;">Nivel de Competencia</th>
+                        </tr>
+                    </thead>
+                    <tbody style="border-bottom: none;">
+                        <tr>
+                            <td class="td3-1 center" height="30">Responsable Programa</td>
+                            <td class="td3 center" height="30">{{ $jefe->grado->Abreviatura ?? '' }}</td>
+                            <td class="td3 center" height="30">{{ $jefe->Nombres }} {{ $jefe->Apellidos }}</td>
+                            <td class="td3 center" height="30">{{ $jefe->EAC->Especialidad ?? '' }}</td>
+                            <td class="td3 center" height="30">{{ $jefe->NivelCompetencia->Denominacion ?? '' }}</td>
+                        </tr>
+                        <tr>
+                            <td class="td3-1 center" height="30">Responsable Suplente</td>
+                            <td class="td3 center" height="30">
+                                @if($suplente && is_object($suplente->grado) && isset($suplente->grado->Abreviatura))
+                                    {{ $suplente->grado->Abreviatura }}
                                 @endif
-                            </tr>
-                            <tr>
-                                <td class="td3-1 center">Especialista No. 2</td>
-                                @if(count($especialistas)>1)
-                                <td class="td3 center" height="30">{{$especialistas[1]->grado != "N/A" ? $especialistas[1]->grado->Abreviatura : $especialistas[1]->grado}}</td>
-                                <td class="td3 center" height="30">{{$especialistas[1]->Nombres}} {{$especialistas[1]->Apellidos}}</td>
-                                <td class="td3 center" height="30">{{$especialistas[1]->EAC != "N/A" ? $especialistas[1]->EAC->Especialidad : $especialistas[1]->EAC}}</td>
-                                <td class="td3 center" height="30">{{$especialistas[1]->NivelCompetencia->Denominacion}}</td>
-                                @else
-                                <td height="30"></td>
-                                <td height="30"></td>
-                                <td height="30"></td>
-                                <td height="30"></td>
+                            </td>
+                            <td class="td3 center" height="30">
+                                @if($suplente)
+                                    {{ $suplente->Nombres }} {{ $suplente->Apellidos }}
                                 @endif
-                            </tr>
-                            <tr>
-                                <td class="td3-1 center">Especialista No. 3</td>
-                                @if(count($especialistas)>2)
-                                <td class="td3 center" height="30">{{$especialistas[2]->grado != "N/A" ? $especialistas[2]->grado->Abreviatura : $especialistas[2]->grado}}</td>
-                                <td class="td3 center" height="30">{{$especialistas[2]->Nombres}} {{$especialistas[2]->Apellidos}}</td>
-                                <td class="td3 center" height="30">{{$especialistas[2]->EAC != "N/A" ? $especialistas[2]->EAC->Especialidad : $especialistas[2]->EAC}}</td>
-                                <td class="td3 center" height="30">{{$especialistas[2]->NivelCompetencia->Denominacion}}</td>
-                                @else
-                                <td height="30"></td>
-                                <td height="30"></td>
-                                <td height="30"></td>
-                                <td height="30"></td>
+                            </td>
+                            <td class="td3 center" height="30">
+                                @if($suplente && $suplente->EAC && $suplente->EAC != "N/A")
+                                    {{ $suplente->EAC->Especialidad }}
+                                @elseif(isset($suplente->EAC) && $suplente->EAC != "N/A")
+                                    {{ $suplente->EAC }}
                                 @endif
-                            </tr>
-                        </tbody>
-                    </table>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+                            </td>
+                            <td class="td3 center" height="30">
+                                @if($suplente && $suplente->NivelCompetencia)
+                                    {{ $suplente->NivelCompetencia->Denominacion }}
+                                @endif
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td3-1 center">Especialista No. 1</td>
+                            @if(count($especialistas) > 0)
+                                <td class="td3 center" height="30">{{ $especialistas[0]->grado != "N/A" ? $especialistas[0]->grado->Abreviatura : $especialistas[0]->grado }}</td>
+                                <td class="td3 center" height="30">{{ $especialistas[0]->Nombres }} {{ $especialistas[0]->Apellidos }}</td>
+                                <td class="td3 center" height="30">{{ $especialistas[0]->EAC != "N/A" ? $especialistas[0]->EAC->Especialidad : $especialistas[0]->EAC }}</td>
+                                <td class="td3 center" height="30">{{ $especialistas[0]->NivelCompetencia->Denominacion }}</td>
+                            @else
+                                <td height="30"></td><td height="30"></td><td height="30"></td><td height="30"></td>
+                            @endif
+                        </tr>
+                        <tr>
+                            <td class="td3-1 center">Especialista No. 2</td>
+                            @if(count($especialistas) > 1)
+                                <td class="td3 center" height="30">{{ $especialistas[1]->grado != "N/A" ? $especialistas[1]->grado->Abreviatura : $especialistas[1]->grado }}</td>
+                                <td class="td3 center" height="30">{{ $especialistas[1]->Nombres }} {{ $especialistas[1]->Apellidos }}</td>
+                                <td class="td3 center" height="30">{{ $especialistas[1]->EAC != "N/A" ? $especialistas[1]->EAC->Especialidad : $especialistas[1]->EAC }}</td>
+                                <td class="td3 center" height="30">{{ $especialistas[1]->NivelCompetencia->Denominacion }}</td>
+                            @else
+                                <td height="30"></td><td height="30"></td><td height="30"></td><td height="30"></td>
+                            @endif
+                        </tr>
+                        <tr style="border-bottom: none;">
+                            <td class="td3-1 center">Especialista No. 3</td>
+                            @if(count($especialistas) > 2)
+                                <td class="td3 center" height="30">{{ $especialistas[2]->grado != "N/A" ? $especialistas[2]->grado->Abreviatura : $especialistas[2]->grado }}</td>
+                                <td class="td3 center" height="30">{{ $especialistas[2]->Nombres }} {{ $especialistas[2]->Apellidos }}</td>
+                                <td class="td3 center" height="30">{{ $especialistas[2]->EAC != "N/A" ? $especialistas[2]->EAC->Especialidad : $especialistas[2]->EAC }}</td>
+                                <td class="td3 center" height="30">{{ $especialistas[2]->NivelCompetencia->Denominacion }}</td>
+                            @else
+                                <td height="30"></td><td height="30"></td><td height="30"></td><td height="30"></td>
+                            @endif
+                        </tr>
+                        <tr>
+                            <td class="td3-1 center" style="border-bottom: 1px solid #c0c0c0">Especialista No. 4</td>
+                            @if(count($especialistas) > 3)
+                                <td class="td3 center" height="30" style="border-bottom: 1px solid #c0c0c0">{{ $especialistas[3]->grado != "N/A" ? $especialistas[3]->grado->Abreviatura : $especialistas[3]->grado }}</td>
+                                <td class="td3 center" height="30" style="border-bottom: 1px solid #c0c0c0">{{ $especialistas[3]->Nombres }} {{ $especialistas[3]->Apellidos }}</td>
+                                <td class="td3 center" height="30" style="border-bottom: 1px solid #c0c0c0">{{ $especialistas[3]->EAC != "N/A" ? $especialistas[3]->EAC->Especialidad : $especialistas[3]->EAC }}</td>
+                                <td class="td3 center" height="30" style="border-bottom: 1px solid #c0c0c0">{{ $especialistas[3]->NivelCompetencia->Denominacion }}</td>
+                            @else
+                                <td height="30" style="border-bottom: 1px solid #c0c0c0"></td><td height="30" style="border-bottom: 1px solid #c0c0c0"></td><td height="30" style="border-bottom: 1px solid #c0c0c0"></td><td height="30" style="border-bottom: 1px solid #c0c0c0"></td>
+                            @endif
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
     <table class="table2">
         <thead>
             <tr>
-                <th colspan="7" class="th1 center">4. SEGUIMIENTO PROGRAMA DE CERTIFICACIÓN AERONÁUTICA "SECAD"</th>
+                <th colspan="7" class="th1 center">4. SEGUIMIENTO DEL PROGRAMA</th>
             </tr>
         </thead>
         <tbody>
             <tr>
                 <th class="th1-1 top">No.</th>
-                <th class="th1-1 top">Actividad (Según aplique al tipo de certificación solicitada)</th>
-                <th class="th1-1 top">Responsable</th>
+                <th class="th1-1 top">4.1. Actividad (Según aplique al tipo de certificación o reconocimiento)</th>
+                <th class="th1-1 top">4.2. Responsable</th>
                 <td colspan="2" class="td2-2 center" style="position: relative;background: #fff !important;font-size: 9px !important;width: 160px !important;padding: 0 !important; margin: 0 !important;">
-                    <div class="espan"><b>4.1 Estado de Cumplimiento</b></div>
+                    <div class="espan"><b>4.3. Representante / Responsable</b></div>
                     <div style="position: absolute;width:90px;top: 24px; left: 0; border-right: 1px solid black;height: 93px;">
-                        <div style="width: 80px;float: left;padding: 20px 5px 5px !important;"><strong>Condición</strong> (Pendiente / Proceso / Cumplido)</div>
+                        <div style="width: 80px;float: left;padding: 20px 5px 5px !important; border-top: none;"><strong>Condición</strong> (Pendiente / Proceso / Cumplido)</div>
                     </div>
                     <div style="position: absolute;width:80px;top: 24px; left: 0;height: 92px;">
                         <div style="width: 80px;float: left;margin-top: 30px; padding: 5px !important;"><b>Porcentaje de Avance (%)<b></div>
                     </div>
                 </td>                
-                <th class="th1-1 top" style="width: 60px !important;">4.2 Fecha<span style="font-size: 9px !important;">(DD/MM/AA)<span></th>
-                <th class="th1-1 top" style="width: 20px !important;">4.3 Observaciones</th>
+                <th class="th1-1 top" style="width: 60px !important;">4.4 Fecha<span style="font-size: 9px !important;">(DD/MM/AA)<span></th>
+                <th class="th1-1 top" style="width: 20px !important;">4.5 Observaciones</th>
             </tr>
             @forelse ($informeHistorialPrograma as $informeHistorialProgramaR)
             <tr>
@@ -526,12 +592,12 @@
     <table class="table2">
         <thead>
             <tr>
-                <th colspan="6" class="th1">6. ESPACIO EXCLUSIVO SECAD</th>
+                <th colspan="6" class="th1">6. ESPACIO EXCLUSIVO SUCPA</th>
             </tr>
         </thead>
         <tbody>
             <tr>
-            <td colspan="6" style="background: #c0c0c0;font-size: 10px; padding: 5px !important;">La autoridad representada por SECAD se reserva el derecho de aceptación de los datos registrados en el presente documento.</td>
+            <td colspan="6" style="background: #c0c0c0;font-size: 10px; padding: 5px !important;">La Autoridad Aeronáutica Colombiana Aviación de Estado (AAAES) representada por SUCPA, se reserva el derecho de aceptación de los datos registrados en el presente documento.</td>
             </tr>
             <tr>
                 <td class="center" style="background: #c0c0c0;font-size: 11px; padding: 5px !important;"><strong>Marcar con una "X"</strong></td>
@@ -549,7 +615,7 @@
                         <label><input type="checkbox"><span>Denegado</span><label>
                     </div>
                 </td>
-                <td class="center" style="font-size: 11px; padding: 5px !important;">{{$jefe->grado->Abreviatura}}. {{ $jefe->Nombres }} {{ $jefe->Apellidos }}</td>
+                <td class="center" style="font-size: 11px; padding: 5px !important;">{{$jefe->grado->Abreviatura ?? ''}}. {{ $jefe->Nombres }} {{ $jefe->Apellidos }}</td>
                 <td class="center" style="font-size: 9px; padding: 5px !important;">Responsable Programa de Certificación SECAD</td>
                 <td colspan="2" class="center" style="font-size: 11px; padding: 5px !important;"></td>
                 <td class="center" style="font-size: 11px; padding: 5px !important;">{{ date('d-m-Y') }}</td>
@@ -564,7 +630,7 @@
                     </div>
                 </td>
                 <td class="center" style="font-size: 11px; padding: 5px !important;">&nbsp;</td>
-                <td class="center" style="font-size: 9px; padding: 5px !important;">Jefe Área Certificación Productos Aeronáuticos (ACPAE) /<br />Jefe Área Reconocimiento y Evaluación (AREVA)</td>
+                <td class="center" style="font-size: 9px; padding: 5px !important;">Jefe Subsección Certificación Productos Aeronáuticos <br/>(SUCPA)</td>
                 <td colspan="2" class="center" style="font-size: 11px; padding: 5px !important;">&nbsp;</td>
                 <td class="center" style="font-size: 11px; padding: 5px !important;">{{ date('d-m-Y') }}</td>
             </tr>
@@ -574,7 +640,7 @@
         <thead>
             <tr>
                 <th class="th1-1 center" style="width: 500px;">6.1 Observaciones</th>
-                <th class="th1-1 center">6.2 Sello Secad</th>
+                <th class="th1-1 center">6.2 Sello SUCPA</th>
             </tr>
         </thead>
         <tbody>

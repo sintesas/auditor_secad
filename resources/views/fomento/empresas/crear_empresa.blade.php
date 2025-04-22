@@ -53,7 +53,7 @@ Crear Empresa
 				</div>
 				
 				<div class="row">
-					<div class="col-sm-3">
+					<div class="col-sm-6">
 						<div class="form-group">
 							<input type="text" onKeyPress="return soloNumeros(event)" class="form-control" id="nit" name="Nit" required>
 							<label for="nit">NIT</label>
@@ -66,14 +66,36 @@ Crear Empresa
 							<label for="email">Email</label>
 						</div>
 					</div>
-
-					<div class="col-sm-3">
-						<div class="form-group">
-							{{ Form::select('Id_Municipio', $municipio->pluck('NombreMunicipio' , 'Id_Municipio'), null, ['class' => 'form-control', 'id' => 'Id_Municipio']) }}
-							<label for="ciudad">Ciudad</label>
-						</div>
-					</div>
 				</div>
+				<div class="row">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label for="IdPais_listasdinamicas">País:</label>
+                    {{ Form::select('IdPais_listasdinamicas', $paises->pluck('Pais', 'IdPais'), null, ['class' => 'form-control', 'id' => 'IdPais_listasdinamicas']) }}
+                    @error('IdPais_listasdinamicas')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label for="IdDepartamento_listasdinamicas">Departamento:</label>
+                    {{ Form::select('IdDepartamento_listasdinamicas', [], null, ['class' => 'form-control', 'id' => 'IdDepartamento_listasdinamicas', 'disabled' => 'disabled']) }}
+                    @error('IdDepartamento_listasdinamicas')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label for="IdCiudad_listasdinamicas">Ciudad:</label>
+                    {{ Form::select('IdCiudad_listasdinamicas', [], null, ['class' => 'form-control', 'id' => 'IdCiudad_listasdinamicas', 'disabled' => 'disabled']) }}
+                    @error('IdCiudad_listasdinamicas')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+            </div>
+        </div>
 				
 				<div class="row">
 					<div class="col-sm-4">
@@ -142,6 +164,21 @@ Crear Empresa
 							<label for="FechaActualizacion">Fecha Actualización</label>
 						</div>
 					</div>
+				</div>
+
+				<div class="row">
+				<div class="col-sm-6">
+                            <div class="form-group">
+                                {{ Form::select('TipoDocumento_listasdinamicas', $tipodoc->pluck('TipoDocumento', 'IdTipoDocumento'), null, ['class' => 'form-control', 'id' => 'TipoDocumento_listasdinamicas']) }}
+                                <label for="TipoDocumento_listasdinamicas">Tipo Documento Representante Legal</label>
+                            </div>
+                        </div> 
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="NumeroDocumento" name="NumeroDocumento" >
+                                <label for="NumeroDocumento">Número de Documento Representante Legal</label>
+                            </div>
+                        </div>
 				</div>
 
 				<div class="row">
@@ -284,6 +321,57 @@ Crear Empresa
 
 		</script>
 
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const paisSelect = document.getElementById('IdPais_listasdinamicas');
+    const departamentoSelect = document.getElementById('IdDepartamento_listasdinamicas');
+    const ciudadSelect = document.getElementById('IdCiudad_listasdinamicas');
+
+    paisSelect.addEventListener('change', function() {
+        const paisId = this.value;
+
+        // Limpiar los selects de departamento y ciudad
+        departamentoSelect.innerHTML = '';
+        ciudadSelect.innerHTML = '';
+        ciudadSelect.disabled = true;
+
+        if (paisId) {
+            fetch(`/api/departamentos/${paisId}`)
+                .then(response => response.json())
+                .then(data => {
+                    departamentoSelect.disabled = false;
+                    data.forEach(departamento => {
+                        const option = new Option(departamento.Departamento, departamento.IdDepartamento);
+                        departamentoSelect.add(option);
+                    });
+                });
+        } else {
+            departamentoSelect.disabled = true;
+        }
+    });
+
+    departamentoSelect.addEventListener('change', function() {
+        const departamentoId = this.value;
+
+        // Limpiar el select de ciudad
+        ciudadSelect.innerHTML = '';
+
+        if (departamentoId) {
+            fetch(`/api/ciudades/${departamentoId}`)
+                .then(response => response.json())
+                .then(data => {
+                    ciudadSelect.disabled = false;
+                    data.forEach(ciudad => {
+                        const option = new Option(ciudad.Ciudad, ciudad.IdCiudad);
+                        ciudadSelect.add(option);
+                    });
+                });
+        } else {
+            ciudadSelect.disabled = true;
+        }
+    });
+});
+</script>
 @endsection()
 
 @endsection()

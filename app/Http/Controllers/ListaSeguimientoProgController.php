@@ -72,6 +72,7 @@ class ListaSeguimientoProgController extends Controller
     {
         $programa = Programa::find($IdPrograma);
         $actividades = ActividadesTipoPrograma::getActividadesByTipoProg($programa->IdTipoPrograma);
+        
         $tipoPrograma = TipoPrograma::find($programa->IdTipoPrograma);
         
         return view ('certificacion.programasSECAD.seguimientoProgramas.ver_lista_seguimiento_actividades')

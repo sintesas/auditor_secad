@@ -9,6 +9,7 @@ use App\Models\BasesCertificacionPrograma;
 use App\Models\VistaBaseCertificacionPrograma;
 use App\Models\SubParteMatrizCumpliProg;
 use App\Models\SubPartesBaseCertificacion;
+use App\Models\PlanAuditoriaNormasCriterios;
 
 use App\Models\SubparteBaseCertificacion;
 use App\Models\SubparteDetalleBasePrograma;
@@ -82,6 +83,80 @@ class BasesCertificacionProgramaController extends Controller
           }
         }
 
+        $criterios = \DB::select("select * from AUFACVW_BaseCertificacion_Programa where IdPrograma = ?", [$IdPrograma]);
+        $auditoriaprograma = \DB::table('vw_AU_Reg_AuditoriaProgramas')
+        ->where('IdPrograma', $IdPrograma)
+        ->first();
+       
+        if ($auditoriaprograma) {
+          $id_auditoriaprog = $auditoriaprograma->id_auditoriaprog;
+      
+          $planauditoria = \DB::select(
+              "select * from VWAU_Reg_AuditoriaProgramasPlanAuditoria where id_auditoriaprog = ?",
+              [$id_auditoriaprog]
+          );
+      } else {
+          $planauditoria = [];
+      }
+
+      
+        if ($planauditoria) {
+          
+          foreach ($planauditoria as $planauditoriaItem) {
+              $id_planauditoria = $planauditoriaItem->id_planauditoria;
+      
+              
+              $criterios = \DB::select("select id_planauditoriocriterio from AU_Reg_AuditoriaProgramasPlanAuditoriaCriterios where id_planauditoria = ?", [$id_planauditoria]);
+      
+             
+              if ($criterios) {
+                 
+                  PlanAuditoriaNormasCriterios::where('id_planauditoria', $id_planauditoria)
+                      ->whereNotNull('IdBaseCertificacion')
+                      ->delete();
+      
+                  
+                  $baseCertificaciones = \DB::select("select IdBaseCertificacion from AUFACVW_BaseCertificacion_Programa where IdPrograma = ?", [$IdPrograma]);
+                  
+                  foreach ($criterios as $criterio) {
+                      foreach ($baseCertificaciones as $baseCertificacion) {
+                          
+                          $existingRecord = PlanAuditoriaNormasCriterios::where('id_planauditoria', $id_planauditoria)
+                              ->where('IdBaseCertificacion', $baseCertificacion->IdBaseCertificacion)
+                              ->first();
+                  
+                          
+                          if (!$existingRecord) {
+                              $NormasCriterios = new PlanAuditoriaNormasCriterios;
+                              $NormasCriterios->id_planauditoria = $id_planauditoria;
+                              $NormasCriterios->IdBaseCertificacion = $baseCertificacion->IdBaseCertificacion;
+                              $NormasCriterios->save();
+                          }
+                      }
+                  }
+              }else{
+                $baseCertificaciones = \DB::select("select IdBaseCertificacion from AUFACVW_BaseCertificacion_Programa where IdPrograma = ?", [$IdPrograma]);
+
+    
+    if ($baseCertificaciones) {
+        foreach ($baseCertificaciones as $baseCertificacion) {
+           
+            $existingRecord = PlanAuditoriaNormasCriterios::where('id_planauditoria', 0) 
+                ->where('IdBaseCertificacion', $baseCertificacion->IdBaseCertificacion)
+                ->first();
+
+            
+            if (!$existingRecord) {
+                $NormasCriterios = new PlanAuditoriaNormasCriterios;
+                $NormasCriterios->id_planauditoria = $id_planauditoria;  
+                $NormasCriterios->IdBaseCertificacion = $baseCertificacion->IdBaseCertificacion;
+                $NormasCriterios->save();
+            }
+        }
+    }
+              }
+          }
+      }
 
 
 

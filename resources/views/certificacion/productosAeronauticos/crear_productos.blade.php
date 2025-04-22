@@ -12,7 +12,7 @@
 
 		@section('form-tag')
 
-			{!! Form::open(array('route' => 'productos.store', 'files' =>true)) !!}
+			{!! Form::open(array('route' => 'productos.store', 'files' =>true, 'id' => 'productoForm')) !!}
 
 			{{ csrf_field()}}
 
@@ -54,7 +54,7 @@
  															<div class="row">
  																<div class="col-sm-12">
  																	<div class="form-group">
- 																		<input type="text" class="form-control" id="Nombre" name="Nombre" required>
+ 																		<input type="text" class="form-control" id="Nombre" name="Nombre" value="{{ old('Nombre') }}" required>
  																		<label for="Nombre">Nombre Producto</label>
  																	</div>
  																</div>
@@ -62,7 +62,7 @@
  															<div class="row">
  																<div class="col-sm-12">
  																	<div class="form-group">
- 																		<input type="text" class="form-control" id="ParteNumero" name="ParteNumero" required>
+ 																		<input type="text" class="form-control" id="ParteNumero" name="ParteNumero" value="{{ old('ParteNumero') }}" required>
  																		<label for="ParteNumero">P/N</label>
  																	</div>
  																</div>
@@ -70,23 +70,25 @@
  															<div class="row">
  																<div class="col-sm-12">
  																	<div class="form-group">
- 																		{{ Form::select('IdAeronave', $aeronaves->pluck('Equipo', 'IdAeronave'), null, ['class' => 'form-control', 'id' => 'IdAeronave']) }}
+ 																		{{ Form::select('IdAeronave', $aeronaves->pluck('Equipo', 'IdAeronave'), old('IdAeronave'), ['class' => 'form-control', 'id' => 'IdAeronave']) }}
  																		<label for="IdAeronave">Equipo </label>
  																	</div>
  																</div>
  															</div>
  															<div class="row">
  																<div class="col-sm-12">
- 																	<div class="form-group">
- 																		{{ Form::select('IdUnidad', $unidades->pluck('NombreUnidad', 'IdUnidad'), null, ['class' => 'form-control', 'id' => 'IdUnidad']) }}
- 																		<label for="IdUnidad">Unidad</label>
- 																	</div>
+																 <div class="form-group">
+																{{ Form::select('IdUnidad', $unidades->pluck('NombreUnidad', 'IdUnidad'), null, ['class' => 'form-control', 'id' => 'IdUnidad']) }}  
+																<label for="IdUnidad">Unidad</label>
+																 <span id="errorIdUnidad" class="text-danger"></span>
+																</div>
+
  																</div>
  															</div>
  															<div class="row">
  																<div class="col-sm-12">
  																	<div class="form-group">
- 																		<input type="text" class="form-control" id="PublicacionTecnica" name="PublicacionTecnica" required>
+ 																		<input type="text" class="form-control" id="PublicacionTecnica" name="PublicacionTecnica" value="{{ old('PublicacionTecnica') }}" required>
  																		<label for="PublicacionTecnica"> Publicación Técnica</label>
  																	</div>
  																</div>
@@ -94,7 +96,7 @@
  															<div class="row">
  																<div class="col-sm-12">
  																	<div class="form-group">
- 																		{{ Form::select('IdATA', $atas->pluck('ATA', 'IdATA'), null, ['class' => 'form-control', 'id' => 'IdATA']) }}
+ 																		{{ Form::select('IdATA', $atas->pluck('ATA', 'IdATA'), old('IdATA'), ['class' => 'form-control', 'id' => 'IdATA']) }}
  																		<label for="IdATA"> ATA </label>
  																	</div>
  																</div>
@@ -166,7 +168,7 @@
  															<div class="row">
  																<div class="col-sm-12">
  																	<div class="form-group">
- 																		<input type="text" class="form-control" id="PrecioCompra" name="PrecioCompra">
+ 																		<input type="number" class="form-control" id="PrecioCompra" name="PrecioCompra">
  																		<label for="PrecioCompra"> Precio de Compra</label>
  																	</div>
  																</div>
@@ -462,6 +464,20 @@
 		{{-- SCRIPTS --}}
         {{-- Solo Numeros --}}
         <script src="{{URL::asset('js/soloNumeros.js')}}"></script>
+
+		<script>
+    document.getElementById("productoForm").addEventListener("submit", function (event) {
+        let unidad = document.getElementById("IdUnidad").value;
+        let errorSpan = document.getElementById("errorIdUnidad");
+
+        if (!unidad) {
+            event.preventDefault(); // Detiene el envío del formulario
+            errorSpan.textContent = "Este campo es obligatorio.";
+        } else {
+            errorSpan.textContent = ""; 
+        }
+    });
+</script>
 
 
         <script type="text/javascript">

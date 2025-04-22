@@ -18,10 +18,11 @@
 			</div>
 			<div class="col-sm-4">				
 				<h5 class="tittleHeadFAC">FUERZA AEROESPACIAL COLOMBIANA</h5>
-				<h5 class="subTittleHeadFAC">Oficina de Certificación Aeronáutica de la Defensa - SECAD</h5>				
+				<h5 class="subTittleHeadFAC">AUTORIDAD AERONÁUTICA DE AVIACIÓN DE ESTADO - AAAES</h5>	
+				<h5 class="subTittleHeadFAC">Subsección Certificación Productos Aeronáuticos - SUCPA</h5>							
 			</div>
 			<div class="col-sm-4 div-img-left">
-				<img src="{{ asset('img/logo_secad.png') }}">
+				<img src="{{ asset('img/logo_secad_actual.png') }}">
 			</div>
 		</div>
 		<div class="headerbar-right">

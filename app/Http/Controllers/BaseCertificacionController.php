@@ -89,13 +89,16 @@ class BaseCertificacionController extends Controller
       $cadena = json_decode($cadena);
 
       //AGREGAR
-      foreach ($cadena as $item) {
-          $new_subparte = new SubparteBaseCertificacion;
-          $new_subparte->idBaseCertificacion = $baseCertificacion->IdBaseCertificacion;
-          $new_subparte->NombreSubparte = $item->titulo;
-          $new_subparte->save();
 
-      }
+      if (!empty($cadena) && is_array($cadena)) {
+        foreach ($cadena as $item) {
+            $new_subparte = new SubparteBaseCertificacion;
+            $new_subparte->idBaseCertificacion = $baseCertificacion->IdBaseCertificacion;
+            $new_subparte->NombreSubparte = $item->titulo;
+            $new_subparte->save();
+        }
+    }
+    
 
 
 

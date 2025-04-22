@@ -84,22 +84,30 @@ class Programa extends Model
 	}
 
 	public static function infoPersona($idPersona)
-	{
-		$persona = Personal::where('IdPersonal',$idPersona)->first();
-		if($persona->Categoria == "Militar"){
-			$grado = Grado::where('IdGrado',$persona->IdGrado)->first();
-			$EAC = EspecialidadCertificacion::where('IdEspecialidadCertificacion',$persona->IdEspecialidadCertificacion)->first();
-		}else{
-			$grado = "N/A";
-			$EAC = "N/A";
-		}
-		$NivelCompetencia = NivelCompetencias::where('IdNivelCompetencia',$persona->IdNivelCompetencia)->first();
-		Arr::add($persona,'grado',$grado);
-		Arr::add($persona,'EAC',$EAC);
-		Arr::add($persona,'NivelCompetencia',$NivelCompetencia);
+{
+    $persona = Personal::where('IdPersonal', $idPersona)->first();
 
-		return $persona;
-	}
+    if (!$persona) {
+        return null;
+    }
+
+    if ($persona->Categoria == "Militar") {
+        $grado = Grado::where('IdGrado', $persona->IdGrado)->first();
+        $EAC = EspecialidadCertificacion::where('IdEspecialidadCertificacion', $persona->IdEspecialidadCertificacion)->first();
+    } else {
+        $grado = "N/A";
+        $EAC = "N/A";
+    }
+
+    $NivelCompetencia = NivelCompetencias::where('IdNivelCompetencia', $persona->IdNivelCompetencia)->first();
+
+    Arr::add($persona, 'grado', $grado);
+    Arr::add($persona, 'EAC', $EAC);
+    Arr::add($persona, 'NivelCompetencia', $NivelCompetencia);
+
+    return $persona;
+}
+
 
 	public function programas()
 	{

@@ -180,14 +180,22 @@ class SeguimientoController extends Controller
         $actividad = ActividadesTipoPrograma::find($seguimiento->IdActividad);
         $tipoPrograma = TipoPrograma::find($seguimiento->IdTipoPrograma);
 
+        $idPrograma = $seguimiento->IdPrograma;
+        $idActividad = $seguimiento->IdActividad;
         $dcr = date('Y/m/d');
+        $lastSeguimiento = ListasSeguimiento::where('IdPrograma',$idPrograma)
+        ->where('IdActividad',$idActividad)
+        ->where('IdTipoPrograma',$programa->IdTipoPrograma)
+        ->get()->last();
+
 
         return view ('certificacion.programasSECAD.seguimientoProgramas.editar_lista_seguimiento')
                 ->with('programa', $programa)
                 ->with('actividad', $actividad)
                 ->with('tipoPrograma', $tipoPrograma)
                 ->with('dcr', $dcr)
-                ->with('seguimiento', $seguimiento);
+                ->with('seguimiento', $seguimiento)
+                ->with('lastSeguimiento', $lastSeguimiento);
     }
 
     /**
@@ -198,28 +206,73 @@ class SeguimientoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $IdListaSeguimiento)
-    {
-        $seguimiento = ListasSeguimiento::find($IdListaSeguimiento);
+{
+    $seguimiento = ListasSeguimiento::find($IdListaSeguimiento);
 
-        $seguimiento->IdPrograma = $request->input('IdPrograma');
-        $seguimiento->IdTipoPrograma = $request->input('IdTipoPrograma');
-        $seguimiento->IdActividad = $request->input('IdActividad');
+    $seguimiento->IdPrograma = $request->input('IdPrograma');
+    $seguimiento->IdTipoPrograma = $request->input('IdTipoPrograma');
+    $seguimiento->IdActividad = $request->input('IdActividad');
+    $seguimiento->Fecha = $request->input('Fecha');
+    $seguimiento->Situacion = $request->input('Situacion');
+    $seguimiento->Evidencias = $request->input('Evidencias');
 
-        $seguimiento->Fecha = $request->input('Fecha');
-        $seguimiento->Situacion = $request->input('Situacion');
+    if ($request->input('Situacion') == 'Proceso') {
+        $seguimiento->Porcentaje = $request->input('Porcentaje');
+    } else {
+        $seguimiento->Porcentaje = ($request->input('Situacion') == 'Pendiente') ? 0 : 100;
+    }
+    $seguimiento->Horas = 0;
 
-        $seguimiento->Evidencias = $request->input('Evidencias');
+    // Manejo de archivos
+    try {
+        $consecutivo = $request->input('consecutivo');
+            $actividad = $request->input('actividad');
+            $folder = $request->input('folder');
+
+            $files = $request->file('docs');
+            $fileName = '';
+            if(!empty($files)){
+                $seguimientoPath = public_path('secad\Programas\\'.$consecutivo.'\\'.$folder .'\\');
+
+                $documentos = '';
+                foreach ($files as $file){
+                    // $fileName = tools::slugify($file->getClientOriginalName());
+                    $fileName = $file->getClientOriginalName();
+                    $file->move($seguimientoPath, $fileName);
+                    if($documentos == ''){
+                        $documentos = 'secad\Programas\\'.$consecutivo.'\\'.$folder .'\\'.$fileName;
+                    }
+                    else
+                    {
+                        $documentos = $documentos.'&'.'secad\Programas\\'.$consecutivo.'\\'.$folder .'\\'.$fileName;
+                    }
+                }
+                $seguimiento->Documentos = $documentos;
+            }
 
         $seguimiento->save();
 
-         $notification = array(
-                'message' => 'Datos guardados correctamente', 
-                'alert-type' => 'success'
-            );
+        $notification = array(
+            'message' => 'Datos guardados correctamente',
+            'alert-type' => 'success'
+        );
 
         return redirect()->route('seguimientoActividades.show', $seguimiento->IdActividad . '&' . $seguimiento->IdPrograma)
-                         ->with($notification) ;
+                         ->with($notification);
+
+    } catch (Exception $e) {
+        // Manejar el error
+        Log::error('Error ocurrido: ' . $e);
+        $notification = array(
+            'message' => 'Se ha generado un error, por favor intente de nuevo, en caso de fallar nuevamente comuníquese con el administrador.',
+            'alert-type' => 'error'
+        );
+
+        return redirect()->route('seguimientoActividades.show', $seguimiento->IdActividad . '&' . $seguimiento->IdPrograma)
+                         ->with($notification);
     }
+}
+
 
     /**
      * Remove the specified resource from storage.

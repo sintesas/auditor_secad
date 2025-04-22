@@ -18,6 +18,8 @@ use App\Models\Municipio;
 use App\Models\VWEmpresa;
 use App\Models\Rol;
 use App\Models\Permiso;
+use App\Models\TipoDocumento;
+
 class EmpresasController extends Controller
 {
     public function get_client_ip() {
@@ -55,8 +57,12 @@ class EmpresasController extends Controller
     public function create()
     {
 
-        $municipio = Municipio::all();
-        $municipio->prepend('None');
+
+        
+        $pais = \DB::select("select * from vw_paises");
+        $paises = collect($pais);
+        $paises->prepend('None');
+
 
         $estadoEmpresa = EstadosEmpresa::all();
         $estadoEmpresa->prepend('None');
@@ -75,18 +81,23 @@ class EmpresasController extends Controller
         $actEco = new ActividadesEconomicasController();
         $sections = $actEco->ClassSections();
 
+        $tipodocu = \DB::select("select * from vw_tipo_documento");
+        $tipodoc = collect($tipodocu);
+        $tipodoc->prepend('None');
+
         //die(var_dump($sections));
 
         $ldate = date('Y-m-d');
 
         return view('fomento.empresas.crear_empresa')
-                ->with('municipio', $municipio)
+                ->with('paises', $paises)
                 ->with('estadoEmpresa', $estadoEmpresa)
                 ->with('dominioIndustrial', $dominioIndustrial)
                 ->with('areasCooperacionIndustrial', $areasCooperacionIndustrial)
                 ->with('subAreasCooperacionIndustrial', $subAreasCooperacionIndustrial)
                 ->with('actividadesEconomicas', $sections)
-                ->with('ldate', $ldate);
+                ->with('ldate', $ldate)
+                ->with('tipodoc', $tipodoc);
     }
 
     public function store(Request $request)
@@ -103,7 +114,6 @@ class EmpresasController extends Controller
 
         $Ciudad =  Municipio::find($request->input('Id_Municipio'));
         //$empresa->Ciudad = $request->has($mun);
-        $empresa->Ciudad = $Ciudad->NombreMunicipio;
         $empresa->Telefono = $request->input('Telefono');
         $empresa->PaginaWeb = $request->input('PaginaWeb');
         $empresa->TipoOrganizacion = $request->input('TipoOrganizacion');
@@ -129,7 +139,11 @@ class EmpresasController extends Controller
         $empresa->IdSubAreasCooperacionIndustrial = $request->input('IdSubAreasCooperacionIndustrial');
         $empresa->Alcance = $request->input('Alcance');
         $empresa->Observaciones = $request->input('Observaciones');
-        $empresa->Id_Municipio = $request->input('Id_Municipio');
+        $empresa->IdPais_listasdinamicas = $request->input('IdPais_listasdinamicas');
+        $empresa->IdDepartamento_listasdinamicas = $request->input('IdDepartamento_listasdinamicas');
+        $empresa->IdCiudad_listasdinamicas = $request->input('IdCiudad_listasdinamicas');
+        $empresa->TipoDocumento_listasdinamicas = $request->input('TipoDocumento_listasdinamicas');
+        $empresa->NumeroDocumento = $request->input('NumeroDocumento');
             
         // dd($empresa);
         // STILL PENDING LOGO
@@ -169,8 +183,14 @@ class EmpresasController extends Controller
 
     public function edit($IdEmpresa)
     {
-        $empresa = Empresa::find($IdEmpresa);
+        $empresas = \DB::select("select * from AUFACVW_Empresa");
+        $empresa = collect($empresas)->where('IdEmpresa', '=', $IdEmpresa)->first();
 
+        $selectedDepartamentoId = $empresa->IdDepartamento_listasdinamicas; 
+        $selectedCiudadId = $empresa->IdCiudad_listasdinamicas; 
+
+        
+        
         $estadoEmpresa = EstadosEmpresa::all();
         // $estadoEmpresa->prepend('None');
 
@@ -189,6 +209,11 @@ class EmpresasController extends Controller
         $result = RegActividadesEconomicas::select('IdActividadesEconomicas')->where('IdEmpresa', '=', $IdEmpresa)->get();
         //$actividadesEconomicas->prepend('None');
 
+        $pais = \DB::select("select * from vw_paises");
+        $paises = collect($pais);
+        $paises->prepend('None');
+
+
         $actividadesEconomicas = ActividadesEconomicas::all();
         $actividadesEconomicas->prepend('None');
         $actEco = new ActividadesEconomicasController();
@@ -202,17 +227,25 @@ class EmpresasController extends Controller
         $municipio = Municipio::all();
 
         $ldate = date('Y-m-d');
+
+        $tipodocu = \DB::select("select * from vw_tipo_documento");
+        $tipodoc = collect($tipodocu);
+        $tipodoc->prepend('None');
+
         
         return view('fomento.empresas.editar_empresa')
                 ->with('empresa', $empresa)
-                ->with('municipio', $municipio)
+                ->with('paises', $paises)
                 ->with('estadoEmpresa', $estadoEmpresa)
                 ->with('dominioIndustrial', $dominioIndustrial)
                 ->with('areasCooperacionIndustrial', $areasCooperacionIndustrial)
                 ->with('subAreasCooperacionIndustrial', $subAreasCooperacionIndustrial)
                 ->with('actividadesEconomicas', $sections)
                 ->with('regActividadesEconomicas', json_encode($build))
-                ->with('ldate', $ldate);
+                ->with('ldate', $ldate)
+                ->with('selectedDepartamentoId', $selectedDepartamentoId)
+                ->with('selectedCiudadId', $selectedCiudadId)
+                ->with('tipodoc', $tipodoc);
     }
 
     
@@ -226,7 +259,6 @@ class EmpresasController extends Controller
         $empresa->NombreEmpresa = $request->input('NombreEmpresa');
         $empresa->Nit = $request->input('Nit');
         $empresa->Email = $request->input('Email');
-        $empresa->Ciudad = $Ciudad->NombreMunicipio;
         $empresa->Telefono = $request->input('Telefono');
         $empresa->PaginaWeb = $request->input('PaginaWeb');
         $empresa->TipoOrganizacion = $request->input('TipoOrganizacion');
@@ -251,7 +283,11 @@ class EmpresasController extends Controller
         $empresa->IdSubAreasCooperacionIndustrial = $request->input('IdSubAreasCooperacionIndustrial');
         $empresa->Alcance = $request->input('Alcance');
         $empresa->Observaciones = $request->input('Observaciones');
-        $empresa->Id_Municipio = $request->input('Id_Municipio');
+        $empresa->IdPais_listasdinamicas = $request->input('IdPais_listasdinamicas');
+        $empresa->IdDepartamento_listasdinamicas = $request->input('IdDepartamento_listasdinamicas');
+        $empresa->IdCiudad_listasdinamicas = $request->input('IdCiudad_listasdinamicas');
+        $empresa->TipoDocumento_listasdinamicas = $request->input('TipoDocumento_listasdinamicas');
+        $empresa->NumeroDocumento = $request->input('NumeroDocumento');
 
         $empresa->save();
 
@@ -293,4 +329,24 @@ class EmpresasController extends Controller
 
         return redirect()->route('empresa.index');
     }
+
+    public function getDepartamentos($paisId)
+    {
+        $departamento = \DB::select("select * from vw_departamentos where IdPais = ?", [$paisId]);
+        $departamentos = collect($departamento);
+        $departamentos->prepend('None');
+        return response()->json($departamentos);
+    }
+
+    // Método para obtener ciudades por departamento
+    public function getCiudades($departamentoId)
+    {
+
+        $ciudades = \DB::select("select * from vw_ciudades where IdDepartamento = ?", [$departamentoId]);
+        $ciudades = collect($ciudades);
+        $ciudades->prepend('None');
+
+        return response()->json($ciudades);
+    }
+
 }

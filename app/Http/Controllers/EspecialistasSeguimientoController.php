@@ -47,6 +47,8 @@ class EspecialistasSeguimientoController extends Controller
         $especialista->IdPersonal = $request->input('IdPersonal');
         $especialista->Horas = $request->input('Horas');
         $especialista->Fecha = $request->input('Fecha');
+        $especialista->IdRol_listasdinamicas = $request->input('IdRol_listasdinamicas');
+        $especialista->DescripcionTrabajo = $request->input('DescripcionTrabajo');
 
         $especialista->save();
 
@@ -74,16 +76,27 @@ class EspecialistasSeguimientoController extends Controller
     {
         $especialistas = EspecialistasSeguimiento::getEspecialistasBySeguimiento($IdListaSeguimiento);
         $seguimiento = ListasSeguimiento::find($IdListaSeguimiento);
+        
 
         $programa = Programa::find($seguimiento->IdPrograma);
         $actividad = ActividadesTipoPrograma::find($seguimiento->IdActividad);
         $tipoPrograma = TipoPrograma::find($seguimiento->IdTipoPrograma);
 
-        /*Set Dropdown Personal*/
         $personal = Personal::getPersonalWithRango();
         $personal->prepend('None');
 
         $dcr = date('Y/m/d');
+
+        $roles = collect([
+            '2.3.1. Responsable de Programa',
+            '2.3.2. Especialista de Certificación',
+            '2.3.3. Técnico Especialista de Certificación',
+            '2.3.4. Auditor Lider',
+            '2.3.5. Auditor',
+            '2.3.6. Profesional Asesor'
+        ]);
+        $roles->prepend('None');
+        
 
 
         return view ('certificacion.programasSECAD.seguimientoProgramas.ver_lista_seguimiento_especialistas')
@@ -93,7 +106,8 @@ class EspecialistasSeguimientoController extends Controller
                 ->with('tipoPrograma', $tipoPrograma)
                 ->with('seguimiento', $seguimiento)
                 ->with('especialistas', $especialistas)
-                ->with('personal', $personal);
+                ->with('personal', $personal)
+                ->with('roles', $roles);
     }
 
     /**

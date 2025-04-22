@@ -48,7 +48,7 @@ class ObservacionesLAFR212Controller extends Controller
 
         $observaciones->IdPrograma = $request->input('IdPrograma');
         $observaciones->Observacion = $request->input('Observacion');
-        $observaciones->Fecha = $dcr;
+        $observaciones->Fecha = $request->input('Fecha');
         $observaciones->Active = 1;
 
         $observaciones->save();
@@ -73,11 +73,14 @@ class ObservacionesLAFR212Controller extends Controller
         $programa = Programa::find($IdPrograma);
         $observaciones = ObservacionesLAFR212::getByIdprograma($IdPrograma);
         $tipoPrograma = TipoPrograma::find($programa->IdTipoPrograma);
+        $p = new Permiso;
+        $permiso = $p->getPermisos('CP');
         
         return view ('certificacion.programasSECAD.seguimientoProgramas.ver_observacionesLAFR212')
                 ->with('observaciones', $observaciones)
                 ->with('tipoPrograma', $tipoPrograma)
-                ->with('programa', $programa);
+                ->with('programa', $programa)
+                ->with('permiso', $permiso );
     }
 
     /**
@@ -88,7 +91,7 @@ class ObservacionesLAFR212Controller extends Controller
      */
     public function edit($id)
     {
-        //
+
     }
 
     /**
@@ -98,10 +101,22 @@ class ObservacionesLAFR212Controller extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $IdLAFR212Obs)
     {
-        //
-    }
+        $observacion = ObservacionesLAFR212::find($IdLAFR212Obs);
+
+      $observacion->Fecha = $request->input('Fecha');
+      $observacion->Observacion = $request->input('Observacion');
+
+      $observacion->save();
+
+      $notification = array(
+        'message' => 'Datos guardados correctamente',
+        'alert-type' => 'success'
+    );
+
+    return redirect()->route('obsercavionesfr212.show', $observacion->IdPrograma)->with($notification);
+}
 
     /**
      * Remove the specified resource from storage.

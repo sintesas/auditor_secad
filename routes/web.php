@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Http\Request;
 use App\Http\Controllers\Admin\RolController;
 use App\Http\Controllers\Admin\RolPrivilegioController;
 use App\Http\Controllers\Admin\UsuarioController;
@@ -181,7 +181,23 @@ use App\Http\Controllers\VistaBalanceoManoObraController;
 use App\Http\Controllers\VistaHHAuditoriasController; 
 use App\Http\Controllers\VistaHHAuditoriasController2; 
 use App\Http\Controllers\VistaProgramasCompController; 
-
+use App\Http\Controllers\AuditoriaProgramasController; 
+use App\Http\Controllers\AuditoriaProgPlanAuditoriaController;
+use App\Http\Controllers\CrearPlanAuditoriaController;
+use App\Http\Controllers\PlanInformeAuditoriaProgController;
+use App\Http\Controllers\PlanAccionHallazgosController;
+use App\Http\Controllers\PlanAuditoriaSeguimientoController;
+use App\Http\Controllers\AuditoriaProgInformeController;
+use App\Http\Controllers\AprobacionHorasController; 
+use App\Http\Controllers\AprobarHorasEspecialistaController;
+use App\Http\Controllers\ReporteHorasPersonalController;
+use App\Http\Controllers\InformeGeneralAuditoriaProgramaController;
+use App\Http\Controllers\InformePlanAuditoriaProgramaController;
+use App\Http\Controllers\InformePlanAuditoriaInformeProgramaController;
+use App\Http\Controllers\InformePlanAccionHallazgosAuditoriaP;
+use App\Http\Controllers\InformeSeguimientoPlanAccionController;
+use App\Http\Controllers\InformeReporteAprobacionHorasController;
+use App\Http\Controllers\InformeHorasHombrePorPersonalController;
 
 /*
 |--------------------------------------------------------------------------
@@ -320,9 +336,94 @@ Route::group(['middleware' => ['auth']], function() {
     
     Route::resource('programa', ProgramaController::class);
     Route::resource('basesCertiPrograma', BasesCertificacionProgramaController::class);
+    Route::resource('auditoriaprograma', AuditoriaProgramasController::class);
+    Route::resource('auditoriaprogplanauditoria', AuditoriaProgPlanAuditoriaController::class);
+    Route::resource('auditoriaproginforme', AuditoriaProgInformeController::class);
+    Route::get('crearplanauditoria', [CrearPlanAuditoriaController::class, 'index'])->name('crearplanauditoria.index');
+    Route::get('auditoriaprogplanauditoria/{id_planauditoria}/view', [AuditoriaProgPlanAuditoriaController::class, 'view'])->name('auditoriaprogplanauditoria.view');
+    Route::resource('planinformeauditoriaprog', PlanInformeAuditoriaProgController::class);
+
+    Route::post('guardarequipoauduitor', [AuditoriaProgPlanAuditoriaController::class, 'guardar'])->name('guardarequipoauduitor.guardar');
+    Route::post('/eliminarHallazgo', [PlanInformeAuditoriaProgController::class, 'eliminarHallazgo']);
+    Route::post('/eliminarEquipo', [AuditoriaProgPlanAuditoriaController::class, 'eliminarEquipo']);
+    Route::post('guardaragendaauditoria', [AuditoriaProgPlanAuditoriaController::class, 'guardarAgenda'])->name('guardaragendaauditoria.guardarAgenda');
+    Route::post('/eliminarAgenda', [AuditoriaProgPlanAuditoriaController::class, 'eliminarAgenda']);
+    Route::post('guardarhallazgosinformea', [PlanInformeAuditoriaProgController::class, 'guardarHallazgo'])->name('guardarhallazgosinformea.guardarHallazgo');
+
+
+
+
+    Route::resource('informegeneralauditoriaprograma', InformeGeneralAuditoriaProgramaController::class);
+
+    Route::get('informe/informegeneralauditoriaprograma/preview/{id}', [InformeGeneralAuditoriaProgramaController::class, 'informe_preview'])->name('informegeneralauditoriaprograma.informe.preview');
+    Route::get('informe/informegeneralauditoriaprograma/{id}', [InformeGeneralAuditoriaProgramaController::class, 'informe'])->name('informegeneralauditoriaprograma.informe');
+
+    Route::resource('informeplanauditoriaprograma', InformePlanAuditoriaProgramaController::class);
+
+    Route::get('informe/informeplanauditoriaprograma/preview/{id}', [InformePlanAuditoriaProgramaController::class, 'informe_preview'])->name('informeplanauditoriaprograma.informe.preview');
+    Route::get('informe/informeplanauditoriaprograma/{id}', [InformePlanAuditoriaProgramaController::class, 'informe'])->name('informeplanauditoriaprograma.informe');
+
+    Route::resource('informeplanainformeprograma', InformePlanAuditoriaInformeProgramaController::class);
+
+    Route::get('informe/informeplanainformeprograma/preview/{id}', [InformePlanAuditoriaInformeProgramaController::class, 'informe_preview'])->name('informeplanainformeprograma.informe.preview');
+    Route::get('informe/informeplanainformeprograma/{id}', [InformePlanAuditoriaInformeProgramaController::class, 'informe'])->name('informeplanainformeprograma.informe');
+
+    Route::resource('informeplanaccionhallazgos', InformePlanAccionHallazgosAuditoriaP::class);
+
+    Route::get('informe/informeplanaccionhallazgos/preview/{id}', [InformePlanAccionHallazgosAuditoriaP::class, 'informe_preview'])->name('informeplanaccionhallazgos.informe.preview');
+    Route::get('informe/informeplanaccionhallazgos/{id}', [InformePlanAccionHallazgosAuditoriaP::class, 'informe'])->name('informeplanaccionhallazgos.informe');
+
+    Route::resource('informesegplanaccionhallazgos', InformeSeguimientoPlanAccionController::class);
+
+    Route::get('informe/informesegplanaccionhallazgos/preview/{id}', [InformeSeguimientoPlanAccionController::class, 'informe_preview'])->name('informesegplanaccionhallazgos.informe.preview');
+    Route::get('informe/informesegplanaccionhallazgos/{id}', [InformeSeguimientoPlanAccionController::class, 'informe'])->name('informesegplanaccionhallazgos.informe');
+
+
+    Route::resource('informeaprobacionhoras', InformeReporteAprobacionHorasController::class);
+
+    Route::get('informe/informeaprobacionhoras/preview/{id}', [InformeReporteAprobacionHorasController::class, 'informe_preview'])->name('informeaprobacionhoras.informe.preview');
+    Route::get('informe/informeaprobacionhoras/{id}', [InformeReporteAprobacionHorasController::class, 'informe'])->name('informeaprobacionhoras.informe');
+
+    Route::resource('informehorashombreporpersonal', InformeHorasHombrePorPersonalController::class);
+
+    Route::get('informe/informehorashombreporpersonal/preview/{id}', [InformeHorasHombrePorPersonalController::class, 'informe_preview'])->name('informehorashombreporpersonal.informe.preview');
+    Route::get('informe/informehorashombreporpersonal/{id}', [InformeHorasHombrePorPersonalController::class, 'informe'])->name('informehorashombreporpersonal.informe');
+
+
+    Route::resource('crearplanauditoria', CrearPlanAuditoriaController::class)->except('index');
+    Route::post('/redirectCrearPlanAuditoria', function (Request $request) {
+        session(['id_auditoriaprog' => $request->input('id_auditoriaprog')]);
+        return redirect()->route('crearplanauditoria.index'); 
+    })->name('redirectCrearPlanAuditoria');
+    
+
+    Route::post('/redirigirCrearInforme', function (Request $request) {
+        session(['id_planauditoria' => $request->input('id_planauditoria')]);
+        return redirect()->route('planinformeauditoriaprog.index'); 
+    })->name('redirigirCrearInforme');
+
+    Route::get('planinformeauditoriaprog/{id_planauditoria}/view', [PlanInformeAuditoriaProgController::class, 'view'])->name('planinformeauditoriaprog.view');
+
+    Route::resource('planaccionhallazgos', PlanAccionHallazgosController::class);
+    Route::get('planaccionhallazgos/{id_planauditoria}/view', [PlanAccionHallazgosController::class, 'view'])->name('planaccionhallazgos.view');
+
+    
+    Route::resource('planauditoriaseguimiento', PlanAuditoriaSeguimientoController::class);
+    Route::get('/descargar-archivo/{id}', [PlanAuditoriaSeguimientoController::class, 'descargarArchivo'])->name('descargar.archivo');
+    Route::get('planauditoriaseguimiento/{id_planauditoria}/view', [PlanAuditoriaSeguimientoController::class, 'view'])->name('planauditoriaseguimiento.view');
+
+
+    Route::resource('aprobacionhoras', AprobacionHorasController::class);
+    Route::resource('aprobarhorasespecialistas', AprobarHorasEspecialistaController::class);
+    Route::resource('reportehoraspersonal', ReporteHorasPersonalController::class);
+
+
+
+
     
     //Informe LAFR212
     Route::resource('obsercavionesfr212', ObservacionesLAFR212Controller::class);
+
     Route::resource('obsercavionesProgramafr212', ObservacionesProgramaLAFR212Controller::class);
     Route::resource('informelafr212', InformeLAFR212Controller::class);
     Route::resource('informehistorialprograma', InformeHistorialProgramaController::class);
@@ -483,6 +584,9 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('informeactulizacionempresas', InformeActualizacionesEmpController::class);
     Route::resource('informeresumen', InformeCuadroEmpresasController::class, ['only' => ['index', 'store']]);
     Route::resource('informedinamicoempresa', InformeDinamicoEmpresaController::class);
+
+    Route::get('/api/departamentos/{paisId}', [EmpresasController::class, 'getDepartamentos']);
+    Route::get('/api/ciudades/{departamentoId}', [EmpresasController::class, 'getCiudades']);
         
     //*** End Informes Empresas *****
 
@@ -681,6 +785,8 @@ Route::group(['middleware' => ['auth']], function() {
     
     //*** Personal *****
     Route::resource('personal', PersonalController::class);
+    Route::get('/verificar-cedula', [PersonalController::class, 'verificarCedula'])->name('verificar.cedula');
+
     
     //*** Informes Personal *****
     Route::resource('informehojadevida', InformeHojaDeVidaController::class);
@@ -732,6 +838,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('searchSubArea/{area}', [AreasCooperacionController::class,'searchSubArea']);
     /**filterDinamicCompanyReportCreator**/
     Route::get('filterDinamicCompanyReportCreator', [InformeDinamicoEmpresaController::class,'filterDinamicCompanyReportCreator']);
+
+
 });
 
 Route::get('/info', function() {

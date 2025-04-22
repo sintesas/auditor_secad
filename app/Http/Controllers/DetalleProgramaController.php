@@ -55,7 +55,7 @@ class DetalleProgramaController extends Controller
             // $consecutivo = $presente_anio . $result[0];
         }
         //Set Dropdown TipoPrograma
-        $TipoProgramas = TipoPrograma::all(['IdTipoPrograma', 'Tipo']);
+        $TipoProgramas = TipoPrograma::where('Activo', 1)->get(['IdTipoPrograma', 'Tipo']);
         $TipoProgramas->prepend('None');  
          //Set Dropdown Aeronave
         $Aeronaves = Aeronave::all(['IdAeronave', \DB::raw("CONCAT (Aeronave, ' | ', Equipo ) as Aeronave")]);

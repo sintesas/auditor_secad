@@ -83,6 +83,7 @@
 			$('body').toggleClass('menubar-pin');
 		}
 
+		
 		var state = this.getMenuState();
 
 		if (state === AppNavigation.MENU_COLLAPSED) {
@@ -101,89 +102,102 @@
 	// =========================================================================
 
 	p._handleMenuItemClick = function (e) {
-		e.stopPropagation();
-
-		var item = $(e.currentTarget);
-		var submenu = item.find('> ul');
-		var parentmenu = item.closest('ul');
-
-		this._handleMenubarEnter(item);
-		
+		e.stopPropagation();  // Detenemos la propagación del evento
+	
+		var item = $(e.currentTarget);  // El ítem de menú que fue clickeado
+		var submenu = item.find('> ul');  // Submenú del ítem
+		var parentmenu = item.closest('ul');  // Menú principal o contenedor del ítem
+	
+		this._handleMenubarEnter(item);  // Llamamos para manejar la apertura del menú
+	
+		// Si el ítem tiene un submenú, controlamos su apertura o cierre
 		if (submenu.children().length !== 0) {
-			this._closeSubMenu(parentmenu);
+			this._closeSubMenu(parentmenu);  // Cerramos el submenú del contenedor principal
 			
 			var menuIsCollapsed = this.getMenuState() === AppNavigation.MENU_COLLAPSED;
-			if(menuIsCollapsed || item.hasClass('expanded') === false) {
-				this._openSubMenu(item);
+			
+			// Si el menú está colapsado o el ítem no está expandido, lo expandimos
+			if (menuIsCollapsed || item.hasClass('expanded') === false) {
+				this._openSubMenu(item);  // Abrimos el submenú
+				item.addClass('expanded');  // Marcamos el ítem como expandido
+				item.addClass('active');  // Marcamos el ítem como activo
+			} else {
+				item.removeClass('expanded');  // Si ya está expandido, lo contraemos
+				item.removeClass('active');  // Quitamos el estado activo
 			}
+		} else {
+			// Si no tiene submenú, simplemente marcamos el ítem como activo
+			item.addClass('active');
 		}
 	};
-
+	
 	p._handleMenubarEnter = function (menuItem) {
 		var o = this;
 		var offcanvasVisible = $('body').hasClass('offcanvas-left-expanded');
 		var menubarExpanded = $('#menubar').data('expanded');
-		var menuItemClicked = (menuItem !== undefined);
+		$(this).addClass('active');  
 
-		// Check if the menu should open
+		var menuItemClicked = (menuItem !== undefined);
+	
+		// Verificamos si el menú debe abrirse
 		if ((menuItemClicked === true || offcanvasVisible === false) && menubarExpanded !== true) {
-			// Add listener to close the menubar
+			// Añadimos un listener para cerrar el menú cuando se pasa el ratón
 			$('#content').one('mouseover', function (e) {
 				o._handleMenubarLeave();
 			});
-
-			// Add open variables
+	
+			// Añadimos las clases necesarias para abrir el menú
 			$('body').addClass('menubar-visible');
 			$('#menubar').data('expanded', true);
+			$(this).addClass('active');  
 
-			// Triger enter event
+	
+			// Disparamos el evento 'enter'
 			$('#menubar').triggerHandler('enter');
-
-
+	
 			if (menuItemClicked === false) {
-				// If there is a previous opened item, open it and all of its parents
+				// Si no se hizo clic en un ítem, abrimos el ítem activo o el último abierto
 				if (this._lastOpened) {
 					var o = this;
 					this._openSubMenu(this._lastOpened, 0);
 					this._lastOpened.parents('.gui-folder').each(function () {
-						o._openSubMenu($(this), 0);
+						$(this).addClass('active');  
+						o._openSubMenu($(this), 0);  // Abrimos los submenús padres
 					});
-				}
-				else {
-					// Else open the active item
+				} else {
+					// Si no hay ítem abierto previamente, abrimos el ítem activo
 					var item = $('#main-menu > li.active');
 					this._openSubMenu(item, 0);
 				}
 			}
 		}
 	};
-
+	
 	p._handleMenubarLeave = function () {
 		$('body').removeClass('menubar-visible');
-		
-		// Don't close the menus when it is pinned on large viewports
+	
+		// No cerramos los menús cuando está fijado en vista grande
 		if (materialadmin.App.minBreakpoint('md')) {
 			if ($('body').hasClass('menubar-pin')) {
 				return;
 			}
 		}
+	
 		$('#menubar').data('expanded', false);
-
-
-		// Never close the menu on extra small viewports
+	
+		// Nunca cerramos el menú en pantallas extra pequeñas
 		if (materialadmin.App.isBreakpoint('xs') === false) {
 			this._closeSubMenu($('#main-menu'));
 		}
 	};
-
-
+	
 	p._handleMenuLinkClick = function (e) {
-		// Prevent the link from firing when the menubar isn't visible
+		// Prevenimos que el enlace funcione si el menú no está visible
 		if (this.getMenuState() !== AppNavigation.MENU_MAXIMIZED) {
 			e.preventDefault();
 		}
 	};
-
+	
 	// =========================================================================
 	// OPEN / CLOSE MENU
 	// =========================================================================
@@ -191,11 +205,15 @@
 	p._closeSubMenu = function (menu) {
 		var o = this;
 		menu.find('> li > ul').stop().slideUp(170, function () {
-			$(this).closest('li').removeClass('expanded');
-			o._evalMenuScrollbar();
+			// Elimina las clases 'expanded' y 'active' del 'li' correspondiente
+			var parentLi = $(this).closest('li');
+			parentLi.removeClass('expanded');  // Remueve 'expanded'
+			parentLi.removeClass('active');    // Remueve 'active'
+	
+			o._evalMenuScrollbar();  // Evaluar el scrollbar del menú
 		});
 	};
-
+	
 	p._openSubMenu = function (item, duration) {
 		var o = this;
 		if (typeof (duration) === 'undefined') {
@@ -210,6 +228,7 @@
 		item.find('> ul').stop().slideDown(duration, function () {
 			item.addClass('expanded');
 			item.removeClass('expanding');
+			item.addClass('active');
 
 			// Check scrollbars
 			o._evalMenuScrollbar();

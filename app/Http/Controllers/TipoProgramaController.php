@@ -34,18 +34,24 @@ class TipoProgramaController extends Controller
     }
 
     
-    public function editTipoPrograma(Request $req){
-
+    public function editTipoPrograma(Request $req)
+    {
         $tipoprograma = TipoPrograma::find($req->id);
-        $tipoprograma->Tipo = $req->tipo;
-        $tipoprograma->HH = $req->hh;
-       
-        $tipoprograma->save();
-
-        return response()->json($tipoprograma);
-
+        
+        if ($tipoprograma) {
+            $tipoprograma->Tipo = $req->tipo;
+            $tipoprograma->HH = $req->hh;
+            $tipoprograma->Activo = $req->activo; 
+            $tipoprograma->save();
+    
+            // Retorna un JSON indicando éxito
+            return response()->json(['success' => true, 'message' => 'Información actualizada correctamente.']);
+        }
+        
+        return response()->json(['success' => false, 'message' => 'Tipo de programa no encontrado.'], 404);
     }
-
+    
+    
 
     public function store(Request $request)
     {
@@ -54,7 +60,7 @@ class TipoProgramaController extends Controller
        // tipoprograma info        
        $tipoprograma->Tipo = $request->input('Tipo');
        $tipoprograma->HH = $request->input('HH');       
-       $tipoprograma->Activo = 1; 
+       $tipoprograma->Activo = ($request->get('activo') == true) ? 1 : 0;
        $tipoprograma->save();
        return redirect()->route('tipoprograma.index');
        /* // make an object to catch the input

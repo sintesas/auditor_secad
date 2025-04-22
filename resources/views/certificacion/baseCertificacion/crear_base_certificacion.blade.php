@@ -12,7 +12,7 @@
 
 		@section('form-tag')
 
-			{!! Form::open(array('route' => 'baseCertificacion.store', 'data-parsley-validate' => 'parsley')) !!}
+			{!! Form::open(array('route' => 'baseCertificacion.store', 'method' => 'POST', 'id' => 'baseForm')) !!}
 
 			{{ csrf_field()}}
 
@@ -65,6 +65,7 @@
 						<div class="form-group">
 							{{ Form::select('IdOrigen', $origen->pluck('Descripcion', 'IdOrigen'), null, ['class' => 'form-control', 'id' => 'IdOrigen']) }}
 							<label for="IdOrigen">Origen</label>
+							<span id="errorIdOrigen" class="text-danger"></span>
 						</div>
 					</div>
 					<div class="col-sm-4">
@@ -132,6 +133,19 @@
 
 		{!! Form::close() !!}
 
+		<script>
+    document.getElementById("baseForm").addEventListener("submit", function (event) {
+        let unidad = document.getElementById("IdOrigen").value;
+        let errorSpan = document.getElementById("errorIdOrigen");
+
+        if (!unidad) {
+            event.preventDefault();
+            errorSpan.textContent = "Este campo es obligatorio.";
+        } else {
+            errorSpan.textContent = ""; 
+        }
+    });
+</script>
 		<script type="text/javascript">
 			$(window).bind("load", function() {
 				$('#cke_10').hide();
@@ -165,6 +179,7 @@
 
 			$('#ckeditor').ckeditor();
 
+			
 			//AGREGAR ESTRUCTURA O SUBPARTE
 
 			$('#add_definicion').on('click', function(){

@@ -31,8 +31,9 @@
 				<tr>
 					<th><b>Fecha</b></th>
 					<th><b>Especialista</b></th>
+					<th><b>Rol</b></th>
 					<th><b>Horas</b></th>
-					
+					<th><b>Descripción del Trabajo</b></th>
 					<th style="width: 120px;"><b>Acciones</b></th>
 	
 				</tr>
@@ -42,8 +43,9 @@
 				<tr>
 					<td>{{$especialista->Fecha}}</td>
 					<td>{{$especialista->Nombres}}</td>
+					<td>{{$especialista->Rol}}</td>
 					<td>{{$especialista->Horas}}</td>
-					
+					<td>{{$especialista->DescripcionTrabajo}}</td>
 					<td>
 						<div class="col-sm-6">
 
@@ -86,6 +88,24 @@
 					</div>
 				</div>
 				<div class="row">
+				<div class="col-sm-12">    
+    <div class="form-group">
+	<select name="IdRol_listasdinamicas" class="form-control">
+    <option value=""></option>
+    <option value="Responsable de Programa">Responsable de Programa</option>
+    <option value="Especialista de Certificacion">Especialista de Certificación</option>
+    <option value="Tecnico Especialista de Certificacion">Técnico Especialista de Certificación</option>
+    <option value="Auditor Lider">Auditor Lider</option>
+    <option value="Auditor">Auditor</option>
+    <option value="Profesional Asesor">Profesional Asesor</option>
+</select>
+
+        {{ Form::label('IdRol_listasdinamicas', 'Rol') }}
+    </div>
+</div>
+
+				</div>
+				<div class="row">
 					<div class="col-sm-6">
 						<div class="form-group">
 							<div class="input-group date" id="demo-date-format">
@@ -104,6 +124,15 @@
 						</div>
 					</div>
 				</div>
+
+				<div class="row">
+             <div class="col-sm-12">
+                <div class="form-group">
+                <textarea class="form-control" id="DescripcionTrabajo" name="DescripcionTrabajo" rows="2" maxlength="250" required></textarea>
+                <label for="DescripcionTrabajo">Descripcion del trabajo realizado</label>
+                </div>
+             </div>
+        </div>
 
 
 				<div class="form-group">

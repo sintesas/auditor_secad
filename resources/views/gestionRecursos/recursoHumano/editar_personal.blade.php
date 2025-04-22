@@ -477,7 +477,7 @@
 		<script type="text/javascript">
 			$(window).bind("load", function() {
 			   	var tipoPersonal = $( "#Categoria option:selected" ).val();
-                $('#Categoria').attr('readonly', true);
+                $('#Categoria').attr('readonly', false);
 
                 if(tipoPersonal == 'Militar'){
                     $('#infoMilitar').show();

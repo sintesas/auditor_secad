@@ -191,6 +191,7 @@ class ProgramaController extends Controller
        $programa->Active = 1; 
        $programa->save();
 
+       
 
       // Programa::updateOrCreate(
             
@@ -231,8 +232,8 @@ class ProgramaController extends Controller
 
         $programa = Programa::find($IdPrograma);
          //Set Dropdown TipoPrograma
-        $TipoProgramas = TipoPrograma::all(['IdTipoPrograma', 'Tipo']);
-        $TipoProgramas->prepend('None');  
+         $TipoProgramas = TipoPrograma::where('Activo', 1)->get(['IdTipoPrograma', 'Tipo']);
+         $TipoProgramas->prepend('None');  
          //Set Dropdown Aeronave
         $Aeronaves = Aeronave::all(['IdAeronave', 'Aeronave']);
         $Aeronaves->prepend('None');  
@@ -353,6 +354,21 @@ class ProgramaController extends Controller
         $programa->Finalizado = $request->Finalizado;
        }
        $programa->save();
+
+       $empresa = \App\Models\VistaProgramas::where('IdPrograma', $programa->IdPrograma)
+    ->where('IdEmpresa', $programa->IdEmpresa)
+    ->first(['NombreEmpresa']); 
+
+
+if ($empresa) {
+    \DB::table('AU_Reg_AuditoriaProgramas')
+        ->where('IdPrograma', $programa->IdPrograma)  
+        ->update([
+            'organizacion' => $empresa->NombreEmpresa  // Actualizamos el campo `organizacion`
+        ]);
+}
+
+
 
        $notification = array(
               'message' => 'Datos actualizados correctamente',

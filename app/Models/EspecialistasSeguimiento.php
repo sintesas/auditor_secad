@@ -22,7 +22,9 @@ class EspecialistasSeguimiento extends Model
         \DB::raw("CONCAT ( dbo.AU_Mst_Grado.Abreviatura, ' | ',dbo.AU_Reg_Personal.Nombres, ' ',dbo.AU_Reg_Personal.Apellidos) as Nombres"),
                    		'IdListaSeguimiento',
                    		'Horas',
-                   		'Fecha')
+                   		'Fecha',
+                      'DescripcionTrabajo',
+                      'IdRol_listasdinamicas AS Rol')
 				->get();
 
 	}
